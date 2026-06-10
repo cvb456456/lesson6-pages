@@ -20,3 +20,5 @@ The source page remains in `..\LearnJapan`. To synchronize, commit, and push:
 
 After the initial GitHub and Cloudflare connection, every push to `main`
 automatically creates a new Cloudflare Pages production deployment.
+
+Windows users can also double-click `publish.cmd`.
