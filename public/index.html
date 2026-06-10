@@ -178,7 +178,13 @@
     .deep-note { min-width: 0; padding: 11px 12px; border: 1px solid var(--line); background: #fff; overflow-wrap: anywhere; }
     .deep-note b { display: block; margin-bottom: 3px; color: var(--blue); font-size: 12px; }
     .literal { color: var(--muted); font-size: 13px; }
-    .pattern-line { padding: 9px 11px; border-left: 4px solid var(--gold); background: #fff8e9; }
+    .pattern-line { padding: 11px 12px; border-left: 4px solid var(--gold); background: #fff8e9; }
+    .example-study { display: grid; gap: 5px; margin-top: 5px; }
+    .example-jp { font-family: "Yu Mincho", "MS Mincho", serif; font-size: 17px; font-weight: 800; line-height: 1.8; }
+    .example-jp .break { padding: 0 6px; color: var(--red); font-family: sans-serif; font-weight: 400; }
+    .example-reading { color: var(--blue); font-size: 13px; line-height: 1.75; }
+    .example-cn { color: #514b43; font-size: 14px; }
+    .example-label { display: inline-block; min-width: 44px; margin-right: 7px; color: var(--muted); font-family: "Yu Gothic UI", "Microsoft YaHei", sans-serif; font-size: 11px; font-weight: 800; }
     .shadowing { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 12px; border: 1px dashed #b8afa1; background: #faf7ef; }
     .shadowing small { color: var(--muted); }
     .chunks { display: flex; gap: 7px; flex-wrap: wrap; }
@@ -198,7 +204,7 @@
     .grammar-title small { display: block; color: var(--muted); font-family: inherit; font-size: 12px; }
     .grammar-content { display: grid; gap: 7px; }
     .grammar-content b { color: var(--blue); }
-    .example { padding: 8px 10px; border-left: 4px solid var(--blue); background: #f5f8fa; }
+    .example { padding: 10px 12px; border-left: 4px solid var(--blue); background: #f5f8fa; }
     .word-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 9px; }
     .word { padding: 10px; border: 1px solid var(--line); background: #fffdf8; }
     .word b { display: block; font-family: "Yu Mincho", serif; font-size: 18px; }
@@ -425,6 +431,23 @@
       {parts:[["うん","接受"],["そう","前述推测"],["かも","可能性"],["ね","保留式共鸣"]],literal:"直译：嗯，也许是那样吧。",particles:"本句没有格助词；「ね」是终助词，用于与对方共享判断。",forms:"そうかもしれないね→そうかもね。",nuance:"不是强烈同意，只是承认“有这种可能”。比「そうでしょうね」更不确定。",swap:"うん、そうかもね。／Aかもね。",example:"今日は少し早く帰れるかもね。"}
     ];
 
+    const deepExamples = [
+      {jp:"田中さんなんだけど／なんと／高校の同級生だったんだ。",r:"たなかさん なんだけど／なんと／こうこうの どうきゅうせい だったんだ。",c:"说到田中，没想到他竟然是我高中同学。"},
+      {jp:"えっ、社長？／あの若い人が？",r:"えっ、しゃちょう？／あの わかい ひとが？",c:"什么，社长？是那个年轻人吗？"},
+      {jp:"大学生のときは／テニス部の部長だったんだよ。",r:"だいがくせいの ときは／テニスぶの ぶちょう だったんだよ。",c:"大学时，他可是网球部部长。"},
+      {jp:"毎日練習したんですか。／じゃあ／大変だったんでしょうね。",r:"まいにち れんしゅうしたんですか。／じゃあ／たいへん だったんでしょうね。",c:"每天都练习吗？那么当时一定很辛苦吧。"},
+      {jp:"親切だし／仕事も速いし／みんなに好かれている。",r:"しんせつだし／しごとも はやいし／みんなに すかれている。",c:"他又亲切，工作又快，很受大家喜欢。"},
+      {jp:"今から会議？／今日は／ずいぶん遅いんだね。",r:"いまから かいぎ？／きょうは／ずいぶん おそいんだね。",c:"现在才开会？今天开始得相当晚啊。"},
+      {jp:"電話が長引いちゃって。／何の相談／してたの？",r:"でんわが ながびいちゃって。／なんの そうだん／してたの？",c:"电话拖长了。你们刚才在商量什么？"},
+      {jp:"新しい部長のことを／話していたんだ。／大学の先生なんだよ。",r:"あたらしい ぶちょうの ことを／はなしていたんだ。／だいがくの せんせい なんだよ。",c:"刚才在谈新部长的事。他原来是大学老师。"},
+      {jp:"へえ／二人は同級生だったの。",r:"へえ／ふたりは どうきゅうせい だったの。",c:"哦，原来两个人是同学啊。"},
+      {jp:"部長に／田中さんのことを聞かれたよ。／どんな人だって。",r:"ぶちょうに／たなかさんの ことを きかれたよ。／どんな ひとだって。",c:"部长问了我田中的情况，问他是怎样的人。"},
+      {jp:"それで／先生は／なんて言ったの？",r:"それで／せんせいは／なんて いったの？",c:"然后，老师怎么说的？"},
+      {jp:"優しくて／責任感のある人だって／言ったよ。／相談にも乗ってくれるし。",r:"やさしくて／せきにんかんの ある ひとだって／いったよ。／そうだんにも のってくれるし。",c:"我说他是个温柔、有责任感的人，而且也愿意帮忙出主意。"},
+      {jp:"毎日連絡する／ということは／彼のことが好きなのかしら。",r:"まいにち れんらくする／ということは／かれの ことが すきなのかしら。",c:"既然每天都联系，是不是喜欢他呢？"},
+      {jp:"今日は／少し早く帰れる／かもね。",r:"きょうは／すこし はやく かえれる／かもね。",c:"今天也许能稍微早点回去。"}
+    ];
+
     const grammars = [
       {p:"〜んだけど",r:"んだけど",m:"引出背景或话题，使语气柔和。",c:"普通形＋んだけど；名词/形2＋なんだけど",u:"会话开场、铺垫、提出对方需要知道的信息。",e:"佐藤さんなんだけど、僕の先輩だったんだ。",z:"不要每次都直译成“但是”；本句没有真正转折。"},
       {p:"〜てしまう → 〜ちゃう",r:"てしまう → ちゃう",m:"表示完成、遗憾或事情超出预期。",c:"てしまう→ちゃう；でしまう→じゃう",u:"口语中极其常见：長引いちゃって、忘れちゃった。",e:"打ち合わせが長引いちゃって、遅くなった。",z:"ちゃって既可能是原因背景，也可能表示说话人的无奈。"},
@@ -433,6 +456,16 @@
       {p:"〜ということは",r:"ということは",m:"根据前项事实进行归纳或推断：也就是说……",c:"普通形＋ということは",u:"从行为推测意图：そんなことを聞くということは……",e:"返事がないということは、まだ忙しいのだろう。",z:"不是单纯引用，而是把前面的行为整体名词化后作为推断依据。"},
       {p:"〜のかしら",r:"のかしら",m:"女性较常用的自问或委婉疑问：是不是……呢。",c:"普通形＋のかしら；名词/形2＋なのかしら",u:"表达不确定、轻柔的猜测。",e:"佐藤さんは李さんが気になるのかしら。",z:"正式或中性表达可换成「のでしょうか」「のかな」。"},
       {p:"〜かもね",r:"かもね",m:"「かもしれないね」的口语缩略：也许吧。",c:"普通形＋かもしれない",u:"对他人推测表示保留式赞同。",e:"うん、そうかもね。",z:"只表示可能性，语气比「でしょう」更不确定。"}
+    ];
+
+    const grammarExamples = [
+      {jp:"佐藤さんなんだけど／僕の先輩だったんだ。",r:"さとうさん なんだけど／ぼくの せんぱい だったんだ。",c:"说到佐藤先生，他原来是我的前辈。"},
+      {jp:"打ち合わせが／長引いちゃって／遅くなった。",r:"うちあわせが／ながびいちゃって／おそく なった。",c:"碰头会拖长了，所以来晚了。"},
+      {jp:"明るいし／仕事もできるし／人気がある。",r:"あかるいし／しごとも できるし／にんきが ある。",c:"他又开朗，工作能力又强，很受欢迎。"},
+      {jp:"王さんは／何時に来るって？",r:"おうさんは／なんじに くるって？",c:"听说王小姐几点来？／你说王小姐几点来？"},
+      {jp:"返事がない／ということは／まだ忙しいのだろう。",r:"へんじが ない／ということは／まだ いそがしいのだろう。",c:"既然没有回复，也就是说他大概还在忙吧。"},
+      {jp:"佐藤さんは／李さんが気になる／のかしら。",r:"さとうさんは／りさんが きになる／のかしら。",c:"佐藤先生是不是在意李小姐呢？"},
+      {jp:"うん／そう／かもね。",r:"うん／そう／かもね。",c:"嗯，也许是吧。"}
     ];
 
     const words = [
@@ -504,6 +537,12 @@
     state.mode = state.mode || "choice";
     state.indexes = state.indexes || {choice:0,order:0,fill:0,recall:0};
     const $ = (id) => document.getElementById(id);
+    const exampleBlock = item => `
+      <div class="example-study">
+        <div class="example-jp"><span class="example-label">断句</span>${item.jp.split("／").join('<span class="break">／</span>')}</div>
+        <div class="example-reading"><span class="example-label">读音</span>${item.r}</div>
+        <div class="example-cn"><span class="example-label">中文</span>${item.c}</div>
+      </div>`;
     function save(){ localStorage.setItem("lesson6SenpaiNotes", JSON.stringify(state)); }
     function renderDialogue(){
       $("dialogueList").innerHTML = dialogue.map((line,i)=>`
@@ -522,7 +561,7 @@
                 <div class="deep-note"><b>语气与场景</b>${deepDive[i].nuance}</div>
                 <div class="deep-note"><b>可替换句型</b>${deepDive[i].swap}</div>
               </div>
-              <div class="pattern-line"><b>仿写例句：</b>${deepDive[i].example}</div>
+              <div class="pattern-line"><b>仿写例句</b>${exampleBlock(deepExamples[i])}</div>
               <div class="shadowing"><span><b>跟读任务</b><br><small>先慢读结构块，再遮住中文连续读 3 遍。</small></span><span>① 慢读　② 连读　③ 脱稿</span></div>
             </div>
             <label><input type="checkbox" data-known="${i}" ${state.known[i]?"checked":""}> 这句已掌握</label>
@@ -531,7 +570,7 @@
       document.querySelectorAll("[data-known]").forEach(box=>box.addEventListener("change",()=>{state.known[box.dataset.known]=box.checked;save();updateStats();}));
     }
     function renderGrammar(){
-      $("grammarList").innerHTML=grammars.map(g=>`<div class="grammar"><div class="grammar-title">${g.p}<small>${g.r}</small></div><div class="grammar-content"><div><b>核心：</b>${g.m}</div><div><b>接续：</b>${g.c}</div><div><b>常见用法：</b>${g.u}</div><div><b>易错点：</b>${g.z}</div><div class="example"><b>例句：</b>${g.e}</div></div></div>`).join("");
+      $("grammarList").innerHTML=grammars.map((g,i)=>`<div class="grammar"><div class="grammar-title">${g.p}<small>${g.r}</small></div><div class="grammar-content"><div><b>核心：</b>${g.m}</div><div><b>接续：</b>${g.c}</div><div><b>常见用法：</b>${g.u}</div><div><b>易错点：</b>${g.z}</div><div class="example"><b>例句精读</b>${exampleBlock(grammarExamples[i])}</div></div></div>`).join("");
     }
     function wordCards(list){return list.map(w=>`<div class="word"><b>${w[0]}</b><small>${w[1]}</small><div>${w[2]}</div></div>`).join("");}
     const normalize = value => value.replace(/[。、，！？?!\s「」『』…・]/g,"").toLowerCase();
