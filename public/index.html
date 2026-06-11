@@ -163,6 +163,27 @@
     .num { width: 34px; height: 34px; display: grid; place-items: center; color: #fff; background: var(--red); border-radius: 3px; font-size: 12px; font-weight: 800; }
     .speaker { color: var(--blue); font-weight: 800; }
     .jp { font-family: "Yu Mincho", "MS Mincho", serif; font-size: 18px; font-weight: 800; overflow-wrap: anywhere; }
+    .speak-btn {
+      display: inline-grid;
+      width: 27px;
+      height: 27px;
+      margin-left: 7px;
+      padding: 0;
+      place-items: center;
+      vertical-align: middle;
+      border: 1px solid #b9b0a4;
+      border-radius: 50%;
+      color: var(--blue);
+      background: #fffdf8;
+      font-size: 13px;
+      line-height: 1;
+      cursor: pointer;
+      transition: color .15s ease, border-color .15s ease, background .15s ease, transform .15s ease;
+    }
+    .speak-btn:hover { border-color: var(--blue); background: #eef6fb; transform: translateY(-1px); }
+    .speak-btn.speaking { color: #fff; border-color: var(--red); background: var(--red); animation: audioPulse .8s ease-in-out infinite alternate; }
+    .speak-btn:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+    @keyframes audioPulse { to { transform: scale(1.08); } }
     .toggle { color: var(--muted); }
     .line-body { display: grid; gap: 13px; padding: 16px; }
     .translation { padding-left: 12px; border-left: 4px solid var(--red); color: #8b292e; font-weight: 700; }
@@ -190,6 +211,7 @@
     .chunks { display: flex; gap: 7px; flex-wrap: wrap; }
     .chunk { display: inline-grid; gap: 1px; padding: 6px 8px; border: 1px solid #bdcddd; border-radius: 4px; background: #f6fbff; font-size: 12px; }
     .chunk b { color: var(--blue); }
+    .chunk .speak-btn { width: 22px; height: 22px; margin-left: 4px; font-size: 10px; }
     .chunk small { color: var(--muted); }
     .grammar-list { display: grid; gap: 12px; }
     .grammar {
@@ -208,6 +230,7 @@
     .word-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 9px; }
     .word { padding: 10px; border: 1px solid var(--line); background: #fffdf8; }
     .word b { display: block; font-family: "Yu Mincho", serif; font-size: 18px; }
+    .word b .speak-btn { float: right; }
     .word small { color: var(--muted); }
     .practice-head { display: flex; justify-content: space-between; gap: 16px; align-items: end; margin-bottom: 14px; }
     .practice-head p { max-width: 650px; margin: 3px 0 0; color: var(--muted); }
@@ -537,9 +560,10 @@
     state.mode = state.mode || "choice";
     state.indexes = state.indexes || {choice:0,order:0,fill:0,recall:0};
     const $ = (id) => document.getElementById(id);
+    const speakButton = (text, label="播放日语") => `<button type="button" class="speak-btn" data-speech="${encodeURIComponent(text)}" aria-label="${label}" title="${label}">&#128266;</button>`;
     const exampleBlock = item => `
       <div class="example-study">
-        <div class="example-jp"><span class="example-label">断句</span>${item.jp.split("／").join('<span class="break">／</span>')}</div>
+        <div class="example-jp"><span class="example-label">断句</span>${item.jp.split("／").join('<span class="break">／</span>')}${speakButton(item.jp.replaceAll("／","、"),"播放完整例句")}</div>
         <div class="example-reading"><span class="example-label">读音</span>${item.r}</div>
         <div class="example-cn"><span class="example-label">中文</span>${item.c}</div>
       </div>`;
@@ -547,13 +571,13 @@
     function renderDialogue(){
       $("dialogueList").innerHTML = dialogue.map((line,i)=>`
         <details class="line" ${i===0?"open":""}>
-          <summary><span class="num">${i+1}</span><span class="speaker">${line.s}</span><span class="jp">${line.j}</span><span class="toggle">展开</span></summary>
+          <summary><span class="num">${i+1}</span><span class="speaker">${line.s}</span><span class="jp">${line.j}${speakButton(line.j,"播放课文原句")}</span><span class="toggle">展开</span></summary>
           <div class="line-body">
             <div class="translation">${line.c}</div>
             <div class="analysis-grid"><div class="analysis-box"><b>整句读法</b>${line.r}</div><div class="analysis-box"><b>句子结构</b>${line.structure}</div></div>
-            <div><b>重点词块</b><div class="chunks">${line.points.map(p=>`<span class="chunk"><b>${p[0]}</b><small>${p[1]}</small></span>`).join("")}</div></div>
+            <div><b>重点词块</b><div class="chunks">${line.points.map(p=>`<span class="chunk"><b>${p[0]}${speakButton(p[0],"播放重点词块")}</b><small>${p[1]}</small></span>`).join("")}</div></div>
             <div class="deep-analysis">
-              <div><b>结构拆解</b><div class="syntax-strip">${deepDive[i].parts.map(p=>`<span class="syntax-part"><b>${p[0]}</b><small>${p[1]}</small></span>`).join("")}</div></div>
+              <div><b>结构拆解</b><div class="syntax-strip">${deepDive[i].parts.map(p=>`<span class="syntax-part"><b>${p[0]}${speakButton(p[0],"播放句子成分")}</b><small>${p[1]}</small></span>`).join("")}</div></div>
               <div class="literal">${deepDive[i].literal}</div>
               <div class="deep-grid">
                 <div class="deep-note"><b>助词与句法</b>${deepDive[i].particles}</div>
@@ -570,9 +594,9 @@
       document.querySelectorAll("[data-known]").forEach(box=>box.addEventListener("change",()=>{state.known[box.dataset.known]=box.checked;save();updateStats();}));
     }
     function renderGrammar(){
-      $("grammarList").innerHTML=grammars.map((g,i)=>`<div class="grammar"><div class="grammar-title">${g.p}<small>${g.r}</small></div><div class="grammar-content"><div><b>核心：</b>${g.m}</div><div><b>接续：</b>${g.c}</div><div><b>常见用法：</b>${g.u}</div><div><b>易错点：</b>${g.z}</div><div class="example"><b>例句精读</b>${exampleBlock(grammarExamples[i])}</div></div></div>`).join("");
+      $("grammarList").innerHTML=grammars.map((g,i)=>`<div class="grammar"><div class="grammar-title">${g.p}${speakButton(g.p.replace("〜",""),"播放语法表达")}<small>${g.r}</small></div><div class="grammar-content"><div><b>核心：</b>${g.m}</div><div><b>接续：</b>${g.c}</div><div><b>常见用法：</b>${g.u}</div><div><b>易错点：</b>${g.z}</div><div class="example"><b>例句精读</b>${exampleBlock(grammarExamples[i])}</div></div></div>`).join("");
     }
-    function wordCards(list){return list.map(w=>`<div class="word"><b>${w[0]}</b><small>${w[1]}</small><div>${w[2]}</div></div>`).join("");}
+    function wordCards(list){return list.map(w=>`<div class="word"><b>${w[0]}${speakButton(w[0],"播放单词")}</b><small>${w[1]}</small><div>${w[2]}</div></div>`).join("");}
     const normalize = value => value.replace(/[。、，！？?!\s「」『』…・]/g,"").toLowerCase();
     function currentExercise(){
       const list=exercises[state.mode];
@@ -584,6 +608,7 @@
       $("quizCount").textContent=`第 ${index+1} / ${list.length} 题`;
       $("practiceProgress").textContent=`本模式 ${index+1} / ${list.length}`;
       $("question").textContent=item.q;
+      if(state.mode==="fill")$("question").insertAdjacentHTML("beforeend",speakButton(item.q.replaceAll("（　）",""),"播放填空句"));
       $("quizHint").textContent=item.hint;
       $("feedback").className="feedback-box"; $("feedback").innerHTML="";
       $("checkBtn").style.display=state.mode==="recall"?"none":"inline-block";
@@ -599,7 +624,7 @@
       } else if(state.mode==="fill"){
         $("exerciseArea").innerHTML=`<input class="answer-input" id="answerInput" autocomplete="off" placeholder="输入括号内缺少的日语"><small class="literal">多个空格时，请按顺序输入；可用顿号或空格分隔。</small>`;
       } else {
-        $("exerciseArea").innerHTML=`<div class="review-answer"><button class="btn primary-btn" id="revealBtn">显示原句</button><div id="recallAnswer" hidden><p class="jp">${item.a}</p><p><b>必须回忆的骨架：</b>${item.key}</p></div></div>`;
+        $("exerciseArea").innerHTML=`<div class="review-answer"><button class="btn primary-btn" id="revealBtn">显示原句</button><div id="recallAnswer" hidden><p class="jp">${item.a}${speakButton(item.a,"播放回译原句")}</p><p><b>必须回忆的骨架：</b>${item.key}</p></div></div>`;
         $("revealBtn").addEventListener("click",()=>{$("recallAnswer").hidden=false;$("revealBtn").disabled=true;});
       }
       document.querySelectorAll("[data-mode]").forEach(b=>b.classList.toggle("active",b.dataset.mode===state.mode));
@@ -630,6 +655,26 @@
       $("feedback").className=`feedback-box show ${!correct&&!neutral?"wrong":""}`;
       $("feedback").innerHTML=`<b>${neutral?"还差一步":correct?"答对了":"再看一次"}</b>${message}`;
     }
+    let activeSpeechButton = null;
+    function speakJapanese(text, button){
+      if(!("speechSynthesis" in window)){
+        alert("当前浏览器不支持语音朗读，请使用最新版 Chrome、Edge 或 Safari。");
+        return;
+      }
+      window.speechSynthesis.cancel();
+      if(activeSpeechButton)activeSpeechButton.classList.remove("speaking");
+      const utterance=new SpeechSynthesisUtterance(text);
+      const voices=window.speechSynthesis.getVoices();
+      const japaneseVoice=voices.find(v=>/^ja[-_]/i.test(v.lang))||voices.find(v=>v.lang.toLowerCase().startsWith("ja"));
+      utterance.lang="ja-JP";
+      utterance.rate=.82;
+      utterance.pitch=1;
+      if(japaneseVoice)utterance.voice=japaneseVoice;
+      activeSpeechButton=button;
+      button.classList.add("speaking");
+      utterance.onend=utterance.onerror=()=>{button.classList.remove("speaking");if(activeSpeechButton===button)activeSpeechButton=null;};
+      window.speechSynthesis.speak(utterance);
+    }
     function updateStats(){
       const known=Object.values(state.known).filter(Boolean).length; $("knownCount").textContent=`${known}/14`;
       $("progressBar").style.width=`${known/14*100}%`; $("scoreText").textContent=state.answered?`${Math.round(state.correct/state.answered*100)}%`:"0%";
@@ -644,6 +689,14 @@
     $("checkBtn").addEventListener("click",grade);
     $("resetQuestionBtn").addEventListener("click",renderQuiz);
     $("nextBtn").addEventListener("click",()=>{state.indexes[state.mode]=(state.indexes[state.mode]+1)%exercises[state.mode].length;save();renderQuiz();});
+    document.addEventListener("click",event=>{
+      const button=event.target.closest("[data-speech]");
+      if(!button)return;
+      event.preventDefault();
+      event.stopPropagation();
+      speakJapanese(decodeURIComponent(button.dataset.speech),button);
+    });
+    if("speechSynthesis" in window)window.speechSynthesis.getVoices();
     renderDialogue(); renderGrammar(); $("wordGrid").innerHTML=wordCards(words); $("collocationGrid").innerHTML=wordCards(collocations); renderQuiz(); updateStats();
   </script>
 </body>
