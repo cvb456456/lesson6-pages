@@ -5,22 +5,29 @@ $workspaceRoot = Split-Path -Parent $repoRoot
 $sourceRoot = Join-Path $workspaceRoot "LearnJapan"
 $publicRoot = Join-Path $repoRoot "public"
 
-$sourcePage = Join-Path $sourceRoot "lesson6-senpai-notes.html"
+$sourceIndex = Join-Path $sourceRoot "middle-study-index.html"
+$sourceDialogue = Join-Path $sourceRoot "lesson6-senpai-notes.html"
+$sourceReading = Join-Path $sourceRoot "lesson6-hashi-notes.html"
 $sourceImage = Join-Path $sourceRoot "images\lesson6-senpai-video.jpg"
-$targetPage = Join-Path $publicRoot "index.html"
+$targetIndex = Join-Path $publicRoot "index.html"
+$targetDialogue = Join-Path $publicRoot "lesson6-senpai-notes.html"
+$targetReading = Join-Path $publicRoot "lesson6-hashi-notes.html"
 $targetImage = Join-Path $publicRoot "images\lesson6-senpai-video.jpg"
 
-foreach ($requiredFile in @($sourcePage, $sourceImage)) {
+foreach ($requiredFile in @($sourceIndex, $sourceDialogue, $sourceReading, $sourceImage)) {
     if (-not (Test-Path -LiteralPath $requiredFile -PathType Leaf)) {
         throw "Required source file was not found: $requiredFile"
     }
 }
 
 New-Item -ItemType Directory -Path (Split-Path -Parent $targetImage) -Force | Out-Null
-Copy-Item -LiteralPath $sourcePage -Destination $targetPage -Force
+Copy-Item -LiteralPath $sourceIndex -Destination $targetIndex -Force
+Copy-Item -LiteralPath $sourceDialogue -Destination $targetDialogue -Force
+Copy-Item -LiteralPath $sourceReading -Destination $targetReading -Force
 Copy-Item -LiteralPath $sourceImage -Destination $targetImage -Force
 
 Write-Host "Cloudflare Pages files synchronized:"
-Write-Host "  $targetPage"
+Write-Host "  $targetIndex"
+Write-Host "  $targetDialogue"
+Write-Host "  $targetReading"
 Write-Host "  $targetImage"
-

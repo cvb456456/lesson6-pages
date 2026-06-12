@@ -1,0 +1,717 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>中级第6课「先輩」课文1笔记</title>
+  <style>
+    :root {
+      --ink: #171717;
+      --muted: #6c675f;
+      --paper: #faf7ef;
+      --desk: #ece7dc;
+      --line: #d7d0c3;
+      --red: #bd3038;
+      --blue: #155f91;
+      --green: #34704c;
+      --gold: #a9681e;
+      --shadow: 5px 6px 0 rgba(23, 23, 23, .08);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 0;
+      overflow-x: hidden;
+      color: var(--ink);
+      background-color: var(--desk);
+      background-image:
+        linear-gradient(rgba(23,23,23,.024) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(23,23,23,.018) 1px, transparent 1px);
+      background-size: 24px 24px;
+      font-family: "Yu Gothic UI", "Yu Gothic", "Microsoft YaHei", sans-serif;
+      line-height: 1.65;
+    }
+    button, input { font: inherit; }
+    a { color: inherit; }
+    .shell { display: grid; grid-template-columns: 260px minmax(0, 1fr); width: 100%; min-width: 0; min-height: 100vh; }
+    aside {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      min-width: 0;
+      height: 100vh;
+      padding: 24px 16px;
+      overflow: auto hidden;
+      border-right: 1px solid var(--line);
+      background: #f7f3ea;
+    }
+    .brand h1 {
+      margin: 0;
+      font-family: "Yu Mincho", "Hiragino Mincho ProN", "MS Mincho", serif;
+      font-size: 21px;
+      letter-spacing: 0;
+    }
+    .brand p { margin: 5px 0 0; color: var(--muted); font-size: 12px; }
+    .course-switch { display: grid; gap: 6px; margin: 18px 0 4px; padding: 10px; border: 1px solid var(--line); background: #fffdf8; }
+    .course-switch a { display: block; padding: 8px 9px; border-left: 3px solid transparent; color: var(--muted); text-decoration: none; font-size: 12px; }
+    .course-switch a:hover { color: var(--ink); background: #f3eee4; }
+    .course-switch a.active { color: var(--ink); border-left-color: var(--red); background: #f3eee4; font-weight: 800; }
+    .nav-label { margin: 22px 0 8px; color: var(--muted); font-size: 11px; font-weight: 800; text-transform: uppercase; }
+    .nav { display: grid; gap: 6px; }
+    .nav button {
+      min-height: 42px;
+      border: 1px solid transparent;
+      border-radius: 5px;
+      padding: 8px 10px;
+      color: var(--ink);
+      background: transparent;
+      text-align: left;
+      cursor: pointer;
+    }
+    .nav button.active { color: #fff; background: var(--ink); }
+    .nav button span { display: block; color: var(--muted); font-size: 11px; }
+    .nav button.active span { color: #d9d1c5; }
+    .progress-card {
+      margin-top: 20px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      background: #fffdf8;
+    }
+    .progress-row { display: flex; justify-content: space-between; margin: 5px 0; color: var(--muted); font-size: 12px; }
+    .bar { height: 7px; overflow: hidden; border-radius: 999px; background: #e5dfd5; }
+    .bar i { display: block; width: 0; height: 100%; background: var(--green); transition: width .2s ease; }
+    main { width: 100%; min-width: 0; padding: 0 28px 50px; overflow: hidden; }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin: 0 -28px;
+      padding: 15px 28px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(250,247,239,.95);
+      backdrop-filter: blur(10px);
+    }
+    .topbar strong { font-family: "Yu Mincho", "MS Mincho", serif; }
+    .tools { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn {
+      min-height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      padding: 0 12px;
+      background: #fffdf8;
+      cursor: pointer;
+    }
+    .btn:hover { border-color: #aaa196; }
+    .hero {
+      position: relative;
+      min-height: 420px;
+      display: flex;
+      align-items: end;
+      margin: 24px 0 18px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #1c2026;
+      box-shadow: var(--shadow);
+    }
+    .hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .55; }
+    .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 10%, rgba(8,10,14,.2) 48%, rgba(8,10,14,.94)); }
+    .hero-copy { position: relative; z-index: 1; width: 100%; min-width: 0; max-width: 800px; padding: 34px; color: #fff; }
+    .eyebrow { color: #ff9699; font-family: Georgia, serif; font-size: 12px; font-weight: 800; letter-spacing: 1.7px; text-transform: uppercase; }
+    .hero h2 { margin: 7px 0 5px; font-family: "Yu Mincho", "MS Mincho", serif; font-size: 42px; letter-spacing: 0; }
+    .hero p { margin: 0; color: #e8e3da; overflow-wrap: anywhere; }
+    .meta { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 17px; }
+    .meta span { padding: 5px 8px; border: 1px solid rgba(255,255,255,.32); border-radius: 3px; font-size: 12px; }
+    .view { display: none; }
+    .view.active { display: block; animation: enter .2s ease; }
+    section {
+      margin-bottom: 18px;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+    section h3 { margin: 0 0 13px; font-family: "Yu Mincho", "MS Mincho", serif; font-size: 21px; letter-spacing: 0; }
+    .overview-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+    .note-card { min-width: 0; padding: 14px; border: 1px solid var(--line); border-radius: 4px; background: #fffdf8; overflow-wrap: anywhere; }
+    .note-card b { display: block; margin-bottom: 5px; color: var(--blue); }
+    .relationship { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; padding: 20px; }
+    .person { min-width: 150px; padding: 14px; border: 2px solid var(--ink); background: #fffdf8; text-align: center; }
+    .person b { display: block; font-family: "Yu Mincho", serif; font-size: 20px; }
+    .arrow { color: var(--red); font-weight: 800; }
+    .dialogue-list { display: grid; gap: 12px; }
+    details.line {
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      background: #fffdf8;
+      overflow: hidden;
+    }
+    details.line summary {
+      display: grid;
+      grid-template-columns: 42px 70px minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: center;
+      padding: 13px;
+      cursor: pointer;
+      list-style: none;
+    }
+    details.line summary::-webkit-details-marker { display: none; }
+    details.line[open] summary { border-bottom: 1px solid var(--line); background: #f4efe5; }
+    .num { width: 34px; height: 34px; display: grid; place-items: center; color: #fff; background: var(--red); border-radius: 3px; font-size: 12px; font-weight: 800; }
+    .speaker { color: var(--blue); font-weight: 800; }
+    .jp { font-family: "Yu Mincho", "MS Mincho", serif; font-size: 18px; font-weight: 800; overflow-wrap: anywhere; }
+    .speak-btn {
+      display: inline-grid;
+      width: 27px;
+      height: 27px;
+      margin-left: 7px;
+      padding: 0;
+      place-items: center;
+      vertical-align: middle;
+      border: 1px solid #b9b0a4;
+      border-radius: 50%;
+      color: var(--blue);
+      background: #fffdf8;
+      font-size: 13px;
+      line-height: 1;
+      cursor: pointer;
+      transition: color .15s ease, border-color .15s ease, background .15s ease, transform .15s ease;
+    }
+    .speak-btn:hover { border-color: var(--blue); background: #eef6fb; transform: translateY(-1px); }
+    .speak-btn.speaking { color: #fff; border-color: var(--red); background: var(--red); animation: audioPulse .8s ease-in-out infinite alternate; }
+    .speak-btn:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+    @keyframes audioPulse { to { transform: scale(1.08); } }
+    .toggle { color: var(--muted); }
+    .line-body { display: grid; gap: 13px; padding: 16px; }
+    .translation { padding-left: 12px; border-left: 4px solid var(--red); color: #8b292e; font-weight: 700; }
+    .analysis-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .analysis-box { padding: 11px; border: 1px solid var(--line); background: #faf7ef; }
+    .analysis-box b { display: block; color: var(--blue); font-size: 12px; }
+    .deep-analysis { display: grid; gap: 10px; }
+    .syntax-strip { display: flex; flex-wrap: wrap; gap: 5px; align-items: stretch; }
+    .syntax-part { min-width: 90px; flex: 1 1 120px; padding: 8px 9px; border-top: 3px solid var(--blue); background: #f4f0e7; }
+    .syntax-part b { display: block; font-family: "Yu Mincho", serif; }
+    .syntax-part small { color: var(--muted); }
+    .deep-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .deep-note { min-width: 0; padding: 11px 12px; border: 1px solid var(--line); background: #fff; overflow-wrap: anywhere; }
+    .deep-note b { display: block; margin-bottom: 3px; color: var(--blue); font-size: 12px; }
+    .literal { color: var(--muted); font-size: 13px; }
+    .pattern-line { padding: 11px 12px; border-left: 4px solid var(--gold); background: #fff8e9; }
+    .example-study { display: grid; gap: 5px; margin-top: 5px; }
+    .example-jp { font-family: "Yu Mincho", "MS Mincho", serif; font-size: 17px; font-weight: 800; line-height: 1.8; }
+    .example-jp .break { padding: 0 6px; color: var(--red); font-family: sans-serif; font-weight: 400; }
+    .example-reading { color: var(--blue); font-size: 13px; line-height: 1.75; }
+    .example-cn { color: #514b43; font-size: 14px; }
+    .example-label { display: inline-block; min-width: 44px; margin-right: 7px; color: var(--muted); font-family: "Yu Gothic UI", "Microsoft YaHei", sans-serif; font-size: 11px; font-weight: 800; }
+    .shadowing { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 12px; border: 1px dashed #b8afa1; background: #faf7ef; }
+    .shadowing small { color: var(--muted); }
+    .chunks { display: flex; gap: 7px; flex-wrap: wrap; }
+    .chunk { display: inline-grid; gap: 1px; padding: 6px 8px; border: 1px solid #bdcddd; border-radius: 4px; background: #f6fbff; font-size: 12px; }
+    .chunk b { color: var(--blue); }
+    .chunk .speak-btn { width: 22px; height: 22px; margin-left: 4px; font-size: 10px; }
+    .chunk small { color: var(--muted); }
+    .grammar-list { display: grid; gap: 12px; }
+    .grammar {
+      display: grid;
+      grid-template-columns: 210px minmax(0, 1fr);
+      gap: 16px;
+      padding: 15px;
+      border: 1px solid var(--line);
+      background: #fffdf8;
+    }
+    .grammar-title { color: var(--red); font-family: "Yu Mincho", serif; font-size: 20px; font-weight: 800; }
+    .grammar-title small { display: block; color: var(--muted); font-family: inherit; font-size: 12px; }
+    .grammar-content { display: grid; gap: 7px; }
+    .grammar-content b { color: var(--blue); }
+    .example { padding: 10px 12px; border-left: 4px solid var(--blue); background: #f5f8fa; }
+    .word-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 9px; }
+    .word { padding: 10px; border: 1px solid var(--line); background: #fffdf8; }
+    .word b { display: block; font-family: "Yu Mincho", serif; font-size: 18px; }
+    .word b .speak-btn { float: right; }
+    .word small { color: var(--muted); }
+    .practice-head { display: flex; justify-content: space-between; gap: 16px; align-items: end; margin-bottom: 14px; }
+    .practice-head p { max-width: 650px; margin: 3px 0 0; color: var(--muted); }
+    .mode-tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; margin-bottom: 12px; }
+    .mode-tab { min-height: 44px; border: 1px solid var(--line); background: #fffdf8; cursor: pointer; }
+    .mode-tab.active { color: #fff; border-color: var(--ink); background: var(--ink); }
+    .quiz-card { min-height: 330px; padding: 20px; border: 1px solid var(--line); background: #fffdf8; }
+    .quiz-meta { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); font-size: 12px; }
+    .quiz-card h4 { margin: 18px 0 5px; font-family: "Yu Mincho", serif; font-size: 22px; }
+    .hint-cn { margin: 0 0 16px; padding: 10px 12px; border-left: 4px solid var(--red); background: #fff4f1; }
+    .option { width: 100%; margin: 5px 0; padding: 9px 11px; border: 1px solid var(--line); background: #fff; text-align: left; cursor: pointer; }
+    .option.correct { border-color: #70b78d; background: #ecf8f0; }
+    .option.wrong { border-color: #db8085; background: #fff0f0; }
+    .token-bank, .answer-bank { display: flex; flex-wrap: wrap; gap: 8px; min-height: 57px; padding: 10px; border: 1px dashed #aaa196; background: #f5f1e8; }
+    .answer-bank { margin-bottom: 12px; border-style: solid; background: #fff; }
+    .token { padding: 8px 11px; border: 1px solid #aaa196; border-radius: 3px; background: #fff; cursor: pointer; }
+    .token:hover { border-color: var(--blue); color: var(--blue); }
+    .answer-input { width: 100%; min-height: 48px; margin: 8px 0 12px; padding: 10px 12px; border: 1px solid #aaa196; background: #fff; }
+    .quiz-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+    .primary-btn { color: #fff; border-color: var(--ink); background: var(--ink); }
+    .feedback-box { display: none; margin-top: 14px; padding: 12px; border-left: 4px solid var(--green); background: #edf7f0; }
+    .feedback-box.show { display: block; }
+    .feedback-box.wrong { border-color: var(--red); background: #fff0f0; }
+    .feedback-box b { display: block; margin-bottom: 3px; }
+    .review-answer { margin-top: 13px; padding: 13px; border: 1px solid var(--line); background: #f6f2e9; }
+    .source-note { color: var(--muted); font-size: 12px; }
+    html, body { max-width: 100%; overflow-x: hidden; }
+    .course-switch a, .nav button, .hero-copy, .hero h2, .hero p, section { min-width: 0; max-width: 100%; overflow-wrap: anywhere; }
+    @keyframes enter { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+    @media (max-width: 900px) {
+      .shell { grid-template-columns: minmax(0, 1fr); max-width: 100vw; }
+      aside { position: static; height: auto; border-right: 0; border-bottom: 1px solid var(--line); }
+      .nav { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+      .course-switch { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .course-switch a { min-width: 0; padding-inline: 3px; border-left: 0; border-bottom: 3px solid transparent; text-align: center; font-size: 11px; overflow-wrap: anywhere; }
+      .course-switch a.active { border-bottom-color: var(--red); }
+      .nav button { text-align: center; }
+      .nav button span, .nav-label, .progress-card { display: none; }
+      main { padding: 0 16px 35px; }
+      .topbar { position: static; margin: 0 -16px; padding: 12px 16px; }
+      .overview-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 620px) {
+      .hero { min-height: 360px; }
+      .hero-copy { padding: 22px; }
+      .hero h2 { font-size: 31px; }
+      .nav { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .nav button { min-width: 0; padding-inline: 5px; overflow-wrap: anywhere; }
+      .tools { display: none; }
+      section { padding: 15px; }
+      details.line summary { grid-template-columns: 34px 52px minmax(0, 1fr); }
+      .toggle { display: none; }
+      .analysis-grid, .grammar { grid-template-columns: 1fr; }
+      .deep-grid { grid-template-columns: 1fr; }
+      .relationship { align-items: stretch; flex-direction: column; }
+      .arrow { text-align: center; }
+      .mode-tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .practice-head { align-items: start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside>
+      <div class="brand">
+        <h1>中级第6课</h1>
+        <p>会話「先輩」· P132 课文1笔记</p>
+      </div>
+      <nav class="course-switch" aria-label="课程切换">
+        <a href="index.html">课程总览</a>
+        <a class="active" href="lesson6-senpai-notes.html">课文1 · 先輩</a>
+        <a href="lesson6-hashi-notes.html">课文2 · はし</a>
+      </nav>
+      <div class="nav-label">Study views</div>
+      <div class="nav">
+        <button class="active" data-view="overview">课程地图<span>先理解情境</span></button>
+        <button data-view="dialogue">逐句精读<span>14句会话</span></button>
+        <button data-view="grammar">语法口语<span>7个重点</span></button>
+        <button data-view="vocab">词汇搭配<span>核心表达</span></button>
+        <button data-view="practice">练习复习<span>即时检查</span></button>
+      </div>
+      <div class="progress-card">
+        <div class="progress-row"><span>已掌握会话</span><b id="knownCount">0/14</b></div>
+        <div class="bar"><i id="progressBar"></i></div>
+        <div class="progress-row"><span>答题正确率</span><b id="scoreText">0%</b></div>
+      </div>
+    </aside>
+
+    <main>
+      <div class="topbar">
+        <strong>新标日中级 · 第6课「先輩」</strong>
+        <div class="tools">
+          <button class="btn" id="expandBtn">展开全部</button>
+          <a class="btn" href="https://www.bilibili.com/video/BV1Bp4y1D747/?p=132" target="_blank" rel="noreferrer">打开视频</a>
+          <button class="btn" id="resetBtn">重置记录</button>
+        </div>
+      </div>
+
+      <div class="hero">
+        <img src="images/lesson6-senpai-video.jpg" alt="中级第6课前辈视频首帧">
+        <div class="hero-copy">
+          <div class="eyebrow">Bilibili P132 · Lesson Notes</div>
+          <h2>会話「先輩」</h2>
+          <p>从偶然发现大学前辈，聊到人物评价，再推测佐藤对李小姐是否在意。重点是日常口语缩约、转述和委婉推测。</p>
+          <div class="meta">
+            <span>中级第6课</span><span>课文1</span><span>36:12</span><span>CID 953806884</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="overview" class="view active">
+        <section>
+          <h3>这节课学什么</h3>
+          <div class="overview-grid">
+            <div class="note-card"><b>情境</b>同事午休时聊天，发现客户佐藤竟然是中井的大学篮球部前辈。</div>
+            <div class="note-card"><b>沟通任务</b>介绍人物关系、评价一个人的性格和工作表现、转述别人问过的话。</div>
+            <div class="note-card"><b>口语核心</b>なんだけど、ちゃって、だって、かしら、かもね等自然会话表达。</div>
+          </div>
+        </section>
+        <section>
+          <h3>人物关系</h3>
+          <div class="relationship">
+            <div class="person"><b>中井</b>佐藤的大学后辈</div>
+            <div class="arrow">大学篮球部<br>相差两届 →</div>
+            <div class="person"><b>佐藤</b>竜虎酒造员工<br>中井的前辈</div>
+            <div class="arrow">似乎在意 →</div>
+            <div class="person"><b>李</b>开朗、工作热心<br>理想型上司</div>
+          </div>
+        </section>
+        <section>
+          <h3>会话推进逻辑</h3>
+          <div class="overview-grid">
+            <div class="note-card"><b>1. 惊讶发现</b>なんと佐藤さんは大学の先輩だった。</div>
+            <div class="note-card"><b>2. 回忆评价</b>キャプテン・人気・まじめ・信頼。</div>
+            <div class="note-card"><b>3. 转移话题</b>王さん加入，询问刚才聊了什么。</div>
+            <div class="note-card"><b>4. 转述提问</b>佐藤问李是怎样的人。</div>
+            <div class="note-card"><b>5. 人物描述</b>明るい、仕事熱心、面倒を見る。</div>
+            <div class="note-card"><b>6. 委婉推测</b>気になるのかしら → そうかもね。</div>
+          </div>
+        </section>
+      </div>
+
+      <div id="dialogue" class="view">
+        <section>
+          <h3>逐句精读</h3>
+          <div class="dialogue-list" id="dialogueList"></div>
+        </section>
+      </div>
+
+      <div id="grammar" class="view">
+        <section>
+          <h3>本课语法与口语表达</h3>
+          <div class="grammar-list" id="grammarList"></div>
+        </section>
+      </div>
+
+      <div id="vocab" class="view">
+        <section>
+          <h3>核心词汇</h3>
+          <div class="word-grid" id="wordGrid"></div>
+        </section>
+        <section>
+          <h3>必须整块记忆的搭配</h3>
+          <div class="word-grid" id="collocationGrid"></div>
+        </section>
+      </div>
+
+      <div id="practice" class="view">
+        <section>
+          <div class="practice-head">
+            <div><h3>练习与复习</h3><p>围绕本课原句训练识别、组句、回忆和输出。排序题自动忽略句末标点与空格。</p></div>
+            <strong id="practiceProgress">本轮 0 / 0</strong>
+          </div>
+          <div class="mode-tabs">
+            <button class="mode-tab active" data-mode="choice">语法辨析</button>
+            <button class="mode-tab" data-mode="order">排序组句</button>
+            <button class="mode-tab" data-mode="fill">原句填空</button>
+            <button class="mode-tab" data-mode="recall">中文回译</button>
+          </div>
+          <div class="quiz-card">
+            <div class="quiz-meta"><span id="quizType"></span><span id="quizCount"></span></div>
+            <h4 id="question"></h4>
+            <p class="hint-cn" id="quizHint"></p>
+            <div id="exerciseArea"></div>
+            <div id="feedback" class="feedback-box"></div>
+            <div class="quiz-actions">
+              <button class="btn primary-btn" id="checkBtn">检查答案</button>
+              <button class="btn" id="resetQuestionBtn">重做本题</button>
+              <button class="btn" id="nextBtn">下一题</button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <p class="source-note">来源说明：视频元数据来自 Bilibili 公开视频接口；P132 无公开字幕。本页笔记依据该视频对应的《新标准日本语》中级第6课会话「先輩」教材文本整理，并非视频逐字转录。</p>
+    </main>
+  </div>
+
+  <script>
+    const dialogue = [
+      {s:"中井",j:"竜虎酒造の佐藤さんなんだけど、なんと僕の大学の先輩だったんだ。",c:"说到龙虎酒业的佐藤先生，没想到他竟然是我大学的前辈。",r:"りゅうこしゅぞうの さとうさん なんだけど、なんと ぼくの だいがくの せんぱいだったんだ。",structure:"话题提示「佐藤さんなんだけど」＋惊讶副词「なんと」＋判断过去「先輩だった」",points:[["なんだけど","引出话题，语气柔和"],["なんと","竟然；带惊讶"],["先輩だった","原来是前辈"]]},
+      {s:"野田",j:"えっ、先輩？あの佐藤さんが？",c:"什么，前辈？那个佐藤先生吗？",r:"えっ、せんぱい？ あの さとうさんが？",structure:"省略句。完整理解为「あの佐藤さんが先輩だったの？」",points:[["あの","双方都知道的那位"],["が","提示惊讶焦点"],["省略","口语只保留关键信息"]]},
+      {s:"中井",j:"そう。バスケットボール部の2年先輩。四年生のときはキャプテンだったんだよ。",c:"对，是篮球部比我高两届的前辈。他四年级时还是队长呢。",r:"そう。バスケットボールぶの にねんせんぱい。よねんせいの ときは キャプテンだったんだよ。",structure:"名词省略句＋时间主题「四年生のときは」＋说明语气「んだよ」",points:[["2年先輩","高两届的前辈"],["ときは","在……时候"],["んだよ","解释并提醒对方"]]},
+      {s:"野田",j:"ふうん。じゃあ、人気があったんでしょうねえ。",c:"哦。那他当时一定很受欢迎吧。",r:"ふうん。じゃあ、にんきが あったんでしょうねえ。",structure:"承接「じゃあ」＋过去状态＋推测确认「でしょうね」",points:[["ふうん","表示听懂、感兴趣"],["人気がある","受欢迎"],["でしょうね","推测并寻求共鸣"]]},
+      {s:"中井",j:"それはもう。まじめだし、みんなから信頼されていたしね。",c:"那当然了。他很认真，而且也受到大家信赖。",r:"それはもう。まじめだし、みんなから しんらいされていたしね。",structure:"强烈肯定＋「し」列举理由＋被动持续状态",points:[["それはもう","可不是嘛；当然"],["〜し","列举理由/特点"],["信頼されていた","一直受到信赖"]]},
+      {s:"中井",j:"あっ、王さん、今からお昼？今日は遅いんだね。",c:"啊，王小姐，现在才去吃午饭？今天很晚啊。",r:"あっ、おうさん、いまから おひる？ きょうは おそいんだね。",structure:"时间起点「今から」＋名词省略问句＋「んだね」确认情况",points:[["お昼","此处指吃午饭"],["今から","从现在开始"],["んだね","发现后确认"]]},
+      {s:"王",j:"打ち合わせが長引いちゃって。何の話してたの？",c:"会议拖长了。你们刚才在聊什么？",r:"うちあわせが ながびいちゃって。なんの はなし してたの？",structure:"原因背景「長引いちゃって」＋「何の話」＋口语「してた」",points:[["長引く","拖长、延误"],["ちゃって","てしまって的口语"],["してた","していた的口语"]]},
+      {s:"中井",j:"竜虎酒造の佐藤さんのことを話していたんだ。あの人、僕の大学の先輩なんだよ。",c:"我们在聊龙虎酒业的佐藤先生。他是我大学的前辈。",r:"りゅうこしゅぞうの さとうさんの ことを はなしていたんだ。あのひと、ぼくの だいがくの せんぱいなんだよ。",structure:"「人のことを話す」＋背景说明「ていたんだ」＋再次解释「なんだよ」",points:[["〜のこと","关于……"],["話していた","之前一直在谈"],["なんだよ","补充说明"]]},
+      {s:"王",j:"へえ、そうだったの。",c:"哦，原来是这样。",r:"へえ、そうだったの。",structure:"感叹＋过去判断「そうだった」＋说明/确认语气「の」",points:[["へえ","惊讶、感兴趣"],["そうだった","原来如此"],["の","女性也常用的柔和语气"]]},
+      {s:"中井",j:"そういえば、佐藤さんに李さんのことを聞かれたな。どんな人だって。",c:"说起来，佐藤先生还问过我李小姐的情况，问她是怎样的人。",r:"そういえば、さとうさんに りさんの ことを きかれたな。どんな ひとだって。",structure:"话题联想＋被动「佐藤さんに聞かれた」＋引用省略「どんな人だって」",points:[["そういえば","说起来；联想到"],["聞かれた","被问了"],["〜だって","引用「〜だと」的口语"]]},
+      {s:"野田",j:"それで、中井さんはなんて言ったの？",c:"然后呢，中井先生你怎么说的？",r:"それで、なかいさんは なんて いったの？",structure:"承接结果「それで」＋引用疑问词「なんて」＋说话动词",points:[["それで","于是；然后"],["なんて","何と的口语"],["言ったの","问具体说法"]]},
+      {s:"中井",j:"明るくて、仕事熱心な人だって言ったよ。部下の面倒をよく見るし、まさに理想的な上司で……。",c:"我说她是个开朗、工作热心的人。她也很照顾下属，确实是理想的上司……",r:"あかるくて、しごとねっしんな ひとだって いったよ。ぶかの めんどうを よく みるし、まさに りそうてきな じょうしで……。",structure:"形容词并列＋引用「人だって言う」＋「し」补充理由＋中止形「で」",points:[["明るくて","一类形容词て形并列"],["仕事熱心な","二类形容词修饰名词"],["面倒を見る","照顾"],["まさに","正是、的确"]]},
+      {s:"野田",j:"そんなことを聞くということは、佐藤さん、李さんのことが気になるのかしら。",c:"会问这种事情，也就是说佐藤先生是不是对李小姐有些在意呢？",r:"そんな ことを きく ということは、さとうさん、りさんの ことが きになるのかしら。",structure:"行为名词化「聞くということ」＋主题「は」＋疑问推测「のかしら」",points:[["ということは","也就是说；由此推断"],["気になる","在意、挂念"],["のかしら","女性用的自问/委婉推测"]]},
+      {s:"王",j:"うん、そうかもね。",c:"嗯，也许是吧。",r:"うん、そう かもね。",structure:"「そうかもしれない」的高度口语缩略",points:[["そう","那样；是那回事"],["かも","かもしれない的缩略"],["ね","寻求共鸣"]]}
+    ];
+
+    const deepDive = [
+      {parts:[["竜虎酒造の佐藤さん","话题人物"],["なんだけど","柔和引题"],["なんと","惊讶评价"],["僕の大学の先輩","名词判断内容"],["だったんだ","过去＋解释"]],literal:"直译：龙虎酒业的佐藤先生这件事啊，竟然原来是我的大学前辈。",particles:"「の」连接所属关系；句末「んだ」把新发现作为背景信息解释给听者。",forms:"だった＝だ的过去式；だった＋のだ → だったんだ。",nuance:"「なんだけど」在这里不表示“但是”，而像中文的“说到……啊”。「なんと」把意外感推到最高点。",swap:"人物＋なんだけど、なんと＋身份＋だったんだ。",example:"田中さんなんだけど、なんと高校の同級生だったんだ。"},
+      {parts:[["えっ","惊讶"],["先輩","重复关键词"],["あの佐藤さん","焦点人物"],["が","主语焦点"]],literal:"直译：诶，前辈？那个佐藤先生（是你的前辈）？",particles:"「が」不是普通陈述主语，而是在惊讶中锁定“居然是佐藤”。后面的谓语全部省略。",forms:"完整句可还原为「あの佐藤さんが中井さんの先輩だったの？」。",nuance:"日语会话常只重复最意外的信息。若照中文习惯补成完整长句，反而显得书面。",swap:"えっ、A？ あのBが？",example:"えっ、社長？ あの若い人が？"},
+      {parts:[["そう","确认"],["バスケットボール部の","所属范围"],["2年先輩","高两届"],["四年生のときは","时间主题"],["キャプテンだったんだよ","说明事实"]],literal:"直译：对。篮球部里高我两届的前辈。四年级的时候是队长呢。",particles:"「の」限定所属；「は」把“四年级时”设为时间范围，与其他时期形成潜在对照。",forms:"「2年先輩」省略了「僕より」；「だったんだよ」＝判断过去＋解释＋提醒。",nuance:"第一个句子省略「だった」；「よ」表示这是听者不知道的新信息。",swap:"Aのときは、Bだったんだよ。",example:"大学生のときは、テニス部の部長だったんだよ。"},
+      {parts:[["ふうん","接受信息"],["じゃあ","据此推断"],["人気があった","过去状态"],["んでしょう","有依据推测"],["ねえ","寻求共感"]],literal:"直译：哦。既然这样，当时很受欢迎吧。",particles:"「が」存在句结构：人気がある＝有人气、受欢迎。",forms:"あった＝ある的过去式；でしょう前的「ん」说明推测依据来自上文“队长”。",nuance:"不是直接询问事实，而是根据“队长”这一信息作合理推测，并希望对方认同。",swap:"じゃあ、Aんでしょうね。",example:"毎日練習したんですか。じゃあ、大変だったんでしょうね。"},
+      {parts:[["それはもう","强烈肯定"],["まじめだし","理由一"],["みんなから","动作来源"],["信頼されていたし","理由二＋被动持续"],["ね","共享评价"]],literal:"直译：那还用说。他又认真，而且一直受到大家信赖。",particles:"被动句中「から」表示信赖行为的发出者；也可说「みんなに信頼される」。",forms:"信頼する → 信頼される（被动）→ 信頼されている（状态持续）→ 信頼されていた（过去持续）。",nuance:"两个「し」列举理由，并暗示“还有其他优点”。末尾保留「しね」使语气自然，不必补结论。",swap:"Aし、Bし（ね）。",example:"親切だし、仕事も速いし、みんなに好かれている。"},
+      {parts:[["あっ","注意到来人"],["王さん","呼语"],["今から","起点"],["お昼","午饭动作省略"],["今日は","今日作对比"],["遅いんだね","发现＋确认"]],literal:"直译：啊，王小姐，现在才午饭？今天很晚呢。",particles:"「から」表示从现在开始；「は」暗含“和平时相比，今天”。",forms:"「今からお昼？」完整可理解为「今からお昼を食べるの？」。",nuance:"「遅いね」只是评价；「遅いんだね」带有“我现在才发现原来如此”的说明感。",swap:"今から＋名词？ 今日は＋形容词＋んだね。",example:"今から会議？ 今日はずいぶん遅いんだね。"},
+      {parts:[["打ち合わせが","主语"],["長引いちゃって","原因背景"],["何の話","谈话内容"],["してたの","过去持续＋疑问"]],literal:"直译：碰头会拖长了，所以……你们在谈什么话题？",particles:"「が」标记拖长的主体；「何の話」中的「の」限定话题种类。",forms:"長引く→長引いて→長引いてしまって→長引いちゃって；していた→してた。",nuance:"第一句用て形悬停，省略“所以午饭晚了”。「ちゃって」同时传出无奈感。",swap:"AがVちゃって。何のNしてたの？",example:"電話が長引いちゃって。何の相談してたの？"},
+      {parts:[["佐藤さんのことを","谈论对象"],["話していたんだ","刚才持续＋解释"],["あの人","话题省略助词"],["僕の大学の先輩","身份"],["なんだよ","解释提醒"]],literal:"直译：刚才一直在谈佐藤先生的事情。那个人是我大学的前辈。",particles:"「人のことを話す」里的「を」标记谈论内容；第二句口语省略「あの人は」。",forms:"話す→話している→話していた；名词＋なのだ→なんだ。",nuance:"前一个「んだ」回答王的提问，后一个「なんだよ」补充王不知道的关键背景。",swap:"Aのことを話していたんだ。AはBなんだよ。",example:"新しい部長のことを話していたんだ。大学の先生なんだよ。"},
+      {parts:[["へえ","感兴趣"],["そう","如此"],["だった","过去判断"],["の","柔和领会"]],literal:"直译：哦，原来是那样啊。",particles:"句末「の」来自说明形式「のだ」，这里不是所属助词。",forms:"そうだ→そうだった→そうだったの。",nuance:"「そうなの」用于当前情况；「そうだったの」表示刚得知过去或此前未知的事实。",swap:"へえ、そうだったの。",example:"へえ、二人は同級生だったの。"},
+      {parts:[["そういえば","联想转题"],["佐藤さんに","被动动作发出者"],["李さんのことを","询问内容"],["聞かれたな","被问＋回想"],["どんな人だって","引用内容省略"]],literal:"直译：这么一说，我被佐藤问了李小姐的事呢。（他问）是怎样的人。",particles:"被动句「Aに聞かれる」中「に」标记提问者；「を」标记被问的内容。",forms:"聞く→聞かれる→聞かれた；どんな人だ＋と→どんな人だって（口语引用）。",nuance:"「な」是自言自语式回想；后句把「聞かれた」省略，只留下真正重要的引用内容。",swap:"AにBのことを聞かれた。Cだって。",example:"部長に田中さんのことを聞かれたよ。どんな人だって。"},
+      {parts:[["それで","追问后续"],["中井さんは","回答者主题"],["なんて","引用疑问"],["言った","说了"],["の","说明疑问"]],literal:"直译：然后，中井先生说了什么呢？",particles:"「は」把中井设为回答者；「って」承担引用标记，等于「何と言った」。",forms:"何と→なんて（会话音变/口语表达）；言う→言った。",nuance:"这里的「なんて」不是“之类的/竟然”，而是「何と」的口语形式，要看后面是否接言う。",swap:"それで、Aはなんて言ったの？",example:"それで、先生はなんて言ったの？"},
+      {parts:[["明るくて","形1并列"],["仕事熱心な","形2定语"],["人だって","判断＋引用"],["言ったよ","转述"],["面倒をよく見るし","补充优点"],["理想的な上司で","中止留白"]],literal:"直译：我说是个开朗而且工作热心的人。又很照顾下属，正是理想的上司……",particles:"「面倒を見る」是固定搭配；「を」标记照料对象“面倒”这一抽象内容。",forms:"明るい→明るくて；仕事熱心だ→仕事熱心な＋人；人だ＋って；上司だ→上司で。",nuance:"句末「で……」故意不说完，可能暗示“我还夸了很多”，也给别人接话空间。",swap:"Aくて、Bな人だって言った。Cし、まさにDで……。",example:"優しくて、責任感のある人だって言ったよ。相談にも乗ってくれるし。"},
+      {parts:[["そんなことを聞く","作为依据的行为"],["ということは","归纳推断"],["佐藤さん","推断主体"],["李さんのことが","在意对象"],["気になる","挂念/在意"],["のかしら","委婉自问"]],literal:"直译：会问那种事，也就是说，佐藤是不是在意李小姐呢？",particles:"「気になる」的对象用「が」，而「気にする」的对象用「を」：李さんのことが気になる／李さんのことを気にする。",forms:"聞く＋ということ（行为名词化）＋は；気になる＋の＋かしら。",nuance:"先把“询问”视为证据，再推出可能的心理。这里「ということは」是逻辑连接器，不是普通引用。",swap:"Aということは、Bのかしら。",example:"毎日連絡するということは、彼のことが好きなのかしら。"},
+      {parts:[["うん","接受"],["そう","前述推测"],["かも","可能性"],["ね","保留式共鸣"]],literal:"直译：嗯，也许是那样吧。",particles:"本句没有格助词；「ね」是终助词，用于与对方共享判断。",forms:"そうかもしれないね→そうかもね。",nuance:"不是强烈同意，只是承认“有这种可能”。比「そうでしょうね」更不确定。",swap:"うん、そうかもね。／Aかもね。",example:"今日は少し早く帰れるかもね。"}
+    ];
+
+    const deepExamples = [
+      {jp:"田中さんなんだけど／なんと／高校の同級生だったんだ。",r:"たなかさん なんだけど／なんと／こうこうの どうきゅうせい だったんだ。",c:"说到田中，没想到他竟然是我高中同学。"},
+      {jp:"えっ、社長？／あの若い人が？",r:"えっ、しゃちょう？／あの わかい ひとが？",c:"什么，社长？是那个年轻人吗？"},
+      {jp:"大学生のときは／テニス部の部長だったんだよ。",r:"だいがくせいの ときは／テニスぶの ぶちょう だったんだよ。",c:"大学时，他可是网球部部长。"},
+      {jp:"毎日練習したんですか。／じゃあ／大変だったんでしょうね。",r:"まいにち れんしゅうしたんですか。／じゃあ／たいへん だったんでしょうね。",c:"每天都练习吗？那么当时一定很辛苦吧。"},
+      {jp:"親切だし／仕事も速いし／みんなに好かれている。",r:"しんせつだし／しごとも はやいし／みんなに すかれている。",c:"他又亲切，工作又快，很受大家喜欢。"},
+      {jp:"今から会議？／今日は／ずいぶん遅いんだね。",r:"いまから かいぎ？／きょうは／ずいぶん おそいんだね。",c:"现在才开会？今天开始得相当晚啊。"},
+      {jp:"電話が長引いちゃって。／何の相談／してたの？",r:"でんわが ながびいちゃって。／なんの そうだん／してたの？",c:"电话拖长了。你们刚才在商量什么？"},
+      {jp:"新しい部長のことを／話していたんだ。／大学の先生なんだよ。",r:"あたらしい ぶちょうの ことを／はなしていたんだ。／だいがくの せんせい なんだよ。",c:"刚才在谈新部长的事。他原来是大学老师。"},
+      {jp:"へえ／二人は同級生だったの。",r:"へえ／ふたりは どうきゅうせい だったの。",c:"哦，原来两个人是同学啊。"},
+      {jp:"部長に／田中さんのことを聞かれたよ。／どんな人だって。",r:"ぶちょうに／たなかさんの ことを きかれたよ。／どんな ひとだって。",c:"部长问了我田中的情况，问他是怎样的人。"},
+      {jp:"それで／先生は／なんて言ったの？",r:"それで／せんせいは／なんて いったの？",c:"然后，老师怎么说的？"},
+      {jp:"優しくて／責任感のある人だって／言ったよ。／相談にも乗ってくれるし。",r:"やさしくて／せきにんかんの ある ひとだって／いったよ。／そうだんにも のってくれるし。",c:"我说他是个温柔、有责任感的人，而且也愿意帮忙出主意。"},
+      {jp:"毎日連絡する／ということは／彼のことが好きなのかしら。",r:"まいにち れんらくする／ということは／かれの ことが すきなのかしら。",c:"既然每天都联系，是不是喜欢他呢？"},
+      {jp:"今日は／少し早く帰れる／かもね。",r:"きょうは／すこし はやく かえれる／かもね。",c:"今天也许能稍微早点回去。"}
+    ];
+
+    const grammars = [
+      {p:"〜んだけど",r:"んだけど",m:"引出背景或话题，使语气柔和。",c:"普通形＋んだけど；名词/形2＋なんだけど",u:"会话开场、铺垫、提出对方需要知道的信息。",e:"佐藤さんなんだけど、僕の先輩だったんだ。",z:"不要每次都直译成“但是”；本句没有真正转折。"},
+      {p:"〜てしまう → 〜ちゃう",r:"てしまう → ちゃう",m:"表示完成、遗憾或事情超出预期。",c:"てしまう→ちゃう；でしまう→じゃう",u:"口语中极其常见：長引いちゃって、忘れちゃった。",e:"打ち合わせが長引いちゃって、遅くなった。",z:"ちゃって既可能是原因背景，也可能表示说话人的无奈。"},
+      {p:"〜し、〜し",r:"し",m:"列举多个理由或特征，并暗示还有其他内容。",c:"普通形＋し；名词/形2＋だし",u:"评价人物：まじめだし、信頼されていたし。",e:"明るいし、仕事もできるし、人気がある。",z:"最后一个し可以保留，形成“等等”的余韵。"},
+      {p:"〜って（引用）",r:"って",m:"口语引用，相当于「と」「という」。",c:"普通形＋って；名词/形2＋だって",u:"转述问题或评价：どんな人だって／熱心な人だって言った。",e:"王さんは何時に来るって？",z:"「だって」也可能表示“因为/可是”，要结合位置判断。"},
+      {p:"〜ということは",r:"ということは",m:"根据前项事实进行归纳或推断：也就是说……",c:"普通形＋ということは",u:"从行为推测意图：そんなことを聞くということは……",e:"返事がないということは、まだ忙しいのだろう。",z:"不是单纯引用，而是把前面的行为整体名词化后作为推断依据。"},
+      {p:"〜のかしら",r:"のかしら",m:"女性较常用的自问或委婉疑问：是不是……呢。",c:"普通形＋のかしら；名词/形2＋なのかしら",u:"表达不确定、轻柔的猜测。",e:"佐藤さんは李さんが気になるのかしら。",z:"正式或中性表达可换成「のでしょうか」「のかな」。"},
+      {p:"〜かもね",r:"かもね",m:"「かもしれないね」的口语缩略：也许吧。",c:"普通形＋かもしれない",u:"对他人推测表示保留式赞同。",e:"うん、そうかもね。",z:"只表示可能性，语气比「でしょう」更不确定。"}
+    ];
+
+    const grammarExamples = [
+      {jp:"佐藤さんなんだけど／僕の先輩だったんだ。",r:"さとうさん なんだけど／ぼくの せんぱい だったんだ。",c:"说到佐藤先生，他原来是我的前辈。"},
+      {jp:"打ち合わせが／長引いちゃって／遅くなった。",r:"うちあわせが／ながびいちゃって／おそく なった。",c:"碰头会拖长了，所以来晚了。"},
+      {jp:"明るいし／仕事もできるし／人気がある。",r:"あかるいし／しごとも できるし／にんきが ある。",c:"他又开朗，工作能力又强，很受欢迎。"},
+      {jp:"王さんは／何時に来るって？",r:"おうさんは／なんじに くるって？",c:"听说王小姐几点来？／你说王小姐几点来？"},
+      {jp:"返事がない／ということは／まだ忙しいのだろう。",r:"へんじが ない／ということは／まだ いそがしいのだろう。",c:"既然没有回复，也就是说他大概还在忙吧。"},
+      {jp:"佐藤さんは／李さんが気になる／のかしら。",r:"さとうさんは／りさんが きになる／のかしら。",c:"佐藤先生是不是在意李小姐呢？"},
+      {jp:"うん／そう／かもね。",r:"うん／そう／かもね。",c:"嗯，也许是吧。"}
+    ];
+
+    const words = [
+      ["竜虎酒造","りゅうこしゅぞう","龙虎酒业公司"],["先輩","せんぱい","前辈；高年级学生"],["なんと","なんと","竟然；表示惊讶"],
+      ["キャプテン","キャプテン","队长"],["人気がある","にんきがある","受欢迎"],["信頼する","しんらいする","信赖"],
+      ["打ち合わせ","うちあわせ","碰头会；事前商谈"],["長引く","ながびく","拖长；延误"],["仕事熱心","しごとねっしん","工作热心"],
+      ["部下","ぶか","下属"],["面倒","めんどう","照料；麻烦"],["理想的","りそうてき","理想的"],
+      ["上司","じょうし","上司"],["気になる","きになる","在意；担心；挂念"],["まさに","まさに","正是；的确"]
+    ];
+    const collocations = [
+      ["大学の先輩","だいがくのせんぱい","大学前辈"],["2年先輩","にねんせんぱい","高两届的前辈"],
+      ["みんなから信頼される","みんなからしんらいされる","受到大家信赖"],["打ち合わせが長引く","うちあわせがながびく","会议拖长"],
+      ["人のことを話す","ひとのことをはなす","谈论某人"],["人のことを聞く","ひとのことをきく","询问某人的情况"],
+      ["仕事熱心な人","しごとねっしんなひと","工作热心的人"],["部下の面倒を見る","ぶかのめんどうをみる","照顾下属"],
+      ["理想的な上司","りそうてきなじょうし","理想的上司"],["人のことが気になる","ひとのことがきになる","在意某人"]
+    ];
+    const exercises = {
+      choice:[
+        {q:"「佐藤さんなんだけど」在本句中的主要作用是什么？",hint:"注意：后面并没有真正与前项相反的内容。",a:"柔和地引出佐藤这个话题",o:["柔和地引出佐藤这个话题","表示佐藤不是前辈","要求对方作出选择","表示原因"],why:"会话开头的「んだけど」常用于铺垫或引题，不一定译成“但是”。"},
+        {q:"「あの佐藤さんが？」为什么使用「が」？",hint:"野田最惊讶的是“究竟是谁”。",a:"把佐藤标成惊讶焦点",o:["把佐藤标成惊讶焦点","表示动作对象","表示所属关系","表示移动终点"],why:"谓语「先輩だったの」被省略，「が」突出“居然是那位佐藤”。"},
+        {q:"「四年生のときは」中的「は」带有什么语感？",hint:"它不仅说明时间，还隐约与其他时期对照。",a:"限定并突出四年级这一时期",o:["限定并突出四年级这一时期","表示动作方向","表示引用内容","表示并列"],why:"时间词后的「は」常把该时间段设为话题或对比范围。"},
+        {q:"「人気があったんでしょうね」的推测依据来自哪里？",hint:"上一句提到佐藤在四年级时担任队长。",a:"根据“他是队长”作出的推测",o:["根据“他是队长”作出的推测","说话人亲眼确认","来自新闻报道","没有任何依据"],why:"「んでしょう」带说明和有依据推测的语感。"},
+        {q:"「みんなから信頼されていた」是什么结构？",hint:"先判断主动句是谁信赖谁。",a:"过去持续状态的被动表达",o:["过去持续状态的被动表达","使役表达","可能表达","命令表达"],why:"信頼する→信頼される→信頼されている→信頼されていた。"},
+        {q:"「長引いちゃって」中的「ちゃって」还原后是什么？",hint:"这是「てしまう」的口语缩约。",a:"長引いてしまって",o:["長引いてしまって","長引いておいて","長引いてみて","長引いてあって"],why:"てしまって→ちゃって，常带完成、意外或无奈。"},
+        {q:"「何の話してたの」省略了什么？",hint:"「話」后原本可以接表示动作的助词。",a:"「を」以及「していた」中的「い」",o:["「を」以及「していた」中的「い」","只省略了「が」","省略了「から」","什么都没省略"],why:"完整一些可说「何の話をしていたの」。"},
+        {q:"「佐藤さんに李さんのことを聞かれた」中「に」表示什么？",hint:"这是被动句。",a:"提问这一动作的发出者",o:["提问这一动作的发出者","询问的内容","动作发生的地点","比较基准"],why:"Aに聞かれる＝被A询问。"},
+        {q:"「どんな人だって」中的「って」是什么？",hint:"后面省略了「聞かれた」。",a:"引用助词「と」的口语形式",o:["引用助词「と」的口语形式","条件助词","比较助词","接续助词"],why:"どんな人だ＋と→どんな人だって。"},
+        {q:"「なんて言ったの」中的「なんて」应如何理解？",hint:"它后面紧跟「言う」。",a:"「何と」的口语说法：说了什么",o:["「何と」的口语说法：说了什么","表示轻视：什么之类的","表示惊讶：竟然","表示原因"],why:"在「なんて言う／言った」中，通常对应「何と言う／言った」。"},
+        {q:"「明るくて」是哪一种变形？",hint:"用来连接后面的另一个人物特征。",a:"一类形容词的て形",o:["一类形容词的て形","动词可能形","二类形容词过去式","名词中止形"],why:"明るい去掉い加くて，用于并列特征。"},
+        {q:"「仕事熱心な人」为什么用「な」？",hint:"「仕事熱心」的词性与「静か」相同。",a:"二类形容词修饰名词",o:["二类形容词修饰名词","表示否定","表示过去","表示引用"],why:"仕事熱心だ→仕事熱心な人。"},
+        {q:"「李さんのことが気になる」为什么用「が」？",hint:"注意与「気にする」的搭配不同。",a:"「気になる」的在意对象通常用「が」",o:["「気になる」的在意对象通常用「が」","因为李小姐主动做动作","因为是被动句","因为表示所属"],why:"Aが気になる＝不由自主地在意A；Aを気にする＝主动介意A。"},
+        {q:"「ということは」在课文中表达什么逻辑？",hint:"前面的“询问李小姐”被看作证据。",a:"根据前项事实归纳并推断",o:["根据前项事实归纳并推断","单纯罗列动作","表示禁止","表示同时发生"],why:"“既然会问这种事，也就是说……”是由事实推测意图。"},
+        {q:"「そうかもね」最接近哪一句？",hint:"这是高度口语缩略。",a:"そうかもしれないね",o:["そうかもしれないね","そうに違いない","そうではいけない","そうに決まっている"],why:"「かも」只表示可能性，确定度较低。"}
+      ],
+      order:[
+        {q:"按课文原句排序",hint:"说到龙虎酒业的佐藤先生，没想到他竟然是我大学的前辈。",tokens:["なんと","竜虎酒造の佐藤さんなんだけど","僕の大学の先輩","だったんだ"],a:"竜虎酒造の佐藤さんなんだけどなんと僕の大学の先輩だったんだ",why:"先引出人物，再用「なんと」标出意外发现。"},
+        {q:"按课文原句排序",hint:"他四年级时是队长呢。",tokens:["キャプテン","四年生のときは","だったんだよ"],a:"四年生のときはキャプテンだったんだよ",why:"时间主题在前，身份判断在后。"},
+        {q:"按课文原句排序",hint:"他很认真，而且一直受到大家信赖。",tokens:["みんなから","まじめだし","信頼されていたしね"],a:"まじめだしみんなから信頼されていたしね",why:"两个「し」并列人物优点。"},
+        {q:"按课文原句排序",hint:"碰头会拖长了。你们刚才在聊什么？",tokens:["何の話","打ち合わせが","してたの","長引いちゃって"],a:"打ち合わせが長引いちゃって何の話してたの",why:"先交代自己来晚的原因，再询问谈话内容。"},
+        {q:"按课文原句排序",hint:"说起来，佐藤先生问过我李小姐的情况。",tokens:["李さんのことを","そういえば","聞かれたな","佐藤さんに"],a:"そういえば佐藤さんに李さんのことを聞かれたな",why:"被动句顺序：话题转换＋动作发出者＋内容＋被动谓语。"},
+        {q:"按课文原句排序",hint:"我说她是个开朗、工作热心的人。",tokens:["人だって","明るくて","言ったよ","仕事熱心な"],a:"明るくて仕事熱心な人だって言ったよ",why:"形容词并列后修饰「人」，整句再用「って」引用。"},
+        {q:"按课文原句排序",hint:"她很照顾下属，正是理想的上司……",tokens:["まさに","部下の面倒を","理想的な上司で","よく見るし"],a:"部下の面倒をよく見るしまさに理想的な上司で",why:"先列举具体优点，再作总结评价。"},
+        {q:"按课文原句排序",hint:"会问这种事，是不是在意李小姐呢？",tokens:["李さんのことが","そんなことを聞くということは","気になるのかしら","佐藤さん"],a:"そんなことを聞くということは佐藤さん李さんのことが気になるのかしら",why:"证据＋推断主体＋心理对象＋推测谓语。"}
+      ],
+      fill:[
+        {q:"竜虎酒造の佐藤さん（　）、なんと僕の大学の先輩だったんだ。",hint:"填入柔和引出话题的表达。",a:"なんだけど",alts:["なのだけど"],why:"名词＋なんだけど，用于引题和铺垫。"},
+        {q:"人気があった（　）ねえ。",hint:"根据已有信息作有依据的推测。",a:"んでしょう",alts:["のでしょう"],why:"「んでしょう」结合说明语气与推测。"},
+        {q:"まじめだ（　）、みんなから信頼されていた（　）ね。",hint:"同一个助词出现两次，用来列举理由。",a:"し、し",alts:["しし"],why:"「し」列举多个特点，并暗示还有其他理由。"},
+        {q:"打ち合わせが長引い（　）。",hint:"填入「てしまって」的口语缩约部分。",a:"ちゃって",alts:[],why:"長引いてしまって→長引いちゃって。"},
+        {q:"佐藤さん（　）李さんのことを聞かれたな。",hint:"被动句中表示提问者。",a:"に",alts:[],why:"Aに聞かれる＝被A询问。"},
+        {q:"どんな人だ（　）。",hint:"引用「どんな人だと」的口语形式。",a:"って",alts:[],why:"句末省略了「聞かれた」。"},
+        {q:"部下の面倒をよく（　）し、まさに理想的な上司で……。",hint:"固定搭配「照顾下属」。",a:"見る",alts:["みる"],why:"面倒を見る＝照顾、关照。"},
+        {q:"そんなことを聞く（　）、佐藤さん、李さんのことが気になるのかしら。",hint:"填入“也就是说/由此推断”的表达。",a:"ということは",alts:[],why:"把前项事实整体作为后项推断的依据。"},
+        {q:"うん、そう（　）ね。",hint:"「かもしれない」的口语缩略。",a:"かも",alts:[],why:"そうかもね＝也许是吧。"}
+      ],
+      recall:[
+        {q:"看中文，先在脑中还原课文原句",hint:"说到龙虎酒业的佐藤先生，没想到他竟然是我大学的前辈。",a:"竜虎酒造の佐藤さんなんだけど、なんと僕の大学の先輩だったんだ。",key:"なんだけど／なんと／先輩だったんだ"},
+        {q:"看中文，先在脑中还原课文原句",hint:"那当然了。他很认真，而且一直受到大家信赖。",a:"それはもう。まじめだし、みんなから信頼されていたしね。",key:"それはもう／し／信頼されていた"},
+        {q:"看中文，先在脑中还原课文原句",hint:"会议拖长了。你们刚才在聊什么？",a:"打ち合わせが長引いちゃって。何の話してたの？",key:"長引いちゃって／何の話／してた"},
+        {q:"看中文，先在脑中还原课文原句",hint:"说起来，佐藤先生问过我李小姐的情况，问她是怎样的人。",a:"そういえば、佐藤さんに李さんのことを聞かれたな。どんな人だって。",key:"そういえば／に聞かれた／だって"},
+        {q:"看中文，先在脑中还原课文原句",hint:"我说她是个开朗、工作热心的人。",a:"明るくて、仕事熱心な人だって言ったよ。",key:"明るくて／仕事熱心な／だって言った"},
+        {q:"看中文，先在脑中还原课文原句",hint:"她很照顾下属，确实是理想的上司……",a:"部下の面倒をよく見るし、まさに理想的な上司で……。",key:"面倒を見る／し／まさに"},
+        {q:"看中文，先在脑中还原课文原句",hint:"会问这种事情，也就是说佐藤先生是不是对李小姐有些在意呢？",a:"そんなことを聞くということは、佐藤さん、李さんのことが気になるのかしら。",key:"ということは／ことが気になる／のかしら"},
+        {q:"看中文，先在脑中还原课文原句",hint:"嗯，也许是吧。",a:"うん、そうかもね。",key:"そうかもね"}
+      ]
+    };
+
+    const state = JSON.parse(localStorage.getItem("lesson6SenpaiNotes") || '{"known":{},"answered":0,"correct":0,"quiz":0}');
+    state.mode = state.mode || "choice";
+    state.indexes = state.indexes || {choice:0,order:0,fill:0,recall:0};
+    const $ = (id) => document.getElementById(id);
+    const speakButton = (text, label="播放日语") => `<button type="button" class="speak-btn" data-speech="${encodeURIComponent(text)}" aria-label="${label}" title="${label}">&#128266;</button>`;
+    const exampleBlock = item => `
+      <div class="example-study">
+        <div class="example-jp"><span class="example-label">断句</span>${item.jp.split("／").join('<span class="break">／</span>')}${speakButton(item.jp.replaceAll("／","、"),"播放完整例句")}</div>
+        <div class="example-reading"><span class="example-label">读音</span>${item.r}</div>
+        <div class="example-cn"><span class="example-label">中文</span>${item.c}</div>
+      </div>`;
+    function save(){ localStorage.setItem("lesson6SenpaiNotes", JSON.stringify(state)); }
+    function renderDialogue(){
+      $("dialogueList").innerHTML = dialogue.map((line,i)=>`
+        <details class="line" ${i===0?"open":""}>
+          <summary><span class="num">${i+1}</span><span class="speaker">${line.s}</span><span class="jp">${line.j}${speakButton(line.j,"播放课文原句")}</span><span class="toggle">展开</span></summary>
+          <div class="line-body">
+            <div class="translation">${line.c}</div>
+            <div class="analysis-grid"><div class="analysis-box"><b>整句读法</b>${line.r}</div><div class="analysis-box"><b>句子结构</b>${line.structure}</div></div>
+            <div><b>重点词块</b><div class="chunks">${line.points.map(p=>`<span class="chunk"><b>${p[0]}${speakButton(p[0],"播放重点词块")}</b><small>${p[1]}</small></span>`).join("")}</div></div>
+            <div class="deep-analysis">
+              <div><b>结构拆解</b><div class="syntax-strip">${deepDive[i].parts.map(p=>`<span class="syntax-part"><b>${p[0]}${speakButton(p[0],"播放句子成分")}</b><small>${p[1]}</small></span>`).join("")}</div></div>
+              <div class="literal">${deepDive[i].literal}</div>
+              <div class="deep-grid">
+                <div class="deep-note"><b>助词与句法</b>${deepDive[i].particles}</div>
+                <div class="deep-note"><b>变形还原</b>${deepDive[i].forms}</div>
+                <div class="deep-note"><b>语气与场景</b>${deepDive[i].nuance}</div>
+                <div class="deep-note"><b>可替换句型</b>${deepDive[i].swap}</div>
+              </div>
+              <div class="pattern-line"><b>仿写例句</b>${exampleBlock(deepExamples[i])}</div>
+              <div class="shadowing"><span><b>跟读任务</b><br><small>先慢读结构块，再遮住中文连续读 3 遍。</small></span><span>① 慢读　② 连读　③ 脱稿</span></div>
+            </div>
+            <label><input type="checkbox" data-known="${i}" ${state.known[i]?"checked":""}> 这句已掌握</label>
+          </div>
+        </details>`).join("");
+      document.querySelectorAll("[data-known]").forEach(box=>box.addEventListener("change",()=>{state.known[box.dataset.known]=box.checked;save();updateStats();}));
+    }
+    function renderGrammar(){
+      $("grammarList").innerHTML=grammars.map((g,i)=>`<div class="grammar"><div class="grammar-title">${g.p}${speakButton(g.p.replace("〜",""),"播放语法表达")}<small>${g.r}</small></div><div class="grammar-content"><div><b>核心：</b>${g.m}</div><div><b>接续：</b>${g.c}</div><div><b>常见用法：</b>${g.u}</div><div><b>易错点：</b>${g.z}</div><div class="example"><b>例句精读</b>${exampleBlock(grammarExamples[i])}</div></div></div>`).join("");
+    }
+    function wordCards(list){return list.map(w=>`<div class="word"><b>${w[0]}${speakButton(w[0],"播放单词")}</b><small>${w[1]}</small><div>${w[2]}</div></div>`).join("");}
+    const normalize = value => value.replace(/[。、，！？?!\s「」『』…・]/g,"").toLowerCase();
+    function currentExercise(){
+      const list=exercises[state.mode];
+      return list[state.indexes[state.mode]%list.length];
+    }
+    function renderQuiz(){
+      const list=exercises[state.mode], index=state.indexes[state.mode]%list.length, item=list[index];
+      $("quizType").textContent={choice:"语法辨析",order:"排序组句",fill:"原句填空",recall:"中文回译"}[state.mode];
+      $("quizCount").textContent=`第 ${index+1} / ${list.length} 题`;
+      $("practiceProgress").textContent=`本模式 ${index+1} / ${list.length}`;
+      $("question").textContent=item.q;
+      if(state.mode==="fill")$("question").insertAdjacentHTML("beforeend",speakButton(item.q.replaceAll("（　）",""),"播放填空句"));
+      $("quizHint").textContent=item.hint;
+      $("feedback").className="feedback-box"; $("feedback").innerHTML="";
+      $("checkBtn").style.display=state.mode==="recall"?"none":"inline-block";
+      if(state.mode==="choice"){
+        $("exerciseArea").innerHTML=item.o.map(o=>`<button class="option" data-answer="${o}">${o}</button>`).join("");
+        document.querySelectorAll(".option").forEach(btn=>btn.addEventListener("click",()=>{
+          document.querySelectorAll(".option").forEach(b=>b.classList.remove("selected"));
+          btn.classList.add("selected"); btn.style.outline="2px solid var(--blue)";
+        }));
+      } else if(state.mode==="order"){
+        $("exerciseArea").innerHTML=`<div class="answer-bank" id="answerBank"><span class="literal">点击下方词块组成句子</span></div><div class="token-bank" id="tokenBank">${item.tokens.map((t,i)=>`<button class="token" data-token="${i}">${t}</button>`).join("")}</div>`;
+        bindTokens(item);
+      } else if(state.mode==="fill"){
+        $("exerciseArea").innerHTML=`<input class="answer-input" id="answerInput" autocomplete="off" placeholder="输入括号内缺少的日语"><small class="literal">多个空格时，请按顺序输入；可用顿号或空格分隔。</small>`;
+      } else {
+        $("exerciseArea").innerHTML=`<div class="review-answer"><button class="btn primary-btn" id="revealBtn">显示原句</button><div id="recallAnswer" hidden><p class="jp">${item.a}${speakButton(item.a,"播放回译原句")}</p><p><b>必须回忆的骨架：</b>${item.key}</p></div></div>`;
+        $("revealBtn").addEventListener("click",()=>{$("recallAnswer").hidden=false;$("revealBtn").disabled=true;});
+      }
+      document.querySelectorAll("[data-mode]").forEach(b=>b.classList.toggle("active",b.dataset.mode===state.mode));
+    }
+    function bindTokens(item){
+      document.querySelectorAll("#tokenBank .token").forEach(btn=>btn.addEventListener("click",()=>{
+        const copy=btn.cloneNode(true); copy.addEventListener("click",()=>{btn.hidden=false;copy.remove();}); $("answerBank").querySelector(".literal")?.remove(); $("answerBank").appendChild(copy); btn.hidden=true;
+      }));
+    }
+    function grade(){
+      const item=currentExercise(); let correct=false, response="";
+      if(state.mode==="choice"){
+        const selected=document.querySelector(".option.selected"); if(!selected)return showFeedback(false,"请先选择一个答案。",true);
+        response=selected.dataset.answer; correct=response===item.a;
+        document.querySelectorAll(".option").forEach(b=>{b.disabled=true;if(b.dataset.answer===item.a)b.classList.add("correct");});
+        if(!correct)selected.classList.add("wrong");
+      } else if(state.mode==="order"){
+        response=[...document.querySelectorAll("#answerBank .token")].map(x=>x.textContent).join(""); if(!response)return showFeedback(false,"请先点击词块完成组句。",true);
+        correct=normalize(response)===normalize(item.a);
+      } else if(state.mode==="fill"){
+        response=$("answerInput").value; if(!response.trim())return showFeedback(false,"请先填写答案。",true);
+        const acceptable=[item.a,...(item.alts||[])].map(normalize); correct=acceptable.includes(normalize(response));
+      }
+      state.answered++; if(correct)state.correct++; save(); updateStats();
+      showFeedback(correct,correct?`正确。${item.why}`:`正确答案：${item.a}<br>${item.why}`);
+    }
+    function showFeedback(correct,message,neutral=false){
+      $("feedback").className=`feedback-box show ${!correct&&!neutral?"wrong":""}`;
+      $("feedback").innerHTML=`<b>${neutral?"还差一步":correct?"答对了":"再看一次"}</b>${message}`;
+    }
+    let activeSpeechButton = null;
+    function speakJapanese(text, button){
+      if(!("speechSynthesis" in window)){
+        alert("当前浏览器不支持语音朗读，请使用最新版 Chrome、Edge 或 Safari。");
+        return;
+      }
+      window.speechSynthesis.cancel();
+      if(activeSpeechButton)activeSpeechButton.classList.remove("speaking");
+      const utterance=new SpeechSynthesisUtterance(text);
+      const voices=window.speechSynthesis.getVoices();
+      const japaneseVoice=voices.find(v=>/^ja[-_]/i.test(v.lang))||voices.find(v=>v.lang.toLowerCase().startsWith("ja"));
+      utterance.lang="ja-JP";
+      utterance.rate=.82;
+      utterance.pitch=1;
+      if(japaneseVoice)utterance.voice=japaneseVoice;
+      activeSpeechButton=button;
+      button.classList.add("speaking");
+      utterance.onend=utterance.onerror=()=>{button.classList.remove("speaking");if(activeSpeechButton===button)activeSpeechButton=null;};
+      window.speechSynthesis.speak(utterance);
+    }
+    function updateStats(){
+      const known=Object.values(state.known).filter(Boolean).length; $("knownCount").textContent=`${known}/14`;
+      $("progressBar").style.width=`${known/14*100}%`; $("scoreText").textContent=state.answered?`${Math.round(state.correct/state.answered*100)}%`:"0%";
+    }
+    document.querySelectorAll("[data-view]").forEach(btn=>btn.addEventListener("click",()=>{
+      document.querySelectorAll("[data-view]").forEach(b=>b.classList.toggle("active",b===btn));
+      document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===btn.dataset.view));
+    }));
+    $("expandBtn").addEventListener("click",()=>{const lines=[...document.querySelectorAll("details.line")];const open=lines.some(x=>!x.open);lines.forEach(x=>x.open=open);$("expandBtn").textContent=open?"收起全部":"展开全部";});
+    $("resetBtn").addEventListener("click",()=>{if(!confirm("清空学习记录？"))return;state.known={};state.answered=0;state.correct=0;state.quiz=0;state.indexes={choice:0,order:0,fill:0,recall:0};save();renderDialogue();renderQuiz();updateStats();});
+    document.querySelectorAll("[data-mode]").forEach(btn=>btn.addEventListener("click",()=>{state.mode=btn.dataset.mode;save();renderQuiz();}));
+    $("checkBtn").addEventListener("click",grade);
+    $("resetQuestionBtn").addEventListener("click",renderQuiz);
+    $("nextBtn").addEventListener("click",()=>{state.indexes[state.mode]=(state.indexes[state.mode]+1)%exercises[state.mode].length;save();renderQuiz();});
+    document.addEventListener("click",event=>{
+      const button=event.target.closest("[data-speech]");
+      if(!button)return;
+      event.preventDefault();
+      event.stopPropagation();
+      speakJapanese(decodeURIComponent(button.dataset.speech),button);
+    });
+    if("speechSynthesis" in window)window.speechSynthesis.getVoices();
+    renderDialogue(); renderGrammar(); $("wordGrid").innerHTML=wordCards(words); $("collocationGrid").innerHTML=wordCards(collocations); renderQuiz(); updateStats();
+  </script>
+</body>
+</html>

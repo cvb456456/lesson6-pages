@@ -1,6 +1,8 @@
 # Lesson 6 Pages deployment
 
-This repository contains the deployable copy of the Japanese lesson page.
+This repository contains the deployable copy of the Japanese intermediate
+course library. The root page is the course index; individual lesson pages
+are published as separate HTML files.
 
 ## Cloudflare Pages settings
 
