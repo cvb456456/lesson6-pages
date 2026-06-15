@@ -28,3 +28,7 @@ Windows users can also double-click `publish.cmd`.
 Before each publish, `generate-audio.ps1` renders the lesson pages, extracts
 all Japanese playback text, and generates any missing MP3 files with
 `ja-JP-NanamiNeural`. Existing files are cached and reused.
+
+Sentence-level intensive-listening narration uses `zh-CN-XiaoxiaoNeural`
+for Chinese explanations and `ja-JP-NanamiNeural` for Japanese examples.
+The shared player component lives in `public/assets/`.

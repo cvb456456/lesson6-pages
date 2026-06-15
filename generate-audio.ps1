@@ -3,15 +3,18 @@ $ErrorActionPreference = "Stop"
 $repoRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 $workspaceRoot = Split-Path -Parent $repoRoot
 $sourceRoot = Join-Path $workspaceRoot "LearnJapan"
-$audioRoot = Join-Path $sourceRoot "audio\jp-nanami"
-$textList = Join-Path $repoRoot ".tts-texts.txt"
+$japaneseAudioRoot = Join-Path $sourceRoot "audio\jp-nanami"
+$chineseAudioRoot = Join-Path $sourceRoot "audio\zh-xiaoxiao"
+$japaneseTextList = Join-Path $repoRoot ".tts-ja-texts.txt"
+$chineseTextList = Join-Path $repoRoot ".tts-zh-texts.txt"
 $edge = "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
 
 if (-not (Test-Path -LiteralPath $edge -PathType Leaf)) {
     throw "Microsoft Edge was not found: $edge"
 }
 
-$allTexts = [System.Collections.Generic.List[string]]::new()
+$japaneseTexts = [System.Collections.Generic.List[string]]::new()
+$chineseTexts = [System.Collections.Generic.List[string]]::new()
 $pages = Get-ChildItem -LiteralPath $sourceRoot -Filter "*-notes.html" -File
 
 foreach ($page in $pages) {
@@ -30,7 +33,13 @@ foreach ($page in $pages) {
     Start-Sleep -Milliseconds 800
     $html = Get-Content -LiteralPath $domFile -Raw -Encoding UTF8
     foreach ($match in [regex]::Matches($html, 'data-speech="([^"]+)"')) {
-        $allTexts.Add([uri]::UnescapeDataString($match.Groups[1].Value))
+        $japaneseTexts.Add([uri]::UnescapeDataString($match.Groups[1].Value))
+    }
+    foreach ($match in [regex]::Matches($html, 'data-narration-ja="([^"]+)"')) {
+        $japaneseTexts.Add([uri]::UnescapeDataString($match.Groups[1].Value))
+    }
+    foreach ($match in [regex]::Matches($html, 'data-narration-zh="([^"]+)"')) {
+        $chineseTexts.Add([uri]::UnescapeDataString($match.Groups[1].Value))
     }
 
     $resolvedProfile = Resolve-Path -LiteralPath $profile -ErrorAction SilentlyContinue
@@ -40,13 +49,13 @@ foreach ($page in $pages) {
     Remove-Item -LiteralPath $domFile -Force -ErrorAction SilentlyContinue
 }
 
-$allTexts |
+$japaneseTexts |
     Sort-Object -Unique |
-    Set-Content -LiteralPath $textList -Encoding UTF8
+    Set-Content -LiteralPath $japaneseTextList -Encoding UTF8
 
 python (Join-Path $repoRoot "tools\generate_audio.py") `
-    --input $textList `
-    --output $audioRoot `
+    --input $japaneseTextList `
+    --output $japaneseAudioRoot `
     --voice "ja-JP-NanamiNeural" `
     --rate=-12% `
     --concurrency 5
@@ -55,5 +64,20 @@ if ($LASTEXITCODE -ne 0) {
     throw "Audio generation failed."
 }
 
-Write-Host "Audio files are ready: $audioRoot"
+$chineseTexts |
+    Sort-Object -Unique |
+    Set-Content -LiteralPath $chineseTextList -Encoding UTF8
 
+python (Join-Path $repoRoot "tools\generate_audio.py") `
+    --input $chineseTextList `
+    --output $chineseAudioRoot `
+    --voice "zh-CN-XiaoxiaoNeural" `
+    --rate=-6% `
+    --concurrency 2
+
+if ($LASTEXITCODE -ne 0) {
+    throw "Chinese narration generation failed."
+}
+
+Write-Host "Japanese audio files are ready: $japaneseAudioRoot"
+Write-Host "Chinese narration files are ready: $chineseAudioRoot"

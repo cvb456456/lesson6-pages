@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>中级第6课「はしの文化」课文2笔记</title>
+  <link rel="stylesheet" href="assets/audio-lesson-player.css">
   <style>
     :root{--ink:#171717;--muted:#6c675f;--paper:#faf7ef;--desk:#eae4d9;--line:#d5cdbf;--red:#b92f38;--blue:#175f8e;--green:#34704c;--gold:#a6681e;--shadow:5px 6px 0 rgba(23,23,23,.08)}
     *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-width:0;overflow-x:hidden;color:var(--ink);background-color:var(--desk);background-image:linear-gradient(rgba(23,23,23,.024) 1px,transparent 1px),linear-gradient(90deg,rgba(23,23,23,.018) 1px,transparent 1px);background-size:24px 24px;font-family:"Yu Gothic UI","Yu Gothic","Microsoft YaHei",sans-serif;line-height:1.7}button,input{font:inherit}a{color:inherit}.shell{display:grid;grid-template-columns:260px minmax(0,1fr);width:100%;min-height:100vh}
@@ -46,13 +47,14 @@
         <section><h3>五段论证路线</h3><div class="flow"><div><b>1 · 提出差异</b><small>餐具由饮食内容和习惯决定</small></div><div><b>2 · 比较吃法</b><small>和食、洋食、汤和味噌汤</small></div><div><b>3 · 比较筷子</b><small>中韩日的形状与材质</small></div><div><b>4 · 日本礼仪</b><small>专用筷子、分餐与公筷</small></div><div><b>5 · 总结</b><small>同一种文化内部也很多样</small></div></div></section>
         <section><h3>段落速读</h3><div id="paragraphs"></div></section>
       </div>
-      <div id="reading" class="view"><section><h3>14句逐句精读</h3><div class="sentence-list" id="sentenceList"></div></section></div>
+      <div id="reading" class="view"><section><h3>14句逐句精读</h3><div id="readingAudioPlayer"></div><div class="sentence-list" id="sentenceList"></div></section></div>
       <div id="grammar" class="view"><section><h3>本课说明文语法</h3><div class="grammar-list" id="grammarList"></div></section></div>
       <div id="vocab" class="view"><section><h3>核心词汇</h3><div class="word-grid" id="wordGrid"></div></section><section><h3>必须整块记忆的搭配</h3><div class="word-grid" id="collocationGrid"></div></section></div>
       <div id="practice" class="view"><section><h3>练习与复习</h3><div class="mode-tabs"><button class="mode-tab active" data-mode="choice">语法辨析</button><button class="mode-tab" data-mode="order">排序组句</button><button class="mode-tab" data-mode="fill">原句填空</button></div><div class="quiz-card"><div class="quiz-meta"><span id="quizType"></span><span id="quizCount"></span></div><h4 id="question"></h4><p class="hint" id="quizHint"></p><div id="exerciseArea"></div><div id="feedback" class="feedback"></div><div class="quiz-actions"><button class="btn primary" id="checkBtn">检查答案</button><button class="btn" id="redoBtn">重做本题</button><button class="btn" id="nextBtn">下一题</button></div></div></section></div>
       <p class="source-note">来源说明：视频信息来自 Bilibili 公开视频接口；本页正文依据视频对应的《新标准日本语》中级第6课课文「『はしの文化』さまざま」整理，并对教材网页中的明显录入错误做了规范化修正。</p>
     </main>
   </div>
+  <script src="assets/audio-lesson-player.js"></script>
   <script>
     const sentences=[
       {j:"手、はし、フォーク、ナイフ、スプーンなど、食べる時に何を使うかは、食事の内容や習慣によって違う。",r:"て、はし、フォーク、ナイフ、スプーン など、たべる ときに なにを つかうかは、しょくじの ないようや しゅうかんによって ちがう。",c:"手、筷子、叉子、刀、勺子等，吃饭时使用什么，会因饮食内容和习惯而不同。",parts:[["手、はし、フォーク…","餐具列举"],["何を使うかは","疑问句名词化＋主题"],["食事の内容や習慣によって","差异依据"],["違う","结论"]],structure:"先提出“使用什么餐具”这个变量，再说明差异由饮食内容和习惯造成。",note:"「疑问词＋か」可把整个疑问句嵌入大句；「によって」表示因依据、条件不同而产生变化。",words:[["食事の内容","饮食内容"],["習慣によって違う","因习惯而不同"]],pattern:"Aかは、Bによって違う。｜A取决于B。"},
@@ -77,6 +79,26 @@
       {n:"第4段",j:sentences.slice(11,13).map(x=>x.j).join(""),r:"本段重点读音见逐句精读。",c:"介绍日本家庭的个人专用餐具、分餐习惯以及使用公筷的正式礼仪。"},
       {n:"第5段",j:sentences[13].j,r:sentences[13].r,c:sentences[13].c}
     ];
+    const readingAudioLessons=sentences.map((sentence,i)=>({
+      title:`第${i+1}句 · ${sentence.j.slice(0,13)}${sentence.j.length>13?"…":""}`,
+      segments:[
+        {lang:"zh",label:"句子导入",text:`现在开始第${i+1}句精读。`},
+        {lang:"ja",label:"课文原句",text:sentence.j},
+        {lang:"zh",label:"中文意思",text:`这句话的意思是：${sentence.c}`},
+        {lang:"zh",label:"句子逻辑",text:sentence.structure},
+        ...sentence.parts.flatMap(part=>[
+          {lang:"ja",label:"语法块",text:part[0]},
+          {lang:"zh",label:"语法块作用",text:`这一部分表示：${part[1]}。`}
+        ]),
+        {lang:"zh",label:"语法与阅读提示",text:sentence.note},
+        ...sentence.words.flatMap(word=>[
+          {lang:"ja",label:"重点词块",text:word[0]},
+          {lang:"zh",label:"词块说明",text:word[1]}
+        ]),
+        {lang:"zh",label:"复用结构",text:`本句可以复用的结构是：${sentence.pattern.replace("｜","。意思是：")}`},
+        {lang:"zh",label:"本句结束",text:`第${i+1}句精读结束。`}
+      ]
+    }));
     const grammars=[
       {p:"疑问词＋か",r:"なにを つかうか",m:"把疑问句嵌入更大的句子，表示“是否／什么／怎样……”这一问题。",c:"疑问词＋普通形＋か＋助词",u:"说明取决因素、调查内容、未知信息。",z:"嵌入句通常不使用「ですか」的礼貌问句形式。",e:["何を使うかは／習慣によって違う。","なにを つかうかは／しゅうかんによって ちがう。","使用什么会因习惯而不同。"]},
       {p:"〜によって",r:"によって",m:"表示差异、变化、判断所依据的条件：因……而异。",c:"名词＋によって",u:"人によって違う／地域によって変わる。",z:"本课不是动作施事者用法，而是“根据不同条件”。",e:["食事の内容によって／使う道具が違う。","しょくじの ないようによって／つかう どうぐが ちがう。","使用的工具会因饮食内容而不同。"]},
@@ -135,7 +157,7 @@
     function save(){localStorage.setItem("lesson6HashiNotes",JSON.stringify(state))}
     function renderParagraphs(){$("paragraphs").innerHTML=paragraphs.map(p=>`<div class="paragraph"><div class="paragraph-head"><span>${p.n}</span>${speakButton(p.j,"播放本段")}</div><p class="jp">${p.j}</p><p class="reading">${p.r}</p><p class="cn">${p.c}</p></div>`).join("")}
     function renderSentences(){
-      $("sentenceList").innerHTML=sentences.map((s,i)=>`<details class="sentence" ${i===0?"open":""}><summary><span class="num">${i+1}</span><span class="jp">${s.j}${speakButton(s.j,"播放课文原句")}</span><span class="toggle">展开</span></summary><div class="sentence-body"><div class="translation">${s.c}</div><div class="analysis-grid"><div class="analysis"><b>整句读法</b>${s.r}</div><div class="analysis"><b>句子逻辑</b>${s.structure}</div></div><div><b>按语法断句</b><div class="syntax">${s.parts.map(p=>`<span class="part"><b>${p[0]}${speakButton(p[0],"播放语法块")}</b><small>${p[1]}</small></span>`).join("")}</div></div><div class="analysis"><b>语法与阅读提示</b>${s.note}</div><div><b>重点词块</b><div class="chunks">${s.words.map(w=>`<span class="chunk"><b>${w[0]}${speakButton(w[0],"播放词块")}</b><small>${w[1]}</small></span>`).join("")}</div></div><div class="pattern"><b>可复用结构：</b>${s.pattern}</div><label><input type="checkbox" data-known="${i}" ${state.known[i]?"checked":""}> 这句已掌握</label></div></details>`).join("");
+      $("sentenceList").innerHTML=sentences.map((s,i)=>`<details class="sentence" ${i===0?"open":""}><summary><span class="num">${i+1}</span><span class="jp">${s.j}${speakButton(s.j,"播放课文原句")}</span><span class="toggle">展开</span></summary><div class="sentence-body"><button type="button" class="listen-deep-btn" data-listen-lesson="${i}">&#9654; 听整句精讲</button><div class="translation">${s.c}</div><div class="analysis-grid"><div class="analysis"><b>整句读法</b>${s.r}</div><div class="analysis"><b>句子逻辑</b>${s.structure}</div></div><div><b>按语法断句</b><div class="syntax">${s.parts.map(p=>`<span class="part"><b>${p[0]}${speakButton(p[0],"播放语法块")}</b><small>${p[1]}</small></span>`).join("")}</div></div><div class="analysis"><b>语法与阅读提示</b>${s.note}</div><div><b>重点词块</b><div class="chunks">${s.words.map(w=>`<span class="chunk"><b>${w[0]}${speakButton(w[0],"播放词块")}</b><small>${w[1]}</small></span>`).join("")}</div></div><div class="pattern"><b>可复用结构：</b>${s.pattern}</div><label><input type="checkbox" data-known="${i}" ${state.known[i]?"checked":""}> 这句已掌握</label></div></details>`).join("");
       document.querySelectorAll("[data-known]").forEach(box=>box.addEventListener("change",()=>{state.known[box.dataset.known]=box.checked;save();updateStats()}));
     }
     function exampleBlock(e){return `<div class="example-jp">${e[0].split("／").join('<span class="break">／</span>')}${speakButton(e[0].replaceAll("／","、"),"播放例句")}</div><div class="example-reading">${e[1]}</div><div class="example-cn">${e[2]}</div>`}
@@ -163,14 +185,16 @@
     function speechKey(text){let value=0x811c9dc5;for(let i=0;i<text.length;i++){value^=text.charCodeAt(i);value=Math.imul(value,0x01000193)}return(value>>>0).toString(16).padStart(8,"0")}
     function clearSpeech(){if(activeAudio){activeAudio.pause();activeAudio.currentTime=0;activeAudio=null}if("speechSynthesis" in window)speechSynthesis.cancel();if(activeSpeech)activeSpeech.classList.remove("speaking");activeSpeech=null}
     function fallbackSpeech(text,button){if(!("speechSynthesis" in window)){button.classList.remove("speaking");alert("语音文件加载失败，当前浏览器也不支持系统朗读。");return}const u=new SpeechSynthesisUtterance(text),voices=speechSynthesis.getVoices();u.lang="ja-JP";u.rate=.82;u.voice=voices.find(v=>/^ja[-_]/i.test(v.lang))||null;u.onend=u.onerror=()=>clearSpeech();speechSynthesis.speak(u)}
-    function speak(text,button){if(activeSpeech===button&&activeAudio&&!activeAudio.paused){clearSpeech();return}clearSpeech();activeSpeech=button;button.classList.add("speaking");const audio=new Audio(`audio/jp-nanami/${speechKey(text)}.mp3`);activeAudio=audio;audio.preload="auto";audio.onended=()=>clearSpeech();audio.onerror=()=>{if(activeAudio!==audio)return;activeAudio=null;fallbackSpeech(text,button)};audio.play().catch(()=>audio.onerror())}
+    function speak(text,button){if(activeSpeech===button&&activeAudio&&!activeAudio.paused){clearSpeech();return}clearSpeech();document.dispatchEvent(new CustomEvent("single-speech-start"));activeSpeech=button;button.classList.add("speaking");const audio=new Audio(`audio/jp-nanami/${speechKey(text)}.mp3`);activeAudio=audio;audio.preload="auto";audio.onended=()=>clearSpeech();audio.onerror=()=>{if(activeAudio!==audio)return;activeAudio=null;fallbackSpeech(text,button)};audio.play().catch(()=>audio.onerror())}
     document.querySelectorAll("[data-view]").forEach(btn=>btn.addEventListener("click",()=>{document.querySelectorAll("[data-view]").forEach(b=>b.classList.toggle("active",b===btn));document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===btn.dataset.view))}));
     document.querySelectorAll("[data-mode]").forEach(btn=>btn.addEventListener("click",()=>{state.mode=btn.dataset.mode;save();renderQuiz()}));
     document.addEventListener("click",e=>{const b=e.target.closest("[data-speech]");if(!b)return;e.preventDefault();e.stopPropagation();speak(decodeURIComponent(b.dataset.speech),b)});
+    document.addEventListener("audio-lesson-start",clearSpeech);
     $("expandBtn").addEventListener("click",()=>{const items=[...document.querySelectorAll("details.sentence")],open=items.some(x=>!x.open);items.forEach(x=>x.open=open);$("expandBtn").textContent=open?"收起全部":"展开全部"});
     $("resetBtn").addEventListener("click",()=>{if(!confirm("清空本课学习记录？"))return;state.known={};state.answered=0;state.correct=0;state.indexes={choice:0,order:0,fill:0};save();renderSentences();renderQuiz();updateStats()});
     $("checkBtn").addEventListener("click",grade);$("redoBtn").addEventListener("click",renderQuiz);$("nextBtn").addEventListener("click",()=>{state.indexes[state.mode]=(state.indexes[state.mode]+1)%exercises[state.mode].length;save();renderQuiz()});
     renderParagraphs();renderSentences();renderGrammar();$("wordGrid").innerHTML=wordCards(words);$("collocationGrid").innerHTML=wordCards(collocations);renderQuiz();updateStats();if("speechSynthesis" in window)speechSynthesis.getVoices();
+    AudioLessonPlayer.mount({target:"readingAudioPlayer",lessons:readingAudioLessons});
   </script>
 </body>
 </html>

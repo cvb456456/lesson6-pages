@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>中级第6课「先輩」课文1笔记</title>
+  <link rel="stylesheet" href="assets/audio-lesson-player.css">
   <style>
     :root {
       --ink: #171717;
@@ -380,6 +381,7 @@
       <div id="dialogue" class="view">
         <section>
           <h3>逐句精读</h3>
+          <div id="dialogueAudioPlayer"></div>
           <div class="dialogue-list" id="dialogueList"></div>
         </section>
       </div>
@@ -433,6 +435,7 @@
     </main>
   </div>
 
+  <script src="assets/audio-lesson-player.js"></script>
   <script>
     const dialogue = [
       {s:"中井",j:"竜虎酒造の佐藤さんなんだけど、なんと僕の大学の先輩だったんだ。",c:"说到龙虎酒业的佐藤先生，没想到他竟然是我大学的前辈。",r:"りゅうこしゅぞうの さとうさん なんだけど、なんと ぼくの だいがくの せんぱいだったんだ。",structure:"话题提示「佐藤さんなんだけど」＋惊讶副词「なんと」＋判断过去「先輩だった」",points:[["なんだけど","引出话题，语气柔和"],["なんと","竟然；带惊讶"],["先輩だった","原来是前辈"]]},
@@ -484,6 +487,31 @@
       {jp:"毎日連絡する／ということは／彼のことが好きなのかしら。",r:"まいにち れんらくする／ということは／かれの ことが すきなのかしら。",c:"既然每天都联系，是不是喜欢他呢？"},
       {jp:"今日は／少し早く帰れる／かもね。",r:"きょうは／すこし はやく かえれる／かもね。",c:"今天也许能稍微早点回去。"}
     ];
+
+    const dialogueAudioLessons = dialogue.map((line,i)=>({
+      title:`${line.s} · ${line.j.slice(0,12)}${line.j.length>12?"…":""}`,
+      segments:[
+        {lang:"zh",label:"句子导入",text:`第${i+1}句，${line.s}说。`},
+        {lang:"ja",label:"课文原句",text:line.j},
+        {lang:"zh",label:"中文意思",text:`这句话的意思是：${line.c}`},
+        {lang:"zh",label:"整体结构",text:`句子结构是：${line.structure}`},
+        ...deepDive[i].parts.flatMap(part=>[
+          {lang:"ja",label:"语法块",text:part[0]},
+          {lang:"zh",label:"语法块作用",text:`这一部分表示：${part[1]}。`}
+        ]),
+        {lang:"zh",label:"助词与句法",text:`助词和句法方面：${deepDive[i].particles}`},
+        {lang:"zh",label:"变形还原",text:`变形还原是：${deepDive[i].forms.replaceAll("→","，变成")}`},
+        {lang:"zh",label:"语气与场景",text:`语气和使用场景方面：${deepDive[i].nuance}`},
+        ...line.points.flatMap(point=>[
+          {lang:"ja",label:"重点词块",text:point[0]},
+          {lang:"zh",label:"词块说明",text:point[1]}
+        ]),
+        {lang:"zh",label:"仿写提示",text:"最后听一个使用相同结构的仿写例句。"},
+        {lang:"ja",label:"仿写例句",text:deepExamples[i].jp.replaceAll("／","、")},
+        {lang:"zh",label:"仿写中文",text:deepExamples[i].c},
+        {lang:"zh",label:"本句结束",text:`第${i+1}句精读结束。`}
+      ]
+    }));
 
     const grammars = [
       {p:"〜んだけど",r:"んだけど",m:"引出背景或话题，使语气柔和。",c:"普通形＋んだけど；名词/形2＋なんだけど",u:"会话开场、铺垫、提出对方需要知道的信息。",e:"佐藤さんなんだけど、僕の先輩だったんだ。",z:"不要每次都直译成“但是”；本句没有真正转折。"},
@@ -587,6 +615,7 @@
         <details class="line" ${i===0?"open":""}>
           <summary><span class="num">${i+1}</span><span class="speaker">${line.s}</span><span class="jp">${line.j}${speakButton(line.j,"播放课文原句")}</span><span class="toggle">展开</span></summary>
           <div class="line-body">
+            <button type="button" class="listen-deep-btn" data-listen-lesson="${i}">&#9654; 听整句精讲</button>
             <div class="translation">${line.c}</div>
             <div class="analysis-grid"><div class="analysis-box"><b>整句读法</b>${line.r}</div><div class="analysis-box"><b>句子结构</b>${line.structure}</div></div>
             <div><b>重点词块</b><div class="chunks">${line.points.map(p=>`<span class="chunk"><b>${p[0]}${speakButton(p[0],"播放重点词块")}</b><small>${p[1]}</small></span>`).join("")}</div></div>
@@ -705,6 +734,7 @@
         return;
       }
       clearSpeechState();
+      document.dispatchEvent(new CustomEvent("single-speech-start"));
       activeSpeechButton=button;
       button.classList.add("speaking");
       const audio=new Audio(`audio/jp-nanami/${speechKey(text)}.mp3`);
@@ -739,8 +769,10 @@
       event.stopPropagation();
       speakJapanese(decodeURIComponent(button.dataset.speech),button);
     });
+    document.addEventListener("audio-lesson-start",clearSpeechState);
     if("speechSynthesis" in window)window.speechSynthesis.getVoices();
     renderDialogue(); renderGrammar(); $("wordGrid").innerHTML=wordCards(words); $("collocationGrid").innerHTML=wordCards(collocations); renderQuiz(); updateStats();
+    AudioLessonPlayer.mount({target:"dialogueAudioPlayer",lessons:dialogueAudioLessons});
   </script>
 </body>
 </html>
