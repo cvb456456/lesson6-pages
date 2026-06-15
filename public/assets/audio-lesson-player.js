@@ -19,7 +19,8 @@
     };
     let sentenceIndex = 0;
     let segmentIndex = 0;
-    let audio = null;
+    const audio = new Audio();
+    let audioReady = false;
     let playing = false;
     let speed = 1;
     let loop = "all";
@@ -95,7 +96,7 @@
 
     function progressPercent() {
       const total = currentLesson().segments.length;
-      const withinSegment = audio && Number.isFinite(audio.duration) && audio.duration > 0
+      const withinSegment = audioReady && Number.isFinite(audio.duration) && audio.duration > 0
         ? Math.min(1, Math.max(0, audio.currentTime / audio.duration))
         : 0;
       return ((segmentIndex + withinSegment) / total) * 100;
@@ -115,7 +116,7 @@
       stopProgressAnimation();
       const tick = () => {
         paintProgress();
-        if (playing && audio && !audio.paused) {
+        if (playing && audioReady && !audio.paused) {
           progressFrame = window.requestAnimationFrame(tick);
         } else {
           progressFrame = 0;
@@ -132,8 +133,8 @@
       label.textContent = segment.label || (segment.lang === "ja" ? "日语" : "讲解");
       text.textContent = segment.display || segment.text;
       paintProgress();
-      playButton.textContent = playing ? "暂停" : audio && audio.currentTime > 0 ? "继续播放" : "开始播放";
-      mini.classList.toggle("show", playing || (audio && audio.currentTime > 0));
+      playButton.textContent = playing ? "暂停" : audioReady && audio.currentTime > 0 ? "继续播放" : "开始播放";
+      mini.classList.toggle("show", playing || (audioReady && audio.currentTime > 0));
       miniText.textContent = `第${sentenceIndex + 1}句 · ${segment.label || "讲解"}`;
       miniPlay.textContent = playing ? "Ⅱ" : "▶";
       target.querySelectorAll("[data-audio-jump]").forEach(button => {
@@ -146,16 +147,17 @@
 
     function stopAudio() {
       stopProgressAnimation();
-      if (!audio) return;
       audio.pause();
       audio.onended = null;
       audio.onerror = null;
       audio.onloadedmetadata = null;
-      audio = null;
+      audio.removeAttribute("src");
+      audio.load();
+      audioReady = false;
     }
 
     function pause() {
-      if (audio) audio.pause();
+      if (audioReady) audio.pause();
       playing = false;
       stopProgressAnimation();
       paintProgress();
@@ -207,7 +209,8 @@
       stopAudio();
       document.dispatchEvent(new CustomEvent("audio-lesson-start"));
       const segment = currentSegment();
-      audio = new Audio(`${bases[segment.lang]}/${speechKey(segment.text)}.mp3`);
+      audio.src = `${bases[segment.lang]}/${speechKey(segment.text)}.mp3`;
+      audioReady = true;
       audio.playbackRate = speed;
       audio.preload = "auto";
       playing = true;
@@ -236,7 +239,7 @@
     playButton.addEventListener("click", () => {
       if (playing) {
         pause();
-      } else if (audio && audio.currentTime > 0 && audio.paused) {
+      } else if (audioReady && audio.currentTime > 0 && audio.paused) {
         playing = true;
         audio.playbackRate = speed;
         audio.play().then(startProgressAnimation);
@@ -270,7 +273,7 @@
     sentenceSelect.addEventListener("change", () => playSentence(Number(sentenceSelect.value)));
     target.querySelector("[data-audio-speed]").addEventListener("change", event => {
       speed = Number(event.target.value);
-      if (audio) audio.playbackRate = speed;
+      if (audioReady) audio.playbackRate = speed;
     });
     target.querySelector("[data-audio-loop]").addEventListener("change", event => {
       loop = event.target.value;
