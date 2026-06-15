@@ -24,3 +24,7 @@ After the initial GitHub and Cloudflare connection, every push to `main`
 automatically creates a new Cloudflare Pages production deployment.
 
 Windows users can also double-click `publish.cmd`.
+
+Before each publish, `generate-audio.ps1` renders the lesson pages, extracts
+all Japanese playback text, and generates any missing MP3 files with
+`ja-JP-NanamiNeural`. Existing files are cached and reused.

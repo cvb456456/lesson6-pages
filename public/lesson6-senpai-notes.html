@@ -669,25 +669,54 @@
       $("feedback").className=`feedback-box show ${!correct&&!neutral?"wrong":""}`;
       $("feedback").innerHTML=`<b>${neutral?"还差一步":correct?"答对了":"再看一次"}</b>${message}`;
     }
+    let activeAudio = null;
     let activeSpeechButton = null;
-    function speakJapanese(text, button){
+    function speechKey(text){
+      let value=0x811c9dc5;
+      for(let i=0;i<text.length;i++){
+        value^=text.charCodeAt(i);
+        value=Math.imul(value,0x01000193);
+      }
+      return (value>>>0).toString(16).padStart(8,"0");
+    }
+    function clearSpeechState(){
+      if(activeAudio){activeAudio.pause();activeAudio.currentTime=0;activeAudio=null;}
+      if("speechSynthesis" in window)window.speechSynthesis.cancel();
+      if(activeSpeechButton)activeSpeechButton.classList.remove("speaking");
+      activeSpeechButton=null;
+    }
+    function fallbackSpeech(text,button){
       if(!("speechSynthesis" in window)){
-        alert("当前浏览器不支持语音朗读，请使用最新版 Chrome、Edge 或 Safari。");
+        button.classList.remove("speaking");
+        alert("语音文件加载失败，当前浏览器也不支持系统朗读。");
         return;
       }
-      window.speechSynthesis.cancel();
-      if(activeSpeechButton)activeSpeechButton.classList.remove("speaking");
       const utterance=new SpeechSynthesisUtterance(text);
       const voices=window.speechSynthesis.getVoices();
-      const japaneseVoice=voices.find(v=>/^ja[-_]/i.test(v.lang))||voices.find(v=>v.lang.toLowerCase().startsWith("ja"));
       utterance.lang="ja-JP";
       utterance.rate=.82;
-      utterance.pitch=1;
-      if(japaneseVoice)utterance.voice=japaneseVoice;
+      utterance.voice=voices.find(v=>/^ja[-_]/i.test(v.lang))||null;
+      utterance.onend=utterance.onerror=()=>clearSpeechState();
+      window.speechSynthesis.speak(utterance);
+    }
+    function speakJapanese(text,button){
+      if(activeSpeechButton===button&&activeAudio&&!activeAudio.paused){
+        clearSpeechState();
+        return;
+      }
+      clearSpeechState();
       activeSpeechButton=button;
       button.classList.add("speaking");
-      utterance.onend=utterance.onerror=()=>{button.classList.remove("speaking");if(activeSpeechButton===button)activeSpeechButton=null;};
-      window.speechSynthesis.speak(utterance);
+      const audio=new Audio(`audio/jp-nanami/${speechKey(text)}.mp3`);
+      activeAudio=audio;
+      audio.preload="auto";
+      audio.onended=()=>clearSpeechState();
+      audio.onerror=()=>{
+        if(activeAudio!==audio)return;
+        activeAudio=null;
+        fallbackSpeech(text,button);
+      };
+      audio.play().catch(()=>audio.onerror());
     }
     function updateStats(){
       const known=Object.values(state.known).filter(Boolean).length; $("knownCount").textContent=`${known}/14`;
