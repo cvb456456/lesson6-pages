@@ -295,6 +295,7 @@
       .mode-tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .practice-head { align-items: start; flex-direction: column; }
     }
+    .hint-toggle{padding:5px 9px;border:1px solid #c9a8a3;color:#7c3035;background:#fff;cursor:pointer}.hint-cn span:not([hidden]){margin-left:9px}
   </style>
 </head>
 <body>
@@ -602,6 +603,7 @@
     const state = JSON.parse(localStorage.getItem("lesson6SenpaiNotes") || '{"known":{},"answered":0,"correct":0,"quiz":0}');
     state.mode = state.mode || "choice";
     state.indexes = state.indexes || {choice:0,order:0,fill:0,recall:0};
+    state.optionSeed = state.optionSeed || Math.floor(Math.random()*2147483647);
     const $ = (id) => document.getElementById(id);
     const speakButton = (text, label="播放日语") => `<button type="button" class="speak-btn" data-speech="${encodeURIComponent(text)}" aria-label="${label}" title="${label}">&#128266;</button>`;
     const exampleBlock = item => `
@@ -642,6 +644,16 @@
     }
     function wordCards(list){return list.map(w=>`<div class="word"><b>${w[0]}${speakButton(w[0],"播放单词")}</b><small>${w[1]}</small><div>${w[2]}</div></div>`).join("");}
     const normalize = value => value.replace(/[。、，！？?!\s「」『』…・]/g,"").toLowerCase();
+    function shuffledOptions(item,index){
+      const options=[...item.o]; let seed=(state.optionSeed+index*2654435761)>>>0;
+      for(let i=options.length-1;i>0;i--){seed=(Math.imul(seed,1664525)+1013904223)>>>0;const j=seed%(i+1);[options[i],options[j]]=[options[j],options[i]]}
+      if(options[0]===item.a){const shift=1+(index%Math.max(1,options.length-1));options.push(...options.splice(0,shift))}
+      return options;
+    }
+    function renderHiddenHint(text){
+      $("quizHint").innerHTML=`<button type="button" class="hint-toggle">需要提示</button><span hidden>${text}</span>`;
+      $("quizHint").querySelector(".hint-toggle").addEventListener("click",e=>{const span=e.currentTarget.nextElementSibling;span.hidden=false;e.currentTarget.hidden=true});
+    }
     function currentExercise(){
       const list=exercises[state.mode];
       return list[state.indexes[state.mode]%list.length];
@@ -653,11 +665,11 @@
       $("practiceProgress").textContent=`本模式 ${index+1} / ${list.length}`;
       $("question").textContent=item.q;
       if(state.mode==="fill")$("question").insertAdjacentHTML("beforeend",speakButton(item.q.replaceAll("（　）",""),"播放填空句"));
-      $("quizHint").textContent=item.hint;
+      renderHiddenHint(item.hint);
       $("feedback").className="feedback-box"; $("feedback").innerHTML="";
       $("checkBtn").style.display=state.mode==="recall"?"none":"inline-block";
       if(state.mode==="choice"){
-        $("exerciseArea").innerHTML=item.o.map(o=>`<button class="option" data-answer="${o}">${o}</button>`).join("");
+        $("exerciseArea").innerHTML=shuffledOptions(item,index).map(o=>`<button class="option" data-answer="${o}">${o}</button>`).join("");
         document.querySelectorAll(".option").forEach(btn=>btn.addEventListener("click",()=>{
           document.querySelectorAll(".option").forEach(b=>b.classList.remove("selected"));
           btn.classList.add("selected"); btn.style.outline="2px solid var(--blue)";
