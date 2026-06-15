@@ -21,10 +21,10 @@ async def generate_one(
     voice: str,
     rate: str,
     semaphore: asyncio.Semaphore,
-) -> tuple[str, str]:
+) -> tuple[str, str, str]:
     target = output_dir / f"{fnv1a_utf16(text)}.mp3"
     if target.exists() and target.stat().st_size > 0:
-        return "cached", text
+        return "cached", text, ""
 
     async with semaphore:
         for attempt in range(1, 4):
@@ -35,14 +35,14 @@ async def generate_one(
                     rate=rate,
                 )
                 await communicate.save(str(target))
-                return "generated", text
-            except Exception:
+                return "generated", text, ""
+            except Exception as error:
                 target.unlink(missing_ok=True)
                 if attempt == 3:
-                    raise
+                    return "failed", text, str(error)
                 await asyncio.sleep(attempt * 1.5)
 
-    return "failed", text
+    return "failed", text, "Unknown generation error"
 
 
 async def main() -> None:
@@ -69,6 +69,11 @@ async def main() -> None:
             raise RuntimeError(f"Audio key collision: {keys[key]!r} / {text!r}")
         keys[key] = text
 
+    expected_files = {f"{key}.mp3" for key in keys}
+    for existing in args.output.glob("*.mp3"):
+        if existing.name not in expected_files:
+            existing.unlink()
+
     semaphore = asyncio.Semaphore(args.concurrency)
     tasks = [
         generate_one(text, args.output, args.voice, args.rate, semaphore)
@@ -77,14 +82,40 @@ async def main() -> None:
 
     generated = 0
     cached = 0
+    failures: list[tuple[str, str]] = []
     for completed, result in enumerate(asyncio.as_completed(tasks), start=1):
-        status, _ = await result
+        status, text, error = await result
         generated += status == "generated"
         cached += status == "cached"
+        if status == "failed":
+            failures.append((text, error))
         if completed % 20 == 0 or completed == len(tasks):
-            print(f"{completed}/{len(tasks)} generated={generated} cached={cached}")
+            print(
+                f"{completed}/{len(tasks)} generated={generated} "
+                f"cached={cached} failed={len(failures)}"
+            )
+
+    if failures:
+        print("Retrying failed items sequentially...")
+        retry_semaphore = asyncio.Semaphore(1)
+        remaining: list[tuple[str, str]] = []
+        for text, _ in failures:
+            status, _, error = await generate_one(
+                text,
+                args.output,
+                args.voice,
+                args.rate,
+                retry_semaphore,
+            )
+            if status == "failed":
+                remaining.append((text, error))
+            await asyncio.sleep(0.5)
+
+        if remaining:
+            for text, error in remaining:
+                print(f"FAILED: {text!r}: {error}")
+            raise RuntimeError(f"{len(remaining)} audio item(s) could not be generated")
 
 
 if __name__ == "__main__":
     asyncio.run(main())
-
