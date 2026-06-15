@@ -15,7 +15,7 @@ if (-not (Test-Path -LiteralPath $edge -PathType Leaf)) {
 
 $japaneseTexts = [System.Collections.Generic.List[string]]::new()
 $chineseTexts = [System.Collections.Generic.List[string]]::new()
-$pages = Get-ChildItem -LiteralPath $sourceRoot -Filter "*-notes.html" -File
+$pages = Get-ChildItem -LiteralPath $sourceRoot -Filter "lesson*.html" -File
 
 foreach ($page in $pages) {
     $safeName = [IO.Path]::GetFileNameWithoutExtension($page.Name)
