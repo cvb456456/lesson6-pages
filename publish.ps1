@@ -5,9 +5,14 @@ param(
 $ErrorActionPreference = "Stop"
 $repoRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 
+& (Join-Path $repoRoot "generate-audio.ps1")
+if ($LASTEXITCODE -ne 0) {
+    throw "Japanese audio generation failed."
+}
+
 & (Join-Path $repoRoot "sync-from-source.ps1")
 
-git -C $repoRoot add -- public
+git -C $repoRoot add -- public tools generate-audio.ps1 sync-from-source.ps1 publish.ps1 README.md .gitignore
 if ($LASTEXITCODE -ne 0) {
     throw "Git staging failed."
 }
