@@ -23,6 +23,7 @@
     let playing = false;
     let speed = 1;
     let loop = "all";
+    let progressFrame = 0;
 
     target.innerHTML = `
       <div class="audio-study-player">
@@ -92,6 +93,37 @@
       return currentLesson().segments[segmentIndex];
     }
 
+    function progressPercent() {
+      const total = currentLesson().segments.length;
+      const withinSegment = audio && Number.isFinite(audio.duration) && audio.duration > 0
+        ? Math.min(1, Math.max(0, audio.currentTime / audio.duration))
+        : 0;
+      return ((segmentIndex + withinSegment) / total) * 100;
+    }
+
+    function paintProgress() {
+      progress.style.width = `${progressPercent()}%`;
+    }
+
+    function stopProgressAnimation() {
+      if (!progressFrame) return;
+      window.cancelAnimationFrame(progressFrame);
+      progressFrame = 0;
+    }
+
+    function startProgressAnimation() {
+      stopProgressAnimation();
+      const tick = () => {
+        paintProgress();
+        if (playing && audio && !audio.paused) {
+          progressFrame = window.requestAnimationFrame(tick);
+        } else {
+          progressFrame = 0;
+        }
+      };
+      progressFrame = window.requestAnimationFrame(tick);
+    }
+
     function updateUi() {
       const lesson = currentLesson();
       const segment = currentSegment();
@@ -99,7 +131,7 @@
       status.textContent = `第 ${sentenceIndex + 1}/${lessons.length} 句 · 讲解 ${segmentIndex + 1}/${lesson.segments.length}`;
       label.textContent = segment.label || (segment.lang === "ja" ? "日语" : "讲解");
       text.textContent = segment.display || segment.text;
-      progress.style.width = `${((segmentIndex + 1) / lesson.segments.length) * 100}%`;
+      paintProgress();
       playButton.textContent = playing ? "暂停" : audio && audio.currentTime > 0 ? "继续播放" : "开始播放";
       mini.classList.toggle("show", playing || (audio && audio.currentTime > 0));
       miniText.textContent = `第${sentenceIndex + 1}句 · ${segment.label || "讲解"}`;
@@ -113,17 +145,20 @@
     }
 
     function stopAudio() {
+      stopProgressAnimation();
       if (!audio) return;
       audio.pause();
       audio.onended = null;
       audio.onerror = null;
-      audio.ontimeupdate = null;
+      audio.onloadedmetadata = null;
       audio = null;
     }
 
     function pause() {
       if (audio) audio.pause();
       playing = false;
+      stopProgressAnimation();
+      paintProgress();
       updateUi();
     }
 
@@ -165,6 +200,7 @@
       playing = false;
       segmentIndex = currentLesson().segments.length - 1;
       updateUi();
+      progress.style.width = "100%";
     }
 
     function playCurrent() {
@@ -176,20 +212,16 @@
       audio.preload = "auto";
       playing = true;
       audio.onended = advance;
+      audio.onloadedmetadata = startProgressAnimation;
       audio.onerror = () => {
         label.textContent = "音频缺失";
         text.textContent = "该讲解音频尚未生成，已跳到下一段。";
         window.setTimeout(advance, 700);
       };
-      audio.ontimeupdate = () => {
-        if (!audio.duration) return;
-        const withinSegment = audio.currentTime / audio.duration;
-        const total = currentLesson().segments.length;
-        progress.style.width = `${((segmentIndex + withinSegment) / total) * 100}%`;
-      };
       updateUi();
-      audio.play().catch(() => {
+      audio.play().then(startProgressAnimation).catch(() => {
         playing = false;
+        stopProgressAnimation();
         updateUi();
       });
     }
@@ -207,7 +239,7 @@
       } else if (audio && audio.currentTime > 0 && audio.paused) {
         playing = true;
         audio.playbackRate = speed;
-        audio.play();
+        audio.play().then(startProgressAnimation);
         updateUi();
       } else {
         playCurrent();
