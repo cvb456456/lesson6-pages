@@ -8,11 +8,58 @@
     return (value >>> 0).toString(16).padStart(8, "0");
   }
 
+  function splitMixedNarration(segment) {
+    if (segment.lang !== "zh") return [segment];
+
+    const quotedJapanese = /([「『“"])(.*?)([」』”"])/g;
+    const japaneseKana = /[\u3040-\u30ff]/;
+    const parts = [];
+    let cursor = 0;
+    let match;
+
+    while ((match = quotedJapanese.exec(segment.text)) !== null) {
+      const innerText = match[2];
+      if (!japaneseKana.test(innerText)) continue;
+
+      if (match.index > cursor) {
+        parts.push({
+          ...segment,
+          text: segment.text.slice(cursor, match.index),
+          display: segment.display || segment.text,
+        });
+      }
+      parts.push({
+        ...segment,
+        lang: "ja",
+        text: innerText,
+        display: segment.display || segment.text,
+      });
+      cursor = match.index + match[0].length;
+    }
+
+    if (!parts.length) return [segment];
+    if (cursor < segment.text.length) {
+      parts.push({
+        ...segment,
+        text: segment.text.slice(cursor),
+        display: segment.display || segment.text,
+      });
+    }
+    return parts.filter(part => part.text.trim());
+  }
+
+  function expandMixedNarration(lessons) {
+    return lessons.map(lesson => ({
+      ...lesson,
+      segments: lesson.segments.flatMap(splitMixedNarration),
+    }));
+  }
+
   function mount(options) {
     const target = document.getElementById(options.target);
     if (!target || !options.lessons.length) return null;
 
-    const lessons = options.lessons;
+    const lessons = expandMixedNarration(options.lessons);
     const bases = {
       ja: options.jaBase || "audio/jp-nanami",
       zh: options.zhBase || "audio/zh-xiaoxiao",
