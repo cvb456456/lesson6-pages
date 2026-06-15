@@ -45,7 +45,15 @@
         display: segment.display || segment.text,
       });
     }
-    return parts.filter(part => part.text.trim());
+    return parts.reduce((spokenParts, part) => {
+      if (!part.text.trim()) return spokenParts;
+      if (!/[\p{L}\p{N}]/u.test(part.text) && spokenParts.length) {
+        spokenParts[spokenParts.length - 1].text += part.text;
+        return spokenParts;
+      }
+      spokenParts.push(part);
+      return spokenParts;
+    }, []);
   }
 
   function expandMixedNarration(lessons) {
