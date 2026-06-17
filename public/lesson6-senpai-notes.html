@@ -55,9 +55,13 @@
     }
     .brand p { margin: 5px 0 0; color: var(--muted); font-size: 12px; }
     .course-switch { display: grid; gap: 6px; margin: 18px 0 4px; padding: 10px; border: 1px solid var(--line); background: #fffdf8; }
+    .switch-group { display: grid; gap: 6px; min-width: 0; }
+    .switch-title { padding: 2px 9px; color: var(--muted); font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
     .course-switch a { display: block; padding: 8px 9px; border-left: 3px solid transparent; color: var(--muted); text-decoration: none; font-size: 12px; }
     .course-switch a:hover { color: var(--ink); background: #f3eee4; }
     .course-switch a.active { color: var(--ink); border-left-color: var(--red); background: #f3eee4; font-weight: 800; }
+    .switch-group.music a { border-left-color: rgba(23, 95, 139, .22); }
+    .switch-group.music a.active { border-left-color: var(--blue); }
     .nav-label { margin: 22px 0 8px; color: var(--muted); font-size: 11px; font-weight: 800; text-transform: uppercase; }
     .nav { display: grid; gap: 6px; }
     .nav button {
@@ -270,8 +274,11 @@
       aside { position: static; height: auto; border-right: 0; border-bottom: 1px solid var(--line); }
       .nav { grid-template-columns: repeat(5, minmax(0, 1fr)); }
       .course-switch { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .switch-group { align-content: start; }
       .course-switch a { min-width: 0; padding-inline: 3px; border-left: 0; border-bottom: 3px solid transparent; text-align: center; font-size: 11px; overflow-wrap: anywhere; }
       .course-switch a.active { border-bottom-color: var(--red); }
+      .switch-group.music a.active { border-bottom-color: var(--blue); }
+      .switch-title { text-align: center; padding-inline: 3px; }
       .nav button { text-align: center; }
       .nav button span, .nav-label, .progress-card { display: none; }
       main { padding: 0 16px 35px; }
@@ -306,13 +313,19 @@
         <p>会話「先輩」· P132 课文1笔记</p>
       </div>
       <nav class="course-switch" aria-label="课程切换">
-        <a href="index.html">课程总览</a>
-        <a class="active" href="lesson6-senpai-notes.html">课文1 · 先輩</a>
-        <a href="lesson6-hashi-notes.html">课文2 · はし</a>
-        <a href="lesson7-yobikai-grammar.html">第7课 · P135语法</a>
-        <a href="lesson7-yobikai-dialogue.html">第7课 · P136课文1</a>
-        <a href="lesson7-email-notes.html">第7课 · P137课文2</a>
-        <a href="song-katachi-nai-study.html">歌曲 · カタチ</a>
+        <div class="switch-group">
+          <span class="switch-title">教材课程</span>
+          <a href="index.html">课程总览</a>
+          <a class="active" href="lesson6-senpai-notes.html">课文1 · 先輩</a>
+          <a href="lesson6-hashi-notes.html">课文2 · はし</a>
+          <a href="lesson7-yobikai-grammar.html">第7课 · P135语法</a>
+          <a href="lesson7-yobikai-dialogue.html">第7课 · P136课文1</a>
+          <a href="lesson7-email-notes.html">第7课 · P137课文2</a>
+        </div>
+        <div class="switch-group music">
+          <span class="switch-title">音乐精读</span>
+          <a href="song-katachi-nai-study.html">歌曲 · カタチ</a>
+        </div>
       </nav>
       <div class="nav-label">Study views</div>
       <div class="nav">
