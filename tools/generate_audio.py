@@ -69,11 +69,6 @@ async def main() -> None:
             raise RuntimeError(f"Audio key collision: {keys[key]!r} / {text!r}")
         keys[key] = text
 
-    expected_files = {f"{key}.mp3" for key in keys}
-    for existing in args.output.glob("*.mp3"):
-        if existing.name not in expected_files:
-            existing.unlink()
-
     semaphore = asyncio.Semaphore(args.concurrency)
     tasks = [
         generate_one(text, args.output, args.voice, args.rate, semaphore)
