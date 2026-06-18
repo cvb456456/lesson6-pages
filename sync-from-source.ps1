@@ -12,6 +12,7 @@ $sourceLesson7Grammar = Join-Path $sourceRoot "lesson7-yobikai-grammar.html"
 $sourceLesson7Dialogue = Join-Path $sourceRoot "lesson7-yobikai-dialogue.html"
 $sourceLesson7Email = Join-Path $sourceRoot "lesson7-email-notes.html"
 $sourceSongKatachi = Join-Path $sourceRoot "song-katachi-nai-study.html"
+$sourceSongAi = Join-Path $sourceRoot "song-ai-ni-dekiru-study.html"
 $sourceImage = Join-Path $sourceRoot "images\lesson6-senpai-video.jpg"
 $sourceLesson7Image = Join-Path $sourceRoot "images\lesson7-yobikai-video.jpg"
 $sourceLesson7DialogueImage = Join-Path $sourceRoot "images\lesson7-yobikai-dialogue-video.jpg"
@@ -27,6 +28,7 @@ $targetLesson7Grammar = Join-Path $publicRoot "lesson7-yobikai-grammar.html"
 $targetLesson7Dialogue = Join-Path $publicRoot "lesson7-yobikai-dialogue.html"
 $targetLesson7Email = Join-Path $publicRoot "lesson7-email-notes.html"
 $targetSongKatachi = Join-Path $publicRoot "song-katachi-nai-study.html"
+$targetSongAi = Join-Path $publicRoot "song-ai-ni-dekiru-study.html"
 $targetImage = Join-Path $publicRoot "images\lesson6-senpai-video.jpg"
 $targetLesson7Image = Join-Path $publicRoot "images\lesson7-yobikai-video.jpg"
 $targetLesson7DialogueImage = Join-Path $publicRoot "images\lesson7-yobikai-dialogue-video.jpg"
@@ -58,7 +60,7 @@ function Sync-AudioDirectory {
     Copy-Item -Path (Join-Path $Source "*") -Destination $fullTarget -Force
 }
 
-foreach ($requiredFile in @($sourceIndex, $sourceDialogue, $sourceReading, $sourceLesson7Grammar, $sourceLesson7Dialogue, $sourceLesson7Email, $sourceSongKatachi, $sourceImage, $sourceLesson7Image, $sourceLesson7DialogueImage, $sourceLesson7EmailImage, $sourcePlayerScript, $sourcePlayerStyle)) {
+foreach ($requiredFile in @($sourceIndex, $sourceDialogue, $sourceReading, $sourceLesson7Grammar, $sourceLesson7Dialogue, $sourceLesson7Email, $sourceSongKatachi, $sourceSongAi, $sourceImage, $sourceLesson7Image, $sourceLesson7DialogueImage, $sourceLesson7EmailImage, $sourcePlayerScript, $sourcePlayerStyle)) {
     if (-not (Test-Path -LiteralPath $requiredFile -PathType Leaf)) {
         throw "Required source file was not found: $requiredFile"
     }
@@ -72,6 +74,7 @@ Copy-Item -LiteralPath $sourceLesson7Grammar -Destination $targetLesson7Grammar 
 Copy-Item -LiteralPath $sourceLesson7Dialogue -Destination $targetLesson7Dialogue -Force
 Copy-Item -LiteralPath $sourceLesson7Email -Destination $targetLesson7Email -Force
 Copy-Item -LiteralPath $sourceSongKatachi -Destination $targetSongKatachi -Force
+Copy-Item -LiteralPath $sourceSongAi -Destination $targetSongAi -Force
 Copy-Item -LiteralPath $sourceImage -Destination $targetImage -Force
 Copy-Item -LiteralPath $sourceLesson7Image -Destination $targetLesson7Image -Force
 Copy-Item -LiteralPath $sourceLesson7DialogueImage -Destination $targetLesson7DialogueImage -Force
@@ -90,6 +93,7 @@ Write-Host "  $targetLesson7Grammar"
 Write-Host "  $targetLesson7Dialogue"
 Write-Host "  $targetLesson7Email"
 Write-Host "  $targetSongKatachi"
+Write-Host "  $targetSongAi"
 Write-Host "  $targetImage"
 Write-Host "  $targetLesson7Image"
 Write-Host "  $targetLesson7DialogueImage"
