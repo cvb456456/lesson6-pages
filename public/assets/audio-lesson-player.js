@@ -13,13 +13,20 @@
 
     const quotedJapanese = /([「『“"])(.*?)([」』”"])/g;
     const japaneseKana = /[\u3040-\u30ff]/;
+    const kanji = /[\u3400-\u9fff]/;
+    const likelyJapaneseQuote = (innerText, fullText, matchIndex) => {
+      if (japaneseKana.test(innerText)) return true;
+      if (!kanji.test(innerText)) return false;
+      const windowText = fullText.slice(Math.max(0, matchIndex - 12), matchIndex + innerText.length + 24);
+      return /意思是|读作|词块|搭配|句型|语法|对象|焦点|换成|核心|表示|中的/.test(windowText);
+    };
     const parts = [];
     let cursor = 0;
     let match;
 
     while ((match = quotedJapanese.exec(segment.text)) !== null) {
       const innerText = match[2];
-      if (!japaneseKana.test(innerText)) continue;
+      if (!likelyJapaneseQuote(innerText, segment.text, match.index)) continue;
 
       if (match.index > cursor) {
         parts.push({
