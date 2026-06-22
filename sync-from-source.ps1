@@ -17,7 +17,6 @@ $sourceSongMadarai = Join-Path $sourceRoot "song-madarai-study.html"
 $sourceSongShunkan = Join-Path $sourceRoot "song-shunkan-symphony-study.html"
 $sourceSongEx = Join-Path $sourceRoot "song-ex-otogibanashi-study.html"
 $sourceSongHoshifuru = Join-Path $sourceRoot "song-hoshifuru-umi-study.html"
-$sourceSongHoshifuruDialogue = Join-Path $sourceRoot "song-hoshifuru-umi-dialogue-study.html"
 $sourceImage = Join-Path $sourceRoot "images\lesson6-senpai-video.jpg"
 $sourceLesson7Image = Join-Path $sourceRoot "images\lesson7-yobikai-video.jpg"
 $sourceLesson7DialogueImage = Join-Path $sourceRoot "images\lesson7-yobikai-dialogue-video.jpg"
@@ -38,7 +37,6 @@ $targetSongMadarai = Join-Path $publicRoot "song-madarai-study.html"
 $targetSongShunkan = Join-Path $publicRoot "song-shunkan-symphony-study.html"
 $targetSongEx = Join-Path $publicRoot "song-ex-otogibanashi-study.html"
 $targetSongHoshifuru = Join-Path $publicRoot "song-hoshifuru-umi-study.html"
-$targetSongHoshifuruDialogue = Join-Path $publicRoot "song-hoshifuru-umi-dialogue-study.html"
 $targetImage = Join-Path $publicRoot "images\lesson6-senpai-video.jpg"
 $targetLesson7Image = Join-Path $publicRoot "images\lesson7-yobikai-video.jpg"
 $targetLesson7DialogueImage = Join-Path $publicRoot "images\lesson7-yobikai-dialogue-video.jpg"
@@ -70,7 +68,7 @@ function Sync-AudioDirectory {
     Copy-Item -Path (Join-Path $Source "*") -Destination $fullTarget -Force
 }
 
-foreach ($requiredFile in @($sourceIndex, $sourceDialogue, $sourceReading, $sourceLesson7Grammar, $sourceLesson7Dialogue, $sourceLesson7Email, $sourceSongKatachi, $sourceSongAi, $sourceSongMadarai, $sourceSongShunkan, $sourceSongEx, $sourceSongHoshifuru, $sourceSongHoshifuruDialogue, $sourceImage, $sourceLesson7Image, $sourceLesson7DialogueImage, $sourceLesson7EmailImage, $sourcePlayerScript, $sourcePlayerStyle)) {
+foreach ($requiredFile in @($sourceIndex, $sourceDialogue, $sourceReading, $sourceLesson7Grammar, $sourceLesson7Dialogue, $sourceLesson7Email, $sourceSongKatachi, $sourceSongAi, $sourceSongMadarai, $sourceSongShunkan, $sourceSongEx, $sourceSongHoshifuru, $sourceImage, $sourceLesson7Image, $sourceLesson7DialogueImage, $sourceLesson7EmailImage, $sourcePlayerScript, $sourcePlayerStyle)) {
     if (-not (Test-Path -LiteralPath $requiredFile -PathType Leaf)) {
         throw "Required source file was not found: $requiredFile"
     }
@@ -89,7 +87,6 @@ Copy-Item -LiteralPath $sourceSongMadarai -Destination $targetSongMadarai -Force
 Copy-Item -LiteralPath $sourceSongShunkan -Destination $targetSongShunkan -Force
 Copy-Item -LiteralPath $sourceSongEx -Destination $targetSongEx -Force
 Copy-Item -LiteralPath $sourceSongHoshifuru -Destination $targetSongHoshifuru -Force
-Copy-Item -LiteralPath $sourceSongHoshifuruDialogue -Destination $targetSongHoshifuruDialogue -Force
 Copy-Item -LiteralPath $sourceImage -Destination $targetImage -Force
 Copy-Item -LiteralPath $sourceLesson7Image -Destination $targetLesson7Image -Force
 Copy-Item -LiteralPath $sourceLesson7DialogueImage -Destination $targetLesson7DialogueImage -Force
@@ -113,7 +110,6 @@ Write-Host "  $targetSongMadarai"
 Write-Host "  $targetSongShunkan"
 Write-Host "  $targetSongEx"
 Write-Host "  $targetSongHoshifuru"
-Write-Host "  $targetSongHoshifuruDialogue"
 Write-Host "  $targetImage"
 Write-Host "  $targetLesson7Image"
 Write-Host "  $targetLesson7DialogueImage"
