@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>星降る海 · 对话式精读总结</title>
+  <style>
+    :root{--ink:#172326;--muted:#657579;--paper:#fbfaf4;--mist:#edf6f3;--sea:#1e6f83;--deep:#123b52;--gold:#c99231;--rose:#b44a5c;--line:#d8e2dc;--shadow:0 18px 45px rgba(18,59,82,.14)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:radial-gradient(circle at 14% 8%,rgba(201,146,49,.16),transparent 25%),radial-gradient(circle at 86% 18%,rgba(30,111,131,.18),transparent 28%),linear-gradient(135deg,#f7f2e5,#edf6f3 46%,#f8fbfb);font-family:"Yu Gothic UI","Microsoft YaHei",sans-serif;line-height:1.68}
+    a{color:inherit}.layout{display:grid;grid-template-columns:282px minmax(0,1fr);min-height:100vh}.side{position:sticky;top:0;height:100vh;padding:24px 18px;border-right:1px solid rgba(18,59,82,.16);background:rgba(251,250,244,.86);backdrop-filter:blur(16px);overflow:auto}.brand{font-family:"Yu Mincho","Songti SC",serif;font-size:25px;font-weight:900;line-height:1.16}.brand small{display:block;margin-top:8px;color:var(--muted);font-family:inherit;font-size:12px;font-weight:600}.switch-title{display:block;margin:22px 0 8px;color:var(--sea);font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}.switch-group{display:grid;gap:6px}.switch-group a{padding:9px 10px;border:1px solid transparent;border-radius:7px;text-decoration:none;font-size:13px}.switch-group a:hover,.switch-group a.active{border-color:rgba(30,111,131,.25);background:#fffdf8;color:var(--deep);font-weight:800}.local{margin-top:22px;padding:14px;border:1px solid var(--line);border-radius:8px;background:#fffdf8}.local b{display:block;margin-bottom:8px}.local a{display:block;padding:6px 0;color:var(--muted);font-size:13px;text-decoration:none}.local a:hover{color:var(--sea)}
+    main{min-width:0}.hero{position:relative;min-height:430px;padding:58px clamp(20px,5vw,72px) 44px;display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:30px;align-items:end;overflow:hidden}.hero:before{content:"";position:absolute;inset:18px;border:1px solid rgba(18,59,82,.14);border-radius:18px;pointer-events:none}.hero h1{position:relative;margin:0;font-family:"Yu Mincho","Songti SC",serif;font-size:clamp(38px,7vw,76px);line-height:1;letter-spacing:0}.hero p{position:relative;max-width:760px;margin:20px 0 0;color:#41565b;font-size:17px}.compass{position:relative;padding:20px;border:1px solid rgba(18,59,82,.18);border-radius:10px;background:rgba(255,253,248,.78);box-shadow:var(--shadow)}.compass strong{display:block;font-size:42px;font-family:"Yu Mincho",serif;color:var(--deep)}.compass span{color:var(--muted);font-size:13px}.rings{height:128px;margin-top:14px;border:1px solid rgba(18,59,82,.25);border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 18px,rgba(30,111,131,.12) 19px 20px),conic-gradient(from 18deg,rgba(201,146,49,.28),rgba(30,111,131,.18),rgba(180,74,92,.16),rgba(201,146,49,.28))}
+    .toolbar{position:sticky;top:0;z-index:8;display:flex;gap:8px;flex-wrap:wrap;padding:12px clamp(16px,4vw,48px);border-block:1px solid rgba(18,59,82,.14);background:rgba(251,250,244,.88);backdrop-filter:blur(14px)}.toolbar button{min-height:38px;padding:0 14px;border:1px solid rgba(18,59,82,.2);border-radius:999px;background:#fffdf8;color:var(--deep);font-weight:800;cursor:pointer}.toolbar button.active{background:var(--deep);color:white;border-color:var(--deep)}
+    .wrap{padding:34px clamp(16px,4vw,48px) 70px}.panel{display:none;max-width:1180px;margin:auto}.panel.active{display:block}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.metric{padding:16px;border:1px solid var(--line);border-radius:8px;background:#fffdf8}.metric b{display:block;font-family:"Yu Mincho",serif;font-size:28px;color:var(--deep)}.metric span{color:var(--muted);font-size:13px}.map{display:grid;grid-template-columns:1.1fr .9fr;gap:16px;margin-top:18px}.block{padding:20px;border:1px solid var(--line);border-radius:8px;background:rgba(255,253,248,.84);box-shadow:0 10px 28px rgba(18,59,82,.08)}.block h2,.block h3{margin:0 0 10px;font-family:"Yu Mincho","Songti SC",serif}.block p{margin:0;color:var(--muted)}.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.chip{padding:5px 9px;border:1px solid rgba(30,111,131,.24);border-radius:999px;background:#f6fbfa;color:var(--deep);font-size:12px;font-weight:800}
+    .qa-list{display:grid;gap:16px}.pair{border:1px solid var(--line);border-radius:10px;background:#fffdf8;box-shadow:0 10px 28px rgba(18,59,82,.08);overflow:hidden}.pair-head{display:grid;grid-template-columns:92px minmax(0,1fr);gap:0;border-bottom:1px solid var(--line);background:linear-gradient(90deg,rgba(30,111,131,.1),rgba(201,146,49,.09))}.pair-no{display:grid;place-items:center;border-right:1px solid var(--line);font-family:"Yu Mincho",serif;font-size:28px;font-weight:900;color:var(--deep)}.lyrics{padding:15px 18px}.jp{font-size:21px;font-weight:850}.cn{margin-top:4px;color:var(--muted)}.pair-body{display:grid;grid-template-columns:300px minmax(0,1fr);gap:18px;padding:18px}.asked h4,.answer h4{margin:0 0 8px;color:var(--sea);font-size:13px}.asked ul,.answer ul{margin:0;padding-left:18px}.asked li,.answer li{margin:6px 0}.asked{padding:14px;border-radius:8px;background:#f2f8f6}.answer mark{padding:0 4px;border-radius:4px;background:#fff0c9;color:#6e4b08}
+    .index-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.index-card{padding:18px;border:1px solid var(--line);border-radius:8px;background:#fffdf8}.index-card h3{margin:0 0 9px;font-family:"Yu Mincho",serif}.index-card li{margin:7px 0}.recap{display:grid;gap:14px}.recap .block{border-left:5px solid var(--gold)}
+    @media(max-width:920px){.layout{display:block}.side{position:static;height:auto}.switch-group{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{grid-template-columns:1fr;min-height:auto;padding:34px 18px}.hero:before{inset:10px}.compass{max-width:420px}.toolbar{position:static}.grid,.map,.index-grid{grid-template-columns:1fr}.pair-head{grid-template-columns:64px minmax(0,1fr)}.pair-no{font-size:21px}.jp{font-size:18px}.pair-body{grid-template-columns:1fr}.asked{padding:12px}}
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="side">
+      <div class="brand">星降る海<small>对话式精读总结 · 两句一轮复习</small></div>
+      <span class="switch-title">教材课程</span>
+      <nav class="switch-group"><a href="index.html">课程总览</a><a href="lesson6-senpai-notes.html">第6课 · 课文1</a><a href="lesson6-hashi-notes.html">第6课 · 课文2</a><a href="lesson7-yobikai-grammar.html">第7课 · P135语法</a><a href="lesson7-yobikai-dialogue.html">第7课 · P136课文1</a><a href="lesson7-email-notes.html">第7课 · P137课文2</a></nav>
+      <span class="switch-title">音乐精读</span>
+      <nav class="switch-group"><a href="song-katachi-nai-study.html">歌曲 · カタチ</a><a href="song-ai-ni-dekiru-study.html">歌曲 · 愛に</a><a href="song-madarai-study.html">歌曲 · 斑彩</a><a href="song-shunkan-symphony-study.html">歌曲 · 瞬間</a><a href="song-ex-otogibanashi-study.html">歌曲 · Ex</a><a href="song-hoshifuru-umi-study.html">歌曲 · 星海</a><a class="active" href="song-hoshifuru-umi-dialogue-study.html">歌曲 · 星海问答</a></nav>
+      <div class="local"><b>本页跳转</b><a href="#route">学习路线</a><a href="#qa">逐组问答</a><a href="#index">知识索引</a><a href="#recap">最终回收</a></div>
+    </aside>
+    <main>
+      <header class="hero">
+        <div>
+          <h1>星降る海<br>对话式精读总结</h1>
+          <p>这页不是一次性灌知识，而是把你按“两句歌词一轮”追问过的内容沉淀下来：动词形、助词、句尾语气、近义词、诗意表达和意象回收，都按复习路径重新排好。</p>
+        </div>
+        <div class="compass"><strong>20</strong><span>组歌词问答 · 40句完整走完</span><div class="rings" aria-hidden="true"></div></div>
+      </header>
+      <nav class="toolbar" aria-label="页面视图"><button class="active" data-tab="route">学习路线</button><button data-tab="qa">逐组问答</button><button data-tab="index">知识索引</button><button data-tab="recap">最终回收</button></nav>
+      <div class="wrap">
+        <section class="panel active" id="route">
+          <div class="grid">
+            <div class="metric"><b>40</b><span>句歌词逐句覆盖</span></div>
+            <div class="metric"><b>20</b><span>两句一组问答卡</span></div>
+            <div class="metric"><b>5</b><span>大类知识索引</span></div>
+            <div class="metric"><b>0</b><span>已按要求删去的无效点</span></div>
+          </div>
+          <div class="map">
+            <div class="block"><h2>怎么学最快</h2><p>先看“逐组问答”，每组只盯两句；遇到混淆项再回“知识索引”。这首歌的核心不在生词量，而在日语如何用省略、句尾和动词形制造“等待、抵达、守望、再相遇”的感觉。</p><div class="chips"><span class="chip">可能形</span><span class="chip">ている省略</span><span class="chip">ように</span><span class="chip">かな / のさ</span><span class="chip">诗意动词</span></div></div>
+            <div class="block"><h2>本页规则</h2><p>只整理你追问过并决定保留的知识点；已经删掉的内容不再作为知识点出现，页面会更适合直接复习。</p></div>
+          </div>
+        </section>
+        <section class="panel" id="qa"><div class="qa-list" id="qaList"></div></section>
+        <section class="panel" id="index"><div class="index-grid" id="indexList"></div></section>
+        <section class="panel" id="recap">
+          <div class="recap">
+            <div class="block"><h2>主线一：从“巡る”到“巡ろう”</h2><p>开头“時を巡って”把时间写成循环与辗转，结尾“物語を巡ろう”把这种循环收回来：不是简单开启故事，而是一起进入一段会反复回响、被重新经历的旅程。</p></div>
+            <div class="block"><h2>主线二：声音不是只会“响”</h2><p>“聞こえる”“響け”“歌えるかな”“届くかな”不断把声音写成能抵达、能共鸣、能安抚的东西。日语里同一个“响”，常常同时含有物理传播和心理打动。</p></div>
+            <div class="block"><h2>主线三：守望感来自句尾</h2><p>“の”“のさ”“からさ”“かな”“さ”让歌词不像硬邦邦的说明，而像在夜色里轻轻对对方确认：我在这里、你能抵达、不要走丢。</p></div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+  <script>
+    const pairs=[
+      {no:"01-02",jp:["幾千の時を巡って今","僕ら出会えたの"],cn:["千载时光流转","才换来你我这一次相遇"],asked:["時を巡って 怎么理解","出会えた 为什么不是 出会った","句尾 の 是什么语气","僕ら后面为什么没有 は"],ans:["巡る不是单纯经过，而有循环、辗转、历经一圈又一圈的感觉。","出会えた是出会う的可能形加过去，强调终于能够相遇，带珍贵和庆幸感；出会った只是在陈述相遇了。","句尾の是说明、确认和柔和收束，不是疑问。","僕ら出会えた省略主题助词，歌词和口语常这样做，让节奏更短，也避免は带来的话题提示感。"]},
+      {no:"03-04",jp:["ほら 見失わないように","手を離さないで"],cn:["来，别再走丢了","不要松开我的手"],asked:["ほら 的语气","見失う 是看不见还是走丢","ないように 和 ないで 的区别"],ans:["ほら是提醒、招呼、把对方注意力拉回来的语气。","見失う字面是从视线中失去目标，按对象可译为看丢、跟丢、迷失、走丢。","ないように说明目标或防止某事发生；ないで是直接请求或禁止。前句说目标，后句给具体动作。"]},
+      {no:"05-06",jp:["ねぇ耳を澄ませて","星の降る音が聞こえるでしょう？"],cn:["来，请你侧耳倾听","能否听到繁星划落的声音？"],asked:["澄ませる 本身是什么意思","聞こえる 和 聞く 的区别","聞こえる的近义词"],ans:["澄ませる来自澄む，核心是使清澈、使集中到清明状态。耳を澄ませる就是凝神细听。","聞く是主动听；聞こえる是声音自然传入耳中，强调能否被感知。","聞ける偏有条件能听；聞き取れる偏能听清、辨认内容；耳に入る偏传入耳中或偶然听说。"]},
+      {no:"07-08",jp:["もっと近くに来て","誰も知らない世界が待ってるの"],cn:["再凑近一点","这无人知晓的世界正静静等待着"],asked:["待ってる 是什么意思"],ans:["待ってる是待っている的口语缩约，表示正在等待或一直等着。","世界が待ってる是拟人化表达，意思是那个未知世界正在前方等我们去进入、发现。"]},
+      {no:"09-10",jp:["手を取って踊りましょう","はじまりの合図鳴らせば"],cn:["牵起手来尽情起舞","等到起始的信号声响起"],asked:["踊りましょう 的语气","はじまり 为什么不用汉字","鳴らせば 是什么形","鳴る 和 鳴らす 的区别"],ans:["踊りましょう是ます形去ます加ましょう，表示提议或邀请，一起跳舞吧。","はじまり写假名更柔和、轻、带歌词感；始まり更明确书面。","鳴らせば是鳴らす的ば形，意思是如果让信号响起。","鳴る是声音自己响起；鳴らす是让某物响起。"]},
+      {no:"11-12",jp:["唄おうla-la-la-!","響けla-la-la-!"],cn:["就唱起来吧 Lalala！","让歌声响彻 Lalala！"],asked:["唄う 和 歌う 的区别","唄おう 和 唄いましょう 的区别","響け 是命令吗","響く 是响还是打动","为什么一处唄おう一处響け"],ans:["歌う最常用；唄う偏传统歌谣、吟唱、诗意旋律感。","唄おう更亲近直接，像副歌里的共同宣言；唄いましょう更礼貌完整。","響け是響く的命令形，但歌词里更像祈愿和呼喊。","響く既可指声音回响，也可指在心中产生共鸣、被打动。","唄おう面向我们，表示行动开始；響け面向歌声，让它传向远方。"]},
+      {no:"13-14",jp:["暗がりの道も月明かりが照らすの","宙、海の向こう きみのもとまで"],cn:["月光点亮了黑暗笼罩的路","跨越星辰大海来到你的身旁"],asked:["暗がり 和 暗いところ","月明かり 为什么不是 光","照らす 和 光る","宙 为什么读そら","向こう 的意思","きみのもと 和 まで"],ans:["暗がり是昏暗处，有场景和气氛；暗いところ只是普通说明。","明かり偏照明、照亮周围的光；光更泛指光本身或光线。","照らす是他动词，照亮对象；光る是自动词，自己发光。","宙读そら是歌词式训读，让天空、宇宙、星空的感觉叠在一起。","向こう可指对面，也可指另一边、彼方；这里是星空与大海的彼方。","きみのもと是你的身边、你那里；まで表示到达点。"]},
+      {no:"15-16",jp:["響くように歌えるかな","どんな時もここで待ってるよ"],cn:["我能否唱出撼动人心的歌声呢","无论何时我都会在此等待"],asked:["歌えるかな 的语气","かな 和 でしょうか","ここで 为什么用で","響くように 的ように"],ans:["歌えるかな是歌う的可能形加自问语气，像在轻声期待：我能唱到那种程度吗。","かな更口语、自问、独白；でしょうか更礼貌正式，常用于询问别人或委婉判断。","ここで的で表示动作发生地点，因为待つ是动作；ここにいる才是存在位置。","響くように表示目标状态：为了能响彻、为了能传到对方心里。"]},
+      {no:"17-18",jp:["祈っているからさ","ほら きらきら輝く星は"],cn:["因为我心中怀着一份祈愿","你瞧，那闪烁的星辰"],asked:["からさ 是什么意思","祈る 和 願う","きらきら 是什么词","輝く 和 光る"],ans:["からさ是から加句末さ，表示因为……嘛，口语且带安抚感。","祈る偏向神明、命运、远方对象虔诚祈祷；願う更广泛，表示希望某事实现。","きらきら是拟态词，表示小而连续的闪光。","光る偏客观发光；輝く偏闪耀、光彩夺目，也可形容人或未来出色。"]},
+      {no:"19-20",jp:["色褪せず太古から照らし続けてる","きみと辿り着けるさ"],cn:["自太古至今始终璀璨不灭","我定会与你共同抵达"],asked:["色褪せる","ず 和 ないで","太古 和 昔","照らし続けてる 怎么拆","続けてる 为什么不是 続く","辿り着く 和 着く","辿り着ける 可能形","句尾さ"],ans:["色褪せる是褪色、光彩变淡，也可比喻记忆和价值不鲜明。","ず是书面诗意的否定连接，相当于ないで，但更简洁文雅。","太古是极遥远的古代，尺度比昔宏大得多。","照らし続けてる=照らす的ます形词干照らし+続ける+ている缩约，表示一直持续照耀。","続ける接动词词干表示持续做某动作；続く是某事自己持续。","辿り着く强调历经道路或困难后终于抵达；着く只是到达。","辿り着ける是可能形，表示能够抵达；句尾さ带轻轻断定、确信和鼓励。"]},
+      {no:"21-22",jp:["心には会いたい誰かがいて","羅針盤みたいね"],cn:["心中还有一道渴望相见的身影","仿若罗盘一般"],asked:["がいて 为什么不是 いる","みたい 和 ようだ"],ans:["いて是いる的て形，把心里有想见的人这个状态接到下一句。若用いる，句子会在这里结束。","みたい更口语、柔软、直接；ようだ更书面、客观、正式。歌词里みたいね像轻声对对方说出的比喻。"]},
+      {no:"23-24",jp:["そっと目を開けてみて","見えるものだけが現実じゃないの"],cn:["睁开双眼看看吧","眼前所见也不一定为实"],asked:["そっと 和 ゆっくり","てみて 语法","だけが","句尾の"],ans:["そっと强调轻轻地、悄悄地、小心不惊扰；ゆっくり强调速度慢。","開けてみて是てみる的て形，用来表示试着做某事。","だけが是只有……才……，但后接否定时整体表示并不是只有看得见的东西才是现实。","句尾の是说明和强调，像温柔地告诉对方一个事实。"]},
+      {no:"25-26",jp:["きみといる世界は","永遠の記憶に眠るのさ"],cn:["有你相伴的世界","沉眠在无尽的回忆中"],asked:["永遠 和 永久","記憶に眠る 为什么用に","眠る 是真的睡觉吗","のさ 和 の、さ"],ans:["永遠多用于感情、记忆、时间感和抒情语境；永久多用于制度、状态、物理持续。","に把記憶当作所在处或容器，表示沉睡在记忆之中。","眠る这里是比喻，表示世界、回忆、感情安静地保存在深处。","のさ=说明的の+轻断定的さ，比单独の更有这就是如此啊的收束感。"]},
+      {no:"27-28",jp:["唄おうna-na-na-!","響けna-na-na-!"],cn:["唱起来吧 Nanana！","让歌声响彻 Nanana！"],asked:["副歌重复如何理解"],ans:["结构同前面的唄おう/響け：一个邀请我们唱，一个把歌声放飞。重复本身就是咒语式推进，让声音从个人行动变成远方回响。"]},
+      {no:"29-30",jp:["潮の満ち引きが導いてくれるの","途切れかけた夢を見ても"],cn:["潮起潮落为你我指明前路","哪怕梦境几近停滞"],asked:["潮 和 波","満ち引き 怎么拆","为什么潮汐能导く","導く 和 案内する","途切れる","かけた","途切れかけた夢"],ans:["潮指海水的潮汐、潮流；波是海面起伏的一道道浪。","満ち引き=満ちる+引く，指潮涨潮退、潮起潮落。","潮汐被拟人化成自然节奏和方向，替我们指路。","導く用于抽象方向、命运、光、原则等；案内する偏具体带路、介绍、导览。","途切れる是中途断开、间断。","かける接动词ます形词干表示快要、差点、刚开始。途切れかけた夢就是快要中断、几近破碎的梦。"]},
+      {no:"31-32",jp:["大丈夫 一人にはしないよ","何度だって 互いの引力で引き寄せ合うんだよ"],cn:["别担心，我绝不会让你独行","无论多少次，你我的引力也会让彼此再度重逢"],asked:["一人にはしない 怎么拆","一人にする不是一人でする","何度だって","互い 和 お互い","引力で 的で","引き寄せ合う"],ans:["一人にする是使某人处于独自一人的状态；一人にはしない表示至少不会让你孤单这件事发生。","一人でする是一个人做某事，强调动作方式；一人にする强调状态结果。","何度だって表示无论多少次都。","互い更简洁书面、适合修饰名词；お互い更日常礼貌。","引力で的で表示凭借、手段或原因。","引き寄せ合う=引く+寄せる形成引き寄せる，再加合う表示互相吸引、彼此拉近。"]},
+      {no:"33-34",jp:["宙、海の匂い きみに届くかな","距離なんてないのかな"],cn:["不知这星辰大海的气息能否蔓延至你身旁","或许本无所谓距离"],asked:["宙、海の匂い 结构","届くかな","距離なんて 的なんて","ないのかな"],ans:["宙、海の匂い是并列意象叠加，可理解为空与海共同构成的气息。","届くかな和前面的歌えるかな一样，是带期待和不确定的自问。","なんて把距离这个对象带着评价提出，有所谓距离这种东西的语气，并带弱化或否定铺垫。","ないのかな=ない+说明语气の+自问かな，表示是不是没有呢、或许并不存在吧。"]},
+      {no:"35-36",jp:["どんな時もきっとどこかで","見守っているからさ"],cn:["无论何时我都在某处","静静地为你守望"],asked:["見守る 和 見る、守る 的关系","からさ 和前面的からさ"],ans:["見守る由見る和守る构成，不只是看，也不只是保护，而是在旁边或远处关注并守护，带不强行干预的温柔陪伴感。","見守っている表示持续守望。这里的からさ和前面的祈っているからさ一样，都是说明理由并安抚对方。"]},
+      {no:"37-38",jp:["ほら くしゃくしゃになって笑う日を","集めて紡いで 未来へ踏み出す先も"],cn:["你瞧，拾起那些开怀大笑的点滴日夜","织就成章，踏向未来，在那前方"],asked:["くしゃくしゃ","くしゃくしゃになって笑う","集めて紡いで 两个て形","紡ぐ 为什么能用于回忆","踏み出す 和 歩き出す","先 是前面还是未来"],ans:["くしゃくしゃ可表示皱巴巴、乱糟糟，也可形容笑到脸皱成一团。","くしゃくしゃになって笑う是笑得很开、表情皱起来的自然开心样子。","集めて紡いで两个て形表示动作连续：先收集，再编织。","紡ぐ本义是纺线，引申为把零散记忆、语言、关系、故事一点点编织起来。","踏み出す强调迈出第一步、离开原地开始行动的决心；歩き出す偏开始走这个动作。","先既是迈出去后的前方，也带未来目的地的意思。"]},
+      {no:"39-40",jp:["きみと心震わせて","叶うさ今 物語を巡ろう"],cn:["与你共享心弦的颤动","愿望定将实现，如今让我们遨游在这故事中吧"],asked:["心震わせて 怎么拆","震える 和 震わせる","きみと 修饰哪里","叶う 和 叶える","今 为什么放中间","物語を巡ろう","为什么不是始めよう而是巡ろう"],ans:["心震わせて可还原为心を震わせて，动词是震わせる的て形，表示使心震动、让心产生强烈共鸣。","震える是自动词，自己颤动；震わせる是他动词或使役感，使某物震动。","きみと修饰整个动作状态，可理解为和你一起让心震动、一起感受心动。","叶う是愿望实现；叶える是实现愿望、使愿望成真。","叶うさ今里的今是歌词语序与节奏，可理解为现在，愿望会实现。","物語を巡ろう是巡る的意志形：让我们一起巡游、经历这段故事吧。","结尾不用始めよう而用巡ろう，是为了回收开头時を巡って的循环、流转、跨越时间的主题。"]}
+    ];
+    const indexData=[
+      ["动词形态",["出会えた=可能形+过去，强调终于能够相遇。","鳴らせば是鳴らす的ば形。","照らし続けてる=照らす+続ける+ている缩约。","辿り着ける是辿り着く的可能形。","引き寄せ合う表示彼此拉近。"]],
+      ["助词与句尾",["の用于说明、确认、柔和收束。","かな用于自问、期待和不确定。","からさ说明理由并带安抚。","さ可作轻断定，增强确信但不生硬。","に表示状态结果或所在容器，で表示动作地点、手段、原因。"]],
+      ["近义辨析",["聞く主动听，聞こえる自然听得见。","光る客观发光，輝く带闪耀和价值感。","導く偏抽象指引，案内する偏具体带路。","辿り着く有历经后抵达的过程感，着く只是到达。","永遠偏抒情时间感，永久偏制度或物理持续。"]],
+      ["拟声拟态",["きらきら表示小而连续的闪光。","くしゃくしゃ可写皱乱，也能写笑得脸皱成一团的真实感。"]],
+      ["诗意表达",["潮の満ち引きが導く把自然节奏人格化。","宙、海の匂い把天空与海的意象叠加。","記憶に眠る不是睡觉，而是安静保存在记忆深处。","響く同时连接声音传播和内心共鸣。","巡る贯穿开头与结尾，形成时间、旅程和故事的回环。"]]
+    ];
+    function renderQa(){document.getElementById("qaList").innerHTML=pairs.map(p=>`<article class="pair"><div class="pair-head"><div class="pair-no">${p.no}</div><div class="lyrics">${p.jp.map((x,i)=>`<div class="jp">${x}</div><div class="cn">${p.cn[i]}</div>`).join("")}</div></div><div class="pair-body"><div class="asked"><h4>你追问过</h4><ul>${p.asked.map(x=>`<li>${x}</li>`).join("")}</ul></div><div class="answer"><h4>沉淀结论</h4><ul>${p.ans.map(x=>`<li>${x}</li>`).join("")}</ul></div></div></article>`).join("")}
+    function renderIndex(){document.getElementById("indexList").innerHTML=indexData.map(([title,items])=>`<div class="index-card"><h3>${title}</h3><ul>${items.map(x=>`<li>${x}</li>`).join("")}</ul></div>`).join("")}
+    document.querySelectorAll(".toolbar button").forEach(btn=>btn.addEventListener("click",()=>{document.querySelectorAll(".toolbar button").forEach(b=>b.classList.remove("active"));document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));btn.classList.add("active");document.getElementById(btn.dataset.tab).classList.add("active");}));
+    renderQa();renderIndex();
+  </script>
+</body>
+</html>
