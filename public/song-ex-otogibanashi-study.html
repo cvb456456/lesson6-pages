@@ -227,6 +227,43 @@ exercises.fill.splice(0,exercises.fill.length,
 {q:"一度____の人生",hint:"仅此一次。",answer:"きり",explain:"「一度きり」表示只有一次。"},
 {q:"そんな八千代____",hint:"跨越。",answer:"超えて",explain:"「超えて」连接到后文重逢景色。"}
 );
+const exerciseSchemaFix="ex-quiz-v2";
+exercises.choice.forEach(item=>{if(item.options){item.opts=item.options;item.a=item.options[item.a]}item.prompt=item.prompt||item.hint;item.why=item.why||item.explain;});
+exercises.order.forEach(item=>{item.q=item.q||"排序组句";item.prompt=item.prompt||item.hint;item.a=item.a||item.answer;item.why=item.why||item.explain;});
+exercises.fill.forEach(item=>{if(item.answer){const lyricBlank=item.q;item.q=`歌词填空：${item.hint||"补全原句"}`;item.prompt=lyricBlank}else{item.q=item.q||"歌词填空";item.prompt=item.prompt||item.hint}item.a=item.a||item.answer;item.why=item.why||item.explain;});
+exercises.choice.push(
+{q:"「誰もが」和「誰でも」的主要区别是什么？",prompt:"关注它在句中是否作为主语焦点。",opts:["两者都只能接否定","「誰もが」强调人人都，适合作主语","「誰でも」表示没有任何人","两者意思完全相反"],a:"「誰もが」强调人人都，适合作主语",why:"「誰もが知る」强调没有例外；「誰でも」更常表示无论谁、任何人都可以。"},
+{q:"「かの有名な」中的「かの」有什么效果？",prompt:"它出现在传说人物前。",opts:["表示就在眼前","制造典故感和书面叙事感","表示不确定是哪一个","只是「あの」的拼写错误"],a:"制造典故感和书面叙事感",why:"「かの」比「あの」更书面，适合传说、历史人物和说书语气。"},
+{q:"「私がヒロイン」为什么用「が」？",prompt:"它在回答“谁是女主角”。",opts:["表示地点","排他强调“正是我”","表示动作对象","没有语法作用"],a:"排他强调“正是我”",why:"焦点在女主角是谁，因此用「が」指出答案。"},
+{q:"「ぎゅっとして」是什么语气？",prompt:"这是亲近的人之间的表达。",opts:["正式命令","亲密直接的请求","尊敬语请求","过去叙述"],a:"亲密直接的请求",why:"て形单独收句可以请求，比「してください」更亲近、更像撒娇。"},
+{q:"「寂しくって」与「寂しくて」是什么关系？",prompt:"注意多出的促音。",opts:["前者是否定形","前者是后者更情绪化的口语形式","前者是使役形","意思相反"],a:"前者是后者更情绪化的口语形式",why:"「くって」来自「くて」的口语、歌词化说法，语气更拖长。"},
+{q:"「癒える」和「癒す」的区别是什么？",prompt:"一个是自动词，一个是他动词。",opts:["「癒える」自己痊愈，「癒す」使其治愈","「癒える」主动治疗别人","两者都表示迁怒","两者只能用于身体"],a:"「癒える」自己痊愈，「癒す」使其治愈",why:"「孤独が癒える」是孤独慢慢消退；「音楽が心を癒す」是音乐治愈心灵。"},
+{q:"「届けば」是什么形式？",prompt:"观察「届く」词尾。",opts:["命令形","被动形","ば条件形","过去形"],a:"ば条件形",why:"届く变为届けば，表示“如果能够传达到”。"},
+{q:"「尊きお姫様」中的「尊き」是什么？",prompt:"这是歌词里的古风表达。",opts:["「尊い」的古风连体形","「尊い」的否定形","名词过去式","现代口语命令形"],a:"「尊い」的古风连体形",why:"「尊き」直接修饰名词，制造庄重、物语式语感。"},
+{q:"「夢見た」与「夢を見た」相比有什么特点？",prompt:"歌词省略了助词。",opts:["只能表示睡觉做梦","更凝练、文学，也可表示向往","表示被迫做梦","表示梦已经忘记"],a:"更凝练、文学，也可表示向往",why:"「夢見る」既能表示梦见，也能表示梦想、向往。"},
+{q:"「逢う」为什么不用常见的「会う」？",prompt:"关注歌词的文学色彩。",opts:["「逢う」更有命定相逢的文学感","「会う」语法错误","「逢う」只用于开会","两者读音不同"],a:"「逢う」更有命定相逢的文学感",why:"两者都读「あう」，但「逢う」常强化珍贵、命定的相遇。"}
+);
+exercises.order.push(
+{q:"排序组句",prompt:"那位著名的辉夜姬这样说道。",tokens:["こう言った","かの有名な","かぐや姫は"],a:"かの有名なかぐや姫はこう言った",why:"修饰语在前，主题随后，谓语置于句末。"},
+{q:"排序组句",prompt:"这样的结局，我一点也不期望。",tokens:["望んでないし","ちっとも","そんな結末"],a:"そんな結末ちっとも望んでないし",why:"「ちっとも」与否定「望んでない」呼应。"},
+{q:"排序组句",prompt:"请再更用力地抱紧我。",tokens:["ぎゅっとして","そう","もっと"],a:"そうもっとぎゅっとして",why:"「そう」确认方式，「もっと」加强程度，て形作请求。"},
+{q:"排序组句",prompt:"明明笑得厉害，眼泪却停不下来。",tokens:["涙止まんない","めちゃくちゃ笑ってるのに"],a:"めちゃくちゃ笑ってるのに涙止まんない",why:"「のに」连接与预期相反的结果。"},
+{q:"排序组句",prompt:"孤独总有一天会被治愈吗？",tokens:["癒えるだろうか","いつか","孤独は"],a:"いつか孤独は癒えるだろうか",why:"时间副词在前，「だろうか」在句末构成自问。"},
+{q:"排序组句",prompt:"如果你的歌声能够传达到。",tokens:["届けば","キミの歌"],a:"キミの歌届けば",why:"歌词省略主格助词「が」，「届けば」表示条件。"},
+{q:"排序组句",prompt:"仅此一次的人生，仅此一次的现在。",tokens:["一度きりの今に","一度きりの人生"],a:"一度きりの人生一度きりの今に",why:"两句平行，从整个人生缩小到此刻。"}
+);
+exercises.fill.push(
+{q:"歌词填空",prompt:"かの有名なかぐや姫は____",a:"こう言った",why:"「こう」指接下来要说出的台词。"},
+{q:"歌词填空",prompt:"運命____キミそれで頷くの",a:"だからって",why:"「だからって」表示不能仅凭这个理由就接受。"},
+{q:"歌词填空",prompt:"そうよ私____ヒロイン",a:"が",why:"「が」排他强调“正是我”。"},
+{q:"歌词填空",prompt:"そう　もっとぎゅっと____",a:"して",why:"て形单独收句，构成亲近请求。"},
+{q:"歌词填空",prompt:"すごく幸せすぎる____",a:"せいで",why:"把幸福过头写成落泪的原因。"},
+{q:"歌词填空",prompt:"退屈で寂し____悲しくって",a:"くって",alts:["くて"],why:"「くって」是情绪化的口语形式。"},
+{q:"歌词填空",prompt:"いつか孤独は癒える____",a:"だろうか",why:"表示沉重、书面的自问。"},
+{q:"歌词填空",prompt:"キミの歌____",a:"届けば",why:"「届けば」是ば条件形。"},
+{q:"歌词填空",prompt:"逢いたいと願う____",a:"まで",why:"「まで」表示直到。"},
+{q:"歌词填空",prompt:"____おとぎ話",a:"そんな",why:"最后的「そんな」回收全曲内容。"}
+);
 const stateKey="song-ex-otogibanashi-progress";
 let state=JSON.parse(localStorage.getItem(stateKey)||'{"mode":"choice","indexes":{"choice":0,"order":0,"fill":0},"answered":0,"correct":0}');
 function save(){localStorage.setItem(stateKey,JSON.stringify(state))}
@@ -234,9 +271,9 @@ function enc(t){return encodeURIComponent(t)}
 function renderLines(){lineList.innerHTML=lines.map(line=>`<details class="lyric"><summary><span class="num">${line.id}</span><span><span class="tag">${line.part}</span><button class="speak-btn" data-speech="${enc(line.j)}" title="播放日语">▶</button><div class="jp">${line.j}</div><div class="reading">${line.r}</div><div class="cn">${line.c}</div></span><span class="toggle">展开</span></summary><div class="lyric-body"><div class="translation">${line.c}</div><div class="analysis-grid"><div class="analysis"><b>整句结构</b>${line.structure}</div><div class="analysis"><b>语法解析</b>${line.grammar}</div></div><div><b>断句结构</b><div class="syntax">${line.j.split(/　| /).filter(Boolean).map((p,i)=>`<span class="part"><b>${p}</b><small>${i===0?"起点/主题":"补充/谓语"}</small></span>`).join("")}</div></div><div><b>词块与搭配</b><div class="chunks">${line.words.map(w=>`<span class="chunk"><b>${w[0]}</b><small>${w[1]} · ${w[2]}</small><button class="speak-btn" data-speech="${enc(w[0])}" title="播放词语">▶</button></span>`).join("")}</div></div><button class="btn listen-deep-btn" data-listen-lesson="${line.id-1}">从本句开始听精讲</button></div></details>`).join("")}
 function renderGrammar(){grammarList.innerHTML=grammarPoints.map(g=>`<div class="grammar"><div><div class="grammar-title">${g.p}</div><div class="reading">${g.r}</div><span class="level">${g.level}</span><button class="speak-btn" data-speech="${enc(g.p)}">▶</button></div><div><p><b>核心：</b>${g.core}</p><p><b>接续：</b>${g.form}</p><p><b>常见用法：</b>${g.use}</p><div class="example"><button class="speak-btn" data-speech="${enc(g.jp)}">▶</button><b>${g.jp}</b><br>${g.cn}</div></div></div>`).join("");wordGrid.innerHTML=wordList.map(w=>`<div class="key"><b>${w[0]} <button class="speak-btn" data-speech="${enc(w[0])}">▶</button></b><small>${w[1]}</small><p>${w[2]}</p><p><b>搭配：</b>${w[3]}</p></div>`).join("")}
 function shuffle(arr){return arr.map(v=>[Math.random(),v]).sort((a,b)=>a[0]-b[0]).map(v=>v[1])}
-function current(){return exercises[state.mode][state.indexes[state.mode]%exercises[state.mode].length]}
+function current(){const list=exercises[state.mode]||[];if(!list.length)return null;const raw=Number(state.indexes[state.mode]);state.indexes[state.mode]=Number.isFinite(raw)?((raw%list.length)+list.length)%list.length:0;return list[state.indexes[state.mode]]}
 function normalize(s){return String(s).replace(/[、。，？?！!\s　「」『』]/g,"").toLowerCase()}
-function renderQuiz(){document.querySelectorAll("[data-mode]").forEach(b=>b.classList.toggle("active",b.dataset.mode===state.mode));const item=current();quizType.textContent={choice:"理解辨析",order:"排序组句",fill:"歌词填空"}[state.mode];quizCount.textContent=`${state.indexes[state.mode]+1}/${exercises[state.mode].length}`;question.textContent=item.q;quizHint.innerHTML=`<button class="hint-toggle" type="button">显示中文提示</button> <span hidden>${item.prompt||"先看中文意思，再回忆日语结构；标点差异不影响排序判定。"}</span>`;feedback.className="feedback";feedback.textContent="";if(state.mode==="choice"){exerciseArea.innerHTML=shuffle(item.opts).map(opt=>`<button class="option" data-answer="${opt}">${opt}</button>`).join("");exerciseArea.querySelectorAll(".option").forEach(b=>b.onclick=()=>{exerciseArea.querySelectorAll(".option").forEach(x=>x.classList.remove("selected"));b.classList.add("selected")})}else if(state.mode==="order"){exerciseArea.innerHTML=`<div class="answer-bank" id="answerBank"></div><div class="token-bank">${shuffle(item.tokens).map(t=>`<button class="token">${t}</button>`).join("")}</div>`;exerciseArea.querySelectorAll(".token").forEach(t=>t.onclick=()=>answerBank.appendChild(t))}else{exerciseArea.innerHTML=`<p class="pattern">${item.prompt}</p><input class="answer-input" id="answerInput" placeholder="输入缺少的日语">`}document.querySelector(".hint-toggle").onclick=e=>{e.currentTarget.nextElementSibling.hidden=false}}
+function renderQuiz(){document.querySelectorAll("[data-mode]").forEach(b=>b.classList.toggle("active",b.dataset.mode===state.mode));const item=current();quizType.textContent={choice:"理解辨析",order:"排序组句",fill:"歌词填空"}[state.mode];quizCount.textContent=`${state.indexes[state.mode]+1}/${exercises[state.mode].length}`;question.textContent=item.q;quizHint.innerHTML=`<button class="hint-toggle" type="button">显示中文提示</button> <span hidden>${item.prompt||"先看中文意思，再回忆日语结构；标点差异不影响排序判定。"}</span>`;feedback.className="feedback";feedback.textContent="";if(state.mode==="choice"){exerciseArea.innerHTML=shuffle(item.opts).map(opt=>`<button class="option" data-answer="${opt}">${opt}</button>`).join("");exerciseArea.querySelectorAll(".option").forEach(b=>b.onclick=()=>{exerciseArea.querySelectorAll(".option").forEach(x=>x.classList.remove("selected"));b.classList.add("selected")})}else if(state.mode==="order"){exerciseArea.innerHTML=`<div class="answer-bank" id="answerBank" aria-label="已选择词块"></div><div class="token-bank" id="tokenBank" aria-label="待选择词块">${shuffle(item.tokens).map(t=>`<button class="token">${t}</button>`).join("")}</div>`;exerciseArea.querySelectorAll(".token").forEach(t=>t.onclick=()=>{const target=t.parentElement.id==="answerBank"?tokenBank:answerBank;target.appendChild(t)})}else{exerciseArea.innerHTML=`<p class="pattern">${item.prompt}</p><input class="answer-input" id="answerInput" placeholder="输入缺少的日语">`}document.querySelector(".hint-toggle").onclick=e=>{e.currentTarget.nextElementSibling.hidden=false}}
 function showFeedback(ok,msg,neutral=false){feedback.className=`feedback show ${!ok&&!neutral?"wrong":""}`;feedback.innerHTML=`<b>${neutral?"还差一步":ok?"答对了":"再看一次"}</b><br>${msg}`}
 function grade(){const item=current();let response="",correct=false;if(state.mode==="choice"){const selected=document.querySelector(".option.selected");if(!selected)return showFeedback(false,"请先选择答案。",true);response=selected.dataset.answer;correct=response===item.a;document.querySelectorAll(".option").forEach(b=>{b.disabled=true;if(b.dataset.answer===item.a)b.classList.add("correct")});if(!correct)selected.classList.add("wrong")}if(state.mode==="order"){response=[...document.querySelectorAll("#answerBank .token")].map(x=>x.textContent).join("");if(!response)return showFeedback(false,"请先完成排序。",true);correct=normalize(response)===normalize(item.a)}if(state.mode==="fill"){response=answerInput.value;if(!response.trim())return showFeedback(false,"请先填写答案。",true);correct=[item.a,...(item.alts||[])].map(normalize).includes(normalize(response))}state.answered++;if(correct)state.correct++;save();updateStats();showFeedback(correct,correct?`正确。${item.why}`:`正确答案：${item.a}<br>${item.why}`)}
 function updateStats(){const score=state.answered?Math.round(state.correct/state.answered*100):0;scoreText.textContent=`${score}%`;progressBar.style.width=`${score}%`}
