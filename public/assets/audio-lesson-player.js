@@ -209,6 +209,7 @@
 
     function stopAudio() {
       stopProgressAnimation();
+      if ("speechSynthesis" in window) window.speechSynthesis.cancel();
       audio.pause();
       audio.onended = null;
       audio.onerror = null;
@@ -219,6 +220,7 @@
     }
 
     function pause() {
+      if ("speechSynthesis" in window) window.speechSynthesis.cancel();
       if (audioReady) audio.pause();
       playing = false;
       stopProgressAnimation();
@@ -267,6 +269,23 @@
       progress.style.width = "100%";
     }
 
+    function fallbackSpeakSegment(segment) {
+      if (!("speechSynthesis" in window)) {
+        window.setTimeout(advance, 500);
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(segment.text);
+      utterance.lang = segment.lang === "ja" ? "ja-JP" : "zh-CN";
+      utterance.rate = Math.max(0.55, Math.min(1.7, speed));
+      utterance.onend = advance;
+      utterance.onerror = advance;
+      audioReady = false;
+      playing = true;
+      updateUi();
+      window.speechSynthesis.speak(utterance);
+    }
+
     function playCurrent() {
       stopAudio();
       document.dispatchEvent(new CustomEvent("audio-lesson-start"));
@@ -279,15 +298,13 @@
       audio.onended = advance;
       audio.onloadedmetadata = startProgressAnimation;
       audio.onerror = () => {
-        label.textContent = "音频缺失";
-        text.textContent = "该讲解音频尚未生成，已跳到下一段。";
-        window.setTimeout(advance, 700);
+        stopProgressAnimation();
+        fallbackSpeakSegment(segment);
       };
       updateUi();
       audio.play().then(startProgressAnimation).catch(() => {
-        playing = false;
         stopProgressAnimation();
-        updateUi();
+        fallbackSpeakSegment(segment);
       });
     }
 
