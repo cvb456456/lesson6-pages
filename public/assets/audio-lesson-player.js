@@ -11,14 +11,14 @@
   function splitMixedNarration(segment) {
     if (segment.lang !== "zh") return [segment];
 
-    const quotedJapanese = /([「『“"])(.*?)([」』”"])/g;
+    const quotedJapanese = /([「『])(.*?)([」』])/g;
     const japaneseKana = /[\u3040-\u30ff]/;
     const kanji = /[\u3400-\u9fff]/;
     const likelyJapaneseQuote = (innerText, fullText, matchIndex) => {
       if (japaneseKana.test(innerText)) return true;
       if (!kanji.test(innerText)) return false;
       const windowText = fullText.slice(Math.max(0, matchIndex - 12), matchIndex + innerText.length + 24);
-      return /意思是|读作|词块|搭配|句型|语法|对象|焦点|换成|核心|表示|中的/.test(windowText);
+      return /意思是|读作|词块|搭配|句型|语法|对象|焦点|换成|核心|表示|中的|需要注意/.test(windowText);
     };
     const parts = [];
     let cursor = 0;
@@ -269,23 +269,6 @@
       progress.style.width = "100%";
     }
 
-    function fallbackSpeakSegment(segment) {
-      if (!("speechSynthesis" in window)) {
-        window.setTimeout(advance, 500);
-        return;
-      }
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(segment.text);
-      utterance.lang = segment.lang === "ja" ? "ja-JP" : "zh-CN";
-      utterance.rate = Math.max(0.55, Math.min(1.7, speed));
-      utterance.onend = advance;
-      utterance.onerror = advance;
-      audioReady = false;
-      playing = true;
-      updateUi();
-      window.speechSynthesis.speak(utterance);
-    }
-
     function playCurrent() {
       stopAudio();
       document.dispatchEvent(new CustomEvent("audio-lesson-start"));
@@ -299,12 +282,20 @@
       audio.onloadedmetadata = startProgressAnimation;
       audio.onerror = () => {
         stopProgressAnimation();
-        fallbackSpeakSegment(segment);
+        playing = false;
+        audioReady = false;
+        label.textContent = "音频缺失";
+        text.textContent = "该段音频还没有生成，播放已暂停，不会自动跳过。";
+        updateUi();
       };
       updateUi();
       audio.play().then(startProgressAnimation).catch(() => {
         stopProgressAnimation();
-        fallbackSpeakSegment(segment);
+        playing = false;
+        audioReady = false;
+        label.textContent = "音频无法播放";
+        text.textContent = "浏览器暂时无法播放这一段音频，播放已暂停。";
+        updateUi();
       });
     }
 
