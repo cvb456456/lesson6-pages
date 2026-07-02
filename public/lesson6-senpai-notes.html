@@ -77,6 +77,29 @@
     .nav button.active { color: #fff; background: var(--ink); }
     .nav button span { display: block; color: var(--muted); font-size: 11px; }
     .nav button.active span { color: #d9d1c5; }
+
+    .shell { grid-template-columns: 292px minmax(0, 1fr); }
+    .brand { padding-bottom: 14px; border-bottom: 1px solid rgba(23,23,23,.1); }
+    .nav-label { margin-top: 18px; letter-spacing: .1em; }
+    .nav { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .nav button { display: grid; align-content: center; min-height: 58px; padding: 9px 8px; border-color: rgba(23,23,23,.08); background: #fffdf8; }
+    .nav button.active { box-shadow: inset 4px 0 0 var(--red); }
+    .nav button span { margin-top: 1px; font-size: 10px; }
+    .course-switch { gap: 10px; margin-top: 12px; padding: 0; border: 0; background: transparent; }
+    .switch-group { gap: 7px; padding: 10px; border: 1px solid var(--line); background: #fffdf8; }
+    .switch-title { display: flex; align-items: center; justify-content: space-between; padding: 0 2px 4px; border-bottom: 1px solid rgba(23,23,23,.08); }
+    .switch-title::after { content: attr(data-count); color: var(--muted); font-weight: 700; letter-spacing: 0; }
+    .lesson-cluster { border: 1px solid rgba(23,23,23,.08); background: #fbf7ef; }
+    .lesson-cluster summary { display: flex; align-items: center; justify-content: space-between; min-height: 34px; padding: 6px 9px; cursor: pointer; list-style: none; font-size: 12px; font-weight: 800; }
+    .lesson-cluster summary::-webkit-details-marker { display: none; }
+    .lesson-cluster summary::after { content: "+"; color: var(--muted); font-weight: 900; }
+    .lesson-cluster[open] summary::after { content: "-"; }
+    .lesson-cluster.current summary { color: #fff; background: var(--ink); }
+    .lesson-cluster.current summary::after { color: #d9d1c5; }
+    .lesson-links { display: grid; gap: 4px; padding: 7px; }
+    .course-switch a { padding: 7px 8px; border-left-width: 2px; font-size: 11px; }
+    .course-switch a.active { box-shadow: 0 0 0 1px rgba(185,47,56,.08); }
+    aside .progress-card { margin-top: 12px; }
     .progress-card {
       margin-top: 20px;
       padding: 12px;
@@ -321,14 +344,14 @@
         <h1>中级第6课</h1>
         <p>会話「先輩」· P132 课文1笔记</p>
       </div>
-      <div class="nav-label">Study views</div>
+      <div class="nav-label">本页学习</div>
       <div class="nav">
-        <button class="active" data-view="overview">课程地图<span>情境与人物</span></button>
+        <button class="active" data-view="overview">课程地图<span>情境人物</span></button>
         <button data-view="dialogue">逐句精读<span>14句会话</span></button>
         <button data-view="grammar">语法词汇<span>表达与搭配</span></button>
         <button data-view="practice">练习复习<span>听说读写</span></button>
       </div>
-      <nav class="course-switch" aria-label="课程切换"><div class="switch-group"><span class="switch-title">教材课程</span><a href="index.html">课程总览</a><a class="active" href="lesson6-senpai-notes.html">第6课 · 课文1</a><a href="lesson6-hashi-notes.html">第6课 · 课文2</a><a href="lesson7-yobikai-grammar.html">第7课 · P135语法</a><a href="lesson7-yobikai-dialogue.html">第7课 · P136课文1</a><a href="lesson7-email-notes.html">第7课 · P137课文2</a><a href="lesson8-kikakusho-grammar.html">第8课 · P139语法</a><a href="lesson8-kikakusho-dialogue.html">第8课 · P140课文1</a><a href="lesson8-cup-ramen-text.html">第8课 · P141课文2</a><a href="lesson9-trouble-grammar.html">第9课 · P143语法</a><a href="lesson9-trouble-dialogue.html">第9课 · P144课文1</a><a href="lesson9-italy-text.html">第9课 · P145课文2</a><a href="lesson10-schedule-grammar.html">第10课 · P147语法</a></div><div class="switch-group music"><span class="switch-title">音乐精读</span><a href="song-katachi-nai-study.html">歌曲 · カタチ</a><a href="song-ai-ni-dekiru-study.html">歌曲 · 愛に</a><a href="song-madarai-study.html">歌曲 · 斑彩</a><a href="song-shunkan-symphony-study.html">歌曲 · 瞬間</a><a href="song-ex-otogibanashi-study.html">歌曲 · Ex</a><a href="song-hoshifuru-umi-study.html">歌曲 · 星海</a></div></nav>
+      <nav class="course-switch" aria-label="课程切换"><div class="switch-group"><span class="switch-title" data-count="13">教材课程</span><details class="lesson-cluster current" open><summary>第6课 企业与文化</summary><div class="lesson-links"><a class="active" href="lesson6-senpai-notes.html">课文1 · 先輩</a><a href="lesson6-hashi-notes.html">课文2 · はしの文化</a></div></details><details class="lesson-cluster"><summary>第7课 预订与邮件</summary><div class="lesson-links"><a href="lesson7-yobikai-grammar.html">P135 · 语法</a><a href="lesson7-yobikai-dialogue.html">P136 · 课文1</a><a href="lesson7-email-notes.html">P137 · 课文2</a></div></details><details class="lesson-cluster"><summary>第8课 企划与商品</summary><div class="lesson-links"><a href="lesson8-kikakusho-grammar.html">P139 · 语法</a><a href="lesson8-kikakusho-dialogue.html">P140 · 课文1</a><a href="lesson8-cup-ramen-text.html">P141 · 课文2</a></div></details><details class="lesson-cluster"><summary>第9课 问题与文化</summary><div class="lesson-links"><a href="lesson9-trouble-grammar.html">P143 · 语法</a><a href="lesson9-trouble-dialogue.html">P144 · 课文1</a><a href="lesson9-italy-text.html">P145 · 课文2</a></div></details><details class="lesson-cluster"><summary>第10课 日程安排</summary><div class="lesson-links"><a href="lesson10-schedule-grammar.html">P147 · 语法</a></div></details></div><div class="switch-group music"><span class="switch-title" data-count="6">音乐精读</span><div class="lesson-links"><a href="song-katachi-nai-study.html">カタチのないもの</a><a href="song-ai-ni-dekiru-study.html">愛にできることは</a><a href="song-madarai-study.html">斑彩</a><a href="song-shunkan-symphony-study.html">瞬間、シンフォニー。</a><a href="song-ex-otogibanashi-study.html">Ex-Otogibanashi</a><a href="song-hoshifuru-umi-study.html">星降る海</a></div></div></nav>
       <div class="progress-card">
         <div class="progress-row"><span>已掌握会话</span><b id="knownCount">0/14</b></div>
         <div class="bar"><i id="progressBar"></i></div>
