@@ -492,23 +492,33 @@
       {jp:"今日は／少し早く帰れる／かもね。",r:"きょうは／すこし はやく かえれる／かもね。",c:"今天也许能稍微早点回去。"}
     ];
 
+    function audioSafeNarration(text){
+      return text
+        .replaceAll("人気がある","「人気がある」")
+        .replaceAll("接言う","接表示说的动词")
+        .replaceAll("て形","「て」形")
+        .replaceAll("ます形","「ます」形")
+        .replaceAll("てしまって","「てしまって」")
+        .replaceAll("していた","「していた」");
+    }
+
     const dialogueAudioLessons = dialogue.map((line,i)=>({
       title:`${line.s} · ${line.j.slice(0,12)}${line.j.length>12?"…":""}`,
       segments:[
         {lang:"zh",label:"句子导入",text:`第${i+1}句，${line.s}说。`},
         {lang:"ja",label:"课文原句",text:line.j},
         {lang:"zh",label:"中文意思",text:`这句话的意思是：${line.c}`},
-        {lang:"zh",label:"整体结构",text:`句子结构是：${line.structure}`},
+        {lang:"zh",label:"整体结构",text:`句子结构是：${audioSafeNarration(line.structure)}`},
         ...deepDive[i].parts.flatMap(part=>[
           {lang:"ja",label:"语法块",text:part[0]},
           {lang:"zh",label:"语法块作用",text:`这一部分表示：${part[1]}。`}
         ]),
-        {lang:"zh",label:"助词与句法",text:`助词和句法方面：${deepDive[i].particles}`},
-        {lang:"zh",label:"变形还原",text:`变形还原是：${deepDive[i].forms.replaceAll("→","，变成")}`},
-        {lang:"zh",label:"语气与场景",text:`语气和使用场景方面：${deepDive[i].nuance}`},
+        {lang:"zh",label:"助词与句法",text:"助词和句法的细节请看页面卡片。听的时候重点抓主语、对象、引用和句末语气之间的关系。"},
+        {lang:"zh",label:"变形还原",text:"变形还原请看页面卡片。听的时候重点抓基本形如何变成课文里的过去式、被动式、说明语气或口语缩略。"},
+        {lang:"zh",label:"语气与场景",text:`语气和使用场景方面：${audioSafeNarration(deepDive[i].nuance)}`},
         ...line.points.flatMap(point=>[
           {lang:"ja",label:"重点词块",text:point[0]},
-          {lang:"zh",label:"词块说明",text:point[1]}
+          {lang:"zh",label:"词块说明",text:"这个词块是本句重点表达，请结合页面卡片里的中文说明记忆。"}
         ]),
         {lang:"zh",label:"仿写提示",text:"最后听一个使用相同结构的仿写例句。"},
         {lang:"ja",label:"仿写例句",text:deepExamples[i].jp.replaceAll("／","、")},

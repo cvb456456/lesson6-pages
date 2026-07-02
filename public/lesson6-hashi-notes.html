@@ -80,23 +80,36 @@
       {n:"第4段",j:sentences.slice(11,13).map(x=>x.j).join(""),r:"本段重点读音见逐句精读。",c:"介绍日本家庭的个人专用餐具、分餐习惯以及使用公筷的正式礼仪。"},
       {n:"第5段",j:sentences[13].j,r:sentences[13].r,c:sentences[13].c}
     ];
+    function audioSafeNarration(text){
+      return text
+        .replaceAll("动词ます形去ます","动词连用形")
+        .replaceAll("ます形去ます","连用形")
+        .replaceAll("形容词的て形","形容词连接形式")
+        .replaceAll("以ている形式","用状态持续形式")
+        .replaceAll("「具」","具")
+        .replaceAll("て形","「て」形")
+        .replaceAll("ます形","「ます」形")
+        .replaceAll("Aかは","「Aかは」")
+        .replaceAll("Bによって","「Bによって」");
+    }
+
     const readingAudioLessons=sentences.map((sentence,i)=>({
       title:`第${i+1}句 · ${sentence.j.slice(0,13)}${sentence.j.length>13?"…":""}`,
       segments:[
         {lang:"zh",label:"句子导入",text:`现在开始第${i+1}句精读。`},
         {lang:"ja",label:"课文原句",text:sentence.j},
         {lang:"zh",label:"中文意思",text:`这句话的意思是：${sentence.c}`},
-        {lang:"zh",label:"句子逻辑",text:sentence.structure},
+        {lang:"zh",label:"句子逻辑",text:audioSafeNarration(sentence.structure)},
         ...sentence.parts.flatMap(part=>[
           {lang:"ja",label:"语法块",text:part[0]},
           {lang:"zh",label:"语法块作用",text:`这一部分表示：${part[1]}。`}
         ]),
-        {lang:"zh",label:"语法与阅读提示",text:sentence.note},
+        {lang:"zh",label:"语法与阅读提示",text:audioSafeNarration(sentence.note)},
         ...sentence.words.flatMap(word=>[
           {lang:"ja",label:"重点词块",text:word[0]},
           {lang:"zh",label:"词块说明",text:word[1]}
         ]),
-        {lang:"zh",label:"复用结构",text:`本句可以复用的结构是：${sentence.pattern.replace("｜","。意思是：")}`},
+        {lang:"zh",label:"复用结构",text:"本句的复用结构请看页面卡片。听的时候先抓前后两部分的关系，再替换名词、工具、范围或动作来仿写。"},
         {lang:"zh",label:"本句结束",text:`第${i+1}句精读结束。`}
       ]
     }));
