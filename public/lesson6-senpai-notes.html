@@ -351,6 +351,14 @@
 
       <div id="overview" class="view active">
         <section>
+          <h3>快速进入</h3>
+          <div class="quiz-actions">
+            <button type="button" class="btn primary-btn" data-jump-view="dialogue">进入逐句精读</button>
+            <button type="button" class="btn" data-jump-view="grammar">查看语法词汇</button>
+            <button type="button" class="btn" data-jump-view="practice">开始练习复习</button>
+          </div>
+        </section>
+        <section>
           <h3>这节课学什么</h3>
           <div class="overview-grid">
             <div class="note-card"><b>情境</b>同事午休时聊天，发现客户佐藤竟然是中井的大学篮球部前辈。</div>
@@ -792,6 +800,10 @@
     document.querySelectorAll("[data-view]").forEach(btn=>btn.addEventListener("click",()=>{
       document.querySelectorAll("[data-view]").forEach(b=>b.classList.toggle("active",b===btn));
       document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===btn.dataset.view));
+    }));
+    document.querySelectorAll("[data-jump-view]").forEach(btn=>btn.addEventListener("click",()=>{
+      document.querySelector(`[data-view="${btn.dataset.jumpView}"]`)?.click();
+      window.scrollTo({top:0,behavior:"smooth"});
     }));
     $("expandBtn").addEventListener("click",()=>{const lines=[...document.querySelectorAll("details.line")];const open=lines.some(x=>!x.open);lines.forEach(x=>x.open=open);$("expandBtn").textContent=open?"收起全部":"展开全部";});
     $("resetBtn").addEventListener("click",()=>{if(!confirm("清空学习记录？"))return;state.known={};state.answered=0;state.correct=0;state.quiz=0;state.indexes={choice:0,order:0,fill:0,recall:0};save();renderDialogue();renderQuiz();updateStats();});
