@@ -17,12 +17,79 @@
     .mode-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-bottom:12px}.mode-tab{min-height:44px;border:1px solid var(--line);background:#fffdf8;cursor:pointer}.mode-tab.active{color:#fff;border-color:var(--ink);background:var(--ink)}.quiz-card{min-height:320px;padding:20px;border:1px solid var(--line);background:#fffdf8}.quiz-meta{display:flex;justify-content:space-between;color:var(--muted);font-size:12px}.quiz-card h4{margin:17px 0 5px;font-family:"Yu Mincho","MS Mincho",serif;font-size:22px}.hint{padding:10px 12px;border-left:4px solid var(--red);background:#fff4f1}.hint-toggle{padding:5px 9px;border:1px solid #c9a8a3;color:#7c3035;background:#fff;cursor:pointer}.hint span:not([hidden]){margin-left:9px}.option{width:100%;margin:5px 0;padding:9px 11px;border:1px solid var(--line);background:#fff;text-align:left;cursor:pointer}.option.selected{outline:2px solid var(--blue)}.option.correct{background:#eaf7ee}.option.wrong{background:#fff0f0}.answer-input{width:100%;min-height:48px;padding:10px;border:1px solid #aaa}.token-bank,.answer-bank{display:flex;flex-wrap:wrap;gap:8px;min-height:57px;padding:10px;border:1px dashed #aaa;background:#f5f1e8}.answer-bank{margin-bottom:10px;border-style:solid;background:#fff}.token{padding:8px 11px;border:1px solid #aaa;background:#fff;cursor:pointer}.quiz-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.feedback{display:none;margin-top:14px;padding:12px;border-left:4px solid var(--green);background:#edf7f0}.feedback.show{display:block}.feedback.wrong{border-color:var(--red);background:#fff0f0}.source-note{color:var(--muted);font-size:12px}
     @keyframes enter{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}@media(max-width:980px){.shell{grid-template-columns:1fr}aside{position:static;height:auto;border-right:0;border-bottom:1px solid var(--line)}.course-switch{grid-template-columns:repeat(2,minmax(0,1fr))}.switch-group{align-content:start}.switch-title{text-align:center;padding-inline:3px}.course-switch a{border-left:0;border-bottom:3px solid transparent;text-align:center}.course-switch a.active{border-bottom-color:var(--red)}.switch-group.music a.active{border-bottom-color:var(--blue)}.nav{grid-template-columns:repeat(4,minmax(0,1fr))}.nav button{text-align:center}.nav button span,.nav-label,.progress-card{display:none}main{padding:0 16px 35px}.topbar{position:static;margin:0 -16px;padding:12px 16px}.hero{grid-template-columns:1fr}.album-card{display:none}.overview-grid,.flow{grid-template-columns:1fr 1fr}.grammar{grid-template-columns:1fr}.analysis-grid{grid-template-columns:1fr}}@media(max-width:620px){.hero{min-height:360px;padding:22px}.hero h2{font-size:34px}.tools{display:none}.nav{grid-template-columns:repeat(2,minmax(0,1fr))}section{padding:15px}.overview-grid,.flow,.mode-tabs{grid-template-columns:1fr}details.lyric summary{grid-template-columns:34px minmax(0,1fr)}.toggle{display:none}.part{flex-basis:100%}}
   </style>
+  <link rel="stylesheet" href="assets/course-rail.css">
 </head>
 <body>
 <div class="shell">
-  <aside>
+  <aside class="rail">
     <div class="brand"><h1>音乐日语精读</h1><p>カタチのないもの · 涼海ネモ / MIMI</p></div>
-    <nav class="course-switch" aria-label="课程切换"><div class="switch-group"><span class="switch-title">教材课程</span><a href="index.html">课程总览</a><a href="lesson6-senpai-notes.html">第6课 · 课文1</a><a href="lesson6-hashi-notes.html">第6课 · 课文2</a><a href="lesson7-yobikai-grammar.html">第7课 · P135语法</a><a href="lesson7-yobikai-dialogue.html">第7课 · P136课文1</a><a href="lesson7-email-notes.html">第7课 · P137课文2</a><a href="lesson8-kikakusho-grammar.html">第8课 · P139语法</a><a href="lesson8-kikakusho-dialogue.html">第8课 · P140课文1</a><a href="lesson8-cup-ramen-text.html">第8课 · P141课文2</a><a href="lesson9-trouble-grammar.html">第9课 · P143语法</a><a href="lesson9-trouble-dialogue.html">第9课 · P144课文1</a><a href="lesson9-italy-text.html">第9课 · P145课文2</a><a href="lesson10-schedule-grammar.html">第10课 · P147语法</a><a href="lesson10-schedule-dialogue.html">第10课 · P148课文1</a><a href="lesson10-onsen-text.html">第10课 · P149课文2</a><a href="lesson11-consciousness-grammar.html">第11课 · P151语法1</a><a href="lesson11-consciousness-grammar2.html">第11课 · P152语法2</a><a href="lesson11-manga-anime-text.html">第11课 · P153课文1</a><a href="lesson11-expression-notes.html">第11课 · P154表达</a><a href="lesson12-saigo-grammar.html">第12课 · P156语法</a><a href="lesson12-saigo-dialogue.html">第12课 · P157课文1</a><a href="lesson12-dialect-text.html">第12课 · P158课文2</a></div><div class="switch-group music"><span class="switch-title">音乐精读</span><a class="active" href="song-katachi-nai-study.html">歌曲 · カタチ</a><a href="song-ai-ni-dekiru-study.html">歌曲 · 愛に</a><a href="song-madarai-study.html">歌曲 · 斑彩</a><a href="song-shunkan-symphony-study.html">歌曲 · 瞬間</a><a href="song-ex-otogibanashi-study.html">歌曲 · Ex</a><a href="song-hoshifuru-umi-study.html">歌曲 · 星海</a><a href="song-akuma-no-ko-study.html">歌曲 · 悪魔</a></div></nav>
+    <nav class="course-switch" aria-label="课程切换">
+<div class="switch-group">
+<a class="switch-home" href="index.html">课程总览</a>
+<span class="switch-title">教材课程</span>
+<details class="lesson-cluster"><summary>第6课 企业与文化</summary><div class="lesson-links">
+<a href="lesson6-senpai-notes.html">课文1 · 先輩</a>
+<a href="lesson6-hashi-notes.html">课文2 · はしの文化</a>
+</div></details>
+<details class="lesson-cluster"><summary>第7课 预订与邮件</summary><div class="lesson-links">
+<a href="lesson7-yobikai-grammar.html">P135 · 语法</a>
+<a href="lesson7-yobikai-dialogue.html">P136 · 课文1</a>
+<a href="lesson7-email-notes.html">P137 · 课文2</a>
+</div></details>
+<details class="lesson-cluster"><summary>第8课 企划与商品</summary><div class="lesson-links">
+<a href="lesson8-kikakusho-grammar.html">P139 · 语法</a>
+<a href="lesson8-kikakusho-dialogue.html">P140 · 课文1</a>
+<a href="lesson8-cup-ramen-text.html">P141 · 课文2</a>
+</div></details>
+<details class="lesson-cluster"><summary>第9课 问题与文化</summary><div class="lesson-links">
+<a href="lesson9-trouble-grammar.html">P143 · 语法</a>
+<a href="lesson9-trouble-dialogue.html">P144 · 课文1</a>
+<a href="lesson9-italy-text.html">P145 · 课文2</a>
+</div></details>
+<details class="lesson-cluster"><summary>第10课 日程安排</summary><div class="lesson-links">
+<a href="lesson10-schedule-grammar.html">P147 · 语法</a>
+<a href="lesson10-schedule-dialogue.html">P148 · 课文1</a>
+<a href="lesson10-onsen-text.html">P149 · 课文2</a>
+</div></details>
+<details class="lesson-cluster"><summary>第11课 年轻人的意识</summary><div class="lesson-links">
+<a href="lesson11-consciousness-grammar.html">P151 · 语法1</a>
+<a href="lesson11-consciousness-grammar2.html">P152 · 语法2</a>
+<a href="lesson11-manga-anime-text.html">P153 · 课文1</a>
+<a href="lesson11-expression-notes.html">P154 · 表达</a>
+</div></details>
+<details class="lesson-cluster"><summary>第12课 最后一天</summary><div class="lesson-links">
+<a href="lesson12-saigo-grammar.html">P156 · 语法</a>
+<a href="lesson12-saigo-dialogue.html">P157 · 课文1</a>
+<a href="lesson12-dialect-text.html">P158 · 课文2</a>
+</div></details>
+<details class="lesson-cluster"><summary>第13课 请求致辞</summary><div class="lesson-links">
+<a href="lesson13-request-grammar.html">P160 · 语法</a>
+<a href="lesson13-request-dialogue.html">P161 · 课文1</a>
+<a href="lesson13-shoshika-text.html">P162 · 课文2</a>
+</div></details>
+<details class="lesson-cluster"><summary>第14课 恩師</summary><div class="lesson-links">
+<a href="lesson14-onshi-grammar.html">P164 · 语法</a>
+<a href="lesson14-onshi-dialogue.html">P165 · 课文1</a>
+<a href="lesson14-onshi-text.html">P166 · 课文2</a>
+</div></details>
+<details class="lesson-cluster"><summary>第15课 同級生</summary><div class="lesson-links">
+<a href="lesson15-classmates-grammar.html">P168 · 语法</a>
+<a href="lesson15-classmates-dialogue.html">P169 · 课文1</a>
+<a href="lesson15-restaurant-text.html">P170 · 课文2</a>
+</div></details>
+</div>
+<div class="switch-group music">
+<span class="switch-title">音乐精读</span>
+<details class="lesson-cluster current" open><summary>歌曲学习</summary><div class="lesson-links">
+<a href="song-akuma-no-ko-study.html">歌曲 · 悪魔</a>
+<a href="song-ai-ni-dekiru-study.html">歌曲 · 愛に</a>
+<a href="song-ex-otogibanashi-study.html">歌曲 · Ex-Otogibanashi</a>
+<a href="song-hoshifuru-umi-study.html">歌曲 · 星海</a>
+<a class="active" href="song-katachi-nai-study.html">歌曲 · カタチ</a>
+<a href="song-madarai-study.html">歌曲 · 斑彩</a>
+<a href="song-shunkan-symphony-study.html">歌曲 · 瞬間</a>
+</div></details>
+</div></nav>
     <div class="nav-label">Study views</div>
     <div class="nav">
       <button class="active" data-view="overview">全曲地图<span>先抓情绪线</span></button>
