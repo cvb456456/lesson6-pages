@@ -1,0 +1,9 @@
+/* 词块式中日对照：假名注音在上 · 词语居中 · 罗马音在下 */
+.wtoks{display:flex;flex-wrap:wrap;align-items:flex-end;column-gap:7px;row-gap:15px;margin:2px 0}
+.wtok{display:inline-flex;flex-direction:column;align-items:center}
+.wtok .w-furi{font-size:11px;line-height:1.25;color:#5b7fa6;letter-spacing:.05em}
+.wtok .w-word{font-family:"Yu Mincho","MS Mincho",serif;font-size:19px;font-weight:700;color:#26221c;line-height:1.3;border-bottom:2px solid #2f8f7a;padding:0 1px 1px}
+.wtok .w-roma{font-size:11px;line-height:1.25;color:#2f8f7a;letter-spacing:.04em}
+.wtok-punct .w-word{border-bottom:none;font-weight:700;color:#26221c}
+.wtok .w-furi:empty,.wtok .w-roma:empty{visibility:hidden}
+@media(max-width:620px){.wtok .w-word{font-size:17px}.wtoks{column-gap:5px;row-gap:13px}}
